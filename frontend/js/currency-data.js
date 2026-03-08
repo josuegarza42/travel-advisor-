@@ -1,0 +1,53 @@
+// Monedas disponibles con banderas y nombres
+const CURRENCIES = {
+    'USD': { name: 'Dólar Estadounidense', flag: '🇺🇸', symbol: '$' },
+    'EUR': { name: 'Euro', flag: '🇪🇺', symbol: '€' },
+    'GBP': { name: 'Libra Esterlina', flag: '🇬🇧', symbol: '£' },
+    'MXN': { name: 'Peso Mexicano', flag: '🇲🇽', symbol: '$' },
+    'COP': { name: 'Peso Colombiano', flag: '🇨🇴', symbol: '$' },
+    'ARS': { name: 'Peso Argentino', flag: '🇦🇷', symbol: '$' },
+    'BRL': { name: 'Real Brasileño', flag: '🇧🇷', symbol: 'R$' },
+    'CLP': { name: 'Peso Chileno', flag: '🇨🇱', symbol: '$' },
+    'PEN': { name: 'Sol Peruano', flag: '🇵🇪', symbol: 'S/' },
+    'CAD': { name: 'Dólar Canadiense', flag: '🇨🇦', symbol: '$' },
+    'JPY': { name: 'Yen Japonés', flag: '🇯🇵', symbol: '¥' },
+    'CNY': { name: 'Yuan Chino', flag: '🇨🇳', symbol: '¥' },
+    'KRW': { name: 'Won Surcoreano', flag: '🇰🇷', symbol: '₩' },
+    'INR': { name: 'Rupia India', flag: '🇮🇳', symbol: '₹' },
+    'AUD': { name: 'Dólar Australiano', flag: '🇦🇺', symbol: '$' },
+    'NZD': { name: 'Dólar Neozelandés', flag: '🇳🇿', symbol: '$' },
+    'CHF': { name: 'Franco Suizo', flag: '🇨🇭', symbol: 'Fr' },
+    'SEK': { name: 'Corona Sueca', flag: '🇸🇪', symbol: 'kr' },
+    'NOK': { name: 'Corona Noruega', flag: '🇳🇴', symbol: 'kr' },
+    'DKK': { name: 'Corona Danesa', flag: '🇩🇰', symbol: 'kr' },
+    'RUB': { name: 'Rublo Ruso', flag: '🇷🇺', symbol: '₽' },
+    'TRY': { name: 'Lira Turca', flag: '🇹🇷', symbol: '₺' },
+    'ZAR': { name: 'Rand Sudafricano', flag: '🇿🇦', symbol: 'R' },
+    'SGD': { name: 'Dólar de Singapur', flag: '🇸🇬', symbol: '$' },
+    'HKD': { name: 'Dólar de Hong Kong', flag: '🇭🇰', symbol: '$' },
+    'THB': { name: 'Baht Tailandés', flag: '🇹🇭', symbol: '฿' },
+    'MYR': { name: 'Ringgit Malayo', flag: '🇲🇾', symbol: 'RM' },
+    'IDR': { name: 'Rupia Indonesia', flag: '🇮🇩', symbol: 'Rp' },
+    'PHP': { name: 'Peso Filipino', flag: '🇵🇭', symbol: '₱' },
+    'PLN': { name: 'Zloty Polaco', flag: '🇵🇱', symbol: 'zł' },
+    'CZK': { name: 'Corona Checa', flag: '🇨🇿', symbol: 'Kč' },
+    'HUF': { name: 'Forinto Húngaro', flag: '🇭🇺', symbol: 'Ft' },
+    'ILS': { name: 'Nuevo Shekel Israelí', flag: '🇮🇱', symbol: '₪' },
+    'AED': { name: 'Dirham de EAU', flag: '🇦🇪', symbol: 'د.إ' },
+    'SAR': { name: 'Riyal Saudí', flag: '🇸🇦', symbol: 'ر.س' },
+    'CUP': { name: 'Peso Cubano', flag: '🇨🇺', symbol: '$' },
+    'GTQ': { name: 'Quetzal Guatemalteco', flag: '🇬🇹', symbol: 'Q' },
+    'CRC': { name: 'Colón Costarricense', flag: '🇨🇷', symbol: '₡' },
+    'PAB': { name: 'Balboa Panameño', flag: '🇵🇦', symbol: 'B/.' },
+    'UYU': { name: 'Peso Uruguayo', flag: '🇺🇾', symbol: '$' },
+    'BOB': { name: 'Boliviano', flag: '🇧🇴', symbol: 'Bs.' },
+    'PYG': { name: 'Guaraní Paraguayo', flag: '🇵🇾', symbol: '₲' },
+    'DOP': { name: 'Peso Dominicano', flag: '🇩🇴', symbol: '$' }
+};
+
+// Monedas más usadas para viajeros (orden de popularidad)
+const POPULAR_CURRENCIES = [
+    'USD', 'EUR', 'MXN', 'COP', 'GBP',
+    'CAD', 'BRL', 'ARS', 'CLP', 'PEN',
+    'JPY', 'AUD', 'CHF'
+];

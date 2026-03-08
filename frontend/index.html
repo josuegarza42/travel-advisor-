@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#FF385C">
+    <title>Travel Advisor - Encuentra tu próximo destino</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="header-left">
+                    <h1>Travel Advisor</h1>
+                    <p class="subtitle">Deja que la IA te ayude a elegir tu próximo destino</p>
+                </div>
+                <div class="header-right">
+                    <select id="language-selector" class="language-select">
+                        <option value="es">🇪🇸 ES</option>
+                        <option value="en">🇺🇸 EN</option>
+                        <option value="pt">🇧🇷 PT</option>
+                    </select>
+                    <select id="currency-selector" class="currency-select">
+                        <option value="USD">🇺🇸 USD</option>
+                        <option value="MXN" selected>🇲🇽 MXN</option>
+                        <option value="COP">🇨🇴 COP</option>
+                    </select>
+                    <a href="flight-search.html" class="currency-link" data-i18n="header.flights">
+                        ✈️ Vuelos
+                    </a>
+                    <a href="currency-converter.html" class="currency-link" data-i18n="header.converter">
+                        💱 Convertidor
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <!-- Quick Fill Section -->
+            <section class="card quick-fill-section">
+                <h2>✨ <span data-i18n="quickfill.title">Relleno Rápido con IA</span></h2>
+                <p class="section-description" data-i18n="quickfill.description">
+                    Describe tu viaje en texto libre y la IA rellenará automáticamente todos los campos
+                </p>
+
+                <div class="quick-fill-container">
+                    <textarea
+                        id="quick-fill-text"
+                        class="input quick-fill-textarea"
+                        rows="4"
+                        data-i18n-placeholder="quickfill.placeholder"
+                        placeholder="Ejemplo: Somos 4 amigos que queremos ir a Medellín o Cartagena en Colombia del 15 al 22 de marzo. Presupuesto de 20,000 pesos por persona. Nos gusta la fiesta, comida y conocer gente nueva. Salimos desde Ciudad de México..."
+                    ></textarea>
+
+                    <button id="quick-fill-btn" class="btn btn-primary">
+                        <span data-i18n="quickfill.button">🚀 Auto-rellenar campos</span>
+                    </button>
+
+                    <div id="quick-fill-loading" class="loading hidden">
+                        <div class="spinner-small"></div>
+                        <p data-i18n="quickfill.loading">Analizando tu descripción...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Selector de Modo -->
+            <section class="card mode-selector">
+                <h2>Modo de análisis</h2>
+                <div class="mode-options">
+                    <label class="mode-option">
+                        <input type="radio" name="analysis-mode" value="practical" checked>
+                        <div class="mode-card">
+                            <div class="mode-title">⚡ Modo Práctico</div>
+                            <div class="mode-description">Rápido y simple. Solo información esencial.</div>
+                            <div class="mode-time">~15 segundos</div>
+                        </div>
+                    </label>
+                    <label class="mode-option">
+                        <input type="radio" name="analysis-mode" value="complete">
+                        <div class="mode-card">
+                            <div class="mode-title">🔬 Modo Completo</div>
+                            <div class="mode-description">Análisis profundo con hostales, WiFi, y riesgos.</div>
+                            <div class="mode-time">~30-45 segundos</div>
+                        </div>
+                    </label>
+                </div>
+            </section>
+
+            <!-- Sección de Preferencias del Grupo -->
+            <section class="card preferences-section">
+                <h2>Preferencias del grupo</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Número de viajeros</label>
+                        <input type="number" id="num-travelers" min="1" value="4" class="input">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="max-budget">Presupuesto máximo por persona (MXN)</label>
+                        <input type="number" id="max-budget" min="0" value="17200" class="input">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Duración mínima (días)</label>
+                        <input type="number" id="min-days" min="1" value="3" class="input">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Duración máxima (días)</label>
+                        <input type="number" id="max-days" min="1" value="7" class="input">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Días de anticipación para reservar</label>
+                        <input type="number" id="advance-days" min="1" value="60" class="input">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Prioridad</label>
+                        <select id="priority" class="input">
+                            <option value="price">Precio (lo más barato)</option>
+                            <option value="balance" selected>Balance (precio/experiencia)</option>
+                            <option value="experience">Experiencia (calidad)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group complete-mode-only">
+                    <label>Tipos de viaje preferidos (selecciona varios)</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="playa" class="travel-type"> Playa
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="ciudad" class="travel-type"> Ciudad
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="naturaleza" class="travel-type"> Naturaleza
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="cultural" class="travel-type"> Cultural
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="aventura" class="travel-type"> Aventura
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group complete-mode-only">
+                    <label>Actividades de interés (selecciona varias)</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="comida" class="activity"> Comida
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="fiesta" class="activity"> Fiesta
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="historia" class="activity"> Historia
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="deportes" class="activity"> Deportes extremos
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="relajacion" class="activity"> Relajación
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="compras" class="activity"> Compras
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group complete-mode-only">
+                    <label>Actividades a EVITAR</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="alturas" class="avoid-activity"> Alturas
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="calor_extremo" class="avoid-activity"> Calor extremo
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="frio_extremo" class="avoid-activity"> Frío extremo
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="multitudes" class="avoid-activity"> Multitudes
+                        </label>
+                    </div>
+                </div>
+
+                <h3 class="complete-mode-only" style="margin-top: 30px;">Estilo de viaje</h3>
+
+                <div class="form-grid complete-mode-only">
+                    <div class="form-group">
+                        <label class="checkbox-label" style="font-weight: bold;">
+                            <input type="checkbox" id="prefers-hostels" checked> 🛏️ Siempre nos quedamos en hostales
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-label" style="font-weight: bold;">
+                            <input type="checkbox" id="values-social" checked> 👥 Nos gusta conocer gente nueva
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group complete-mode-only">
+                    <label class="checkbox-label" style="font-weight: bold; color: var(--danger-color);">
+                        <input type="checkbox" id="city-safety-important" checked> 🛡️ La seguridad de la ciudad/barrio es muy importante
+                    </label>
+                </div>
+
+                <h3 class="complete-mode-only" style="margin-top: 30px;">Trabajo remoto</h3>
+
+                <div class="form-grid complete-mode-only">
+                    <div class="form-group">
+                        <label class="checkbox-label" style="font-weight: bold; color: var(--danger-color);">
+                            <input type="checkbox" id="needs-wifi" checked> 🔴 Requiere WiFi confiable (trabajo remoto)
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="works-during-trip" checked> Trabajan durante el viaje
+                        </label>
+                    </div>
+                </div>
+                <div class="form-grid complete-mode-only">
+                    <div class="form-group">
+                        <label>Nivel de inglés del grupo</label>
+                        <select id="english-level" class="input">
+                            <option value="none">Ninguno</option>
+                            <option value="basic" selected>Básico</option>
+                            <option value="intermediate">Intermedio</option>
+                            <option value="fluent">Fluido</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Moneda preferida / Mejor tasa de cambio</label>
+                        <select id="currency-preference" class="input">
+                            <option value="">No aplica</option>
+                            <option value="USD">USD (Dólar americano)</option>
+                            <option value="EUR">EUR (Euro)</option>
+                            <option value="MXN">MXN (Mantener en pesos)</option>
+                            <option value="best_rate">La que tenga mejor tasa</option>
+                        </select>
+                    </div>
+                </div>
+
+                <h3 class="complete-mode-only" style="margin-top: 20px;">Documentos y salud</h3>
+
+                <div class="form-grid complete-mode-only">
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="has-passport"> ¿Todos tienen pasaporte vigente?
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="has-us-visa"> ¿Tienen visa americana?
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-grid complete-mode-only">
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="has-insurance"> ¿Ya tienen seguro de viaje?
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="has-vaccines"> ¿Tienen vacunas requeridas?
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección de Destinos -->
+            <section class="destinations-section">
+                <div class="section-header">
+                    <h2>Tus destinos</h2>
+                    <button id="add-destination" class="btn btn-primary">+ Agregar destino</button>
+                </div>
+
+                <div id="destinations-container"></div>
+            </section>
+
+            <!-- Botón de Análisis -->
+            <section class="analyze-section">
+                <button id="analyze-btn" class="btn btn-analyze">
+                    Analizar destinos
+                </button>
+                <div id="loading" class="loading hidden">
+                    <div class="spinner"></div>
+                    <p>Claude está analizando los destinos...</p>
+                </div>
+            </section>
+
+            <!-- Resultados -->
+            <section id="results" class="card results-section hidden">
+                <h2>Tu recomendación</h2>
+                <div id="results-content"></div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Powered by Claude AI | Travel Advisor v1.0</p>
+            <p class="locale-info" id="locale-info">
+                <small></small>
+            </p>
+        </footer>
+
+        <!-- Currency Indicator Badge -->
+        <div id="currency-badge" class="currency-indicator" title="Cargando tasas de cambio...">
+            <span class="currency-emoji">🇲🇽</span>
+            <span id="currency-badge-text">MXN</span>
+        </div>
+
+        <!-- Exchange Rates Info Toast -->
+        <div id="rates-toast" class="rates-toast hidden">
+            <div class="toast-content">
+                <span class="toast-icon">✅</span>
+                <div class="toast-text">
+                    <strong>Tasas actualizadas</strong>
+                    <small id="toast-time"></small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/i18n.js"></script>
+    <script src="js/destinations-data.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
