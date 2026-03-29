@@ -60,11 +60,7 @@ async function showPopularDestinations(city) {
     ).join('');
 
     // --- MapLibre GL JS integration ---
-    if (!window.map || typeof window.map.setCenter !== 'function' || typeof window.map.setZoom !== 'function') {
-        // Clear previous map instance if any
-        const mapDiv = document.getElementById('map');
-        if (mapDiv) mapDiv.innerHTML = '';
-
+    if (!window.map) {
         window.map = new maplibregl.Map({
             container: 'map',
             style: 'https://tiles.openfreemap.org/styles/liberty',
@@ -75,10 +71,14 @@ async function showPopularDestinations(city) {
             addMapLibreMarkers(window.map, places);
         });
     } else {
-        window.map.setCenter([coords.lon, coords.lat]);
-        window.map.setZoom(12);
         removeMapLibreMarkers(window.map);
-        addMapLibreMarkers(window.map, places);
+        window.map.flyTo({ center: [coords.lon, coords.lat], zoom: 13, speed: 1.4 });
+        // Add markers after fly animation starts
+        const addAfterFly = () => {
+            addMapLibreMarkers(window.map, places);
+            window.map.off('moveend', addAfterFly);
+        };
+        window.map.on('moveend', addAfterFly);
     }
 }
 
@@ -124,6 +124,19 @@ function removeMapLibreMarkers(map) {
     }
 }
 
+// Initialize map with a default view
+function initDefaultMap() {
+    const mapDiv = document.getElementById('map');
+    if (!mapDiv) return;
+
+    window.map = new maplibregl.Map({
+        container: 'map',
+        style: 'https://tiles.openfreemap.org/styles/liberty',
+        center: [-99.1332, 23.6345], // Mexico center
+        zoom: 4.5
+    });
+}
+
 // On load
 document.addEventListener('DOMContentLoaded', function() {
     const input = document.getElementById('city-input');
@@ -145,6 +158,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (input) input.value = cityParam;
         showPopularDestinations(cityParam);
     } else {
+        // Show default map centered on Mexico
+        initDefaultMap();
         const list = document.getElementById('destinations-list');
         if (list) list.innerHTML = '<li style="color: #B0B0B0;">Ingresa una ciudad para ver destinos populares.</li>';
     }
