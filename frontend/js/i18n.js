@@ -5,7 +5,7 @@ const translations = {
         'app.title': 'TripwiseAI',
         'app.subtitle': 'Deja que la IA te ayude a elegir tu próximo destino',
         'header.flights': 'Vuelos',
-        'header.converter': 'Convertidor',
+        'header.converter': 'Divisas',
 
         // Mode selector
         'mode.title': 'Modo de análisis',
@@ -220,7 +220,7 @@ const translations = {
         'app.title': 'TripwiseAI',
         'app.subtitle': 'Let AI help you choose your next destination',
         'header.flights': 'Flights',
-        'header.converter': 'Converter',
+        'header.converter': 'Currency',
 
         // Mode selector
         'mode.title': 'Analysis mode',
@@ -435,7 +435,7 @@ const translations = {
         'app.title': 'TripwiseAI',
         'app.subtitle': 'Deixe a IA ajudar você a escolher seu próximo destino',
         'header.flights': 'Voos',
-        'header.converter': 'Conversor',
+        'header.converter': 'Divisas',
 
         // Mode selector
         'mode.title': 'Modo de análise',
