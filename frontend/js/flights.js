@@ -8,7 +8,7 @@ if (typeof t !== 'function') {
             'flights.fillRequired': 'Por favor completa todos los campos requeridos',
             'flights.searchError': 'Error al buscar vuelos',
             'flights.title': '✈️ Buscador de Vuelos',
-            'app.title': 'Travel Advisor'
+            'app.title': 'TripwiseAI'
         };
         return fallbacks[key] || key;
     };

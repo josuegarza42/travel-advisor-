@@ -2,7 +2,7 @@
 const translations = {
     es: {
         // Header
-        'app.title': 'Travel Advisor',
+        'app.title': 'TripwiseAI',
         'app.subtitle': 'Deja que la IA te ayude a elegir tu próximo destino',
         'header.flights': 'Vuelos',
         'header.converter': 'Convertidor',
@@ -144,7 +144,7 @@ const translations = {
         'results.winner': 'Este es el mejor destino para tu grupo',
 
         // Footer
-        'footer.powered': 'Powered by Claude AI | Travel Advisor v1.0',
+        'footer.powered': 'Powered by Claude AI | TripwiseAI v1.0',
 
         // Currency badge
         'currency.updated': 'Tasas actualizadas',
@@ -217,7 +217,7 @@ const translations = {
 
     en: {
         // Header
-        'app.title': 'Travel Advisor',
+        'app.title': 'TripwiseAI',
         'app.subtitle': 'Let AI help you choose your next destination',
         'header.flights': 'Flights',
         'header.converter': 'Converter',
@@ -359,7 +359,7 @@ const translations = {
         'results.winner': 'This is the best destination for your group',
 
         // Footer
-        'footer.powered': 'Powered by Claude AI | Travel Advisor v1.0',
+        'footer.powered': 'Powered by Claude AI | TripwiseAI v1.0',
 
         // Currency badge
         'currency.updated': 'Exchange rates updated',
@@ -432,7 +432,7 @@ const translations = {
 
     pt: {
         // Header
-        'app.title': 'Travel Advisor',
+        'app.title': 'TripwiseAI',
         'app.subtitle': 'Deixe a IA ajudar você a escolher seu próximo destino',
         'header.flights': 'Voos',
         'header.converter': 'Conversor',
@@ -574,7 +574,7 @@ const translations = {
         'results.winner': 'Este é o melhor destino para seu grupo',
 
         // Footer
-        'footer.powered': 'Powered by Claude AI | Travel Advisor v1.0',
+        'footer.powered': 'Powered by Claude AI | TripwiseAI v1.0',
 
         // Currency badge
         'currency.updated': 'Taxas atualizadas',
