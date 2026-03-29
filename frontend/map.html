@@ -1,55 +1,70 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-        <!-- MapLibre GL JS CSS (local) -->
-        <link href="libs/maplibre-gl.css" rel="stylesheet" />
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🗺️ Mapa | Travel Advisor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#FF385C">
+    <title>Mapa de Destinos - Travel Advisor</title>
+    <link href="libs/maplibre-gl.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div class="container">
-        <header style="display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; margin-bottom: 32px; flex-wrap: wrap;">
-            <div style="display: flex; flex-direction: column; gap: 8px;">
-                <h1 style="font-size: 2.5rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0; display: flex; align-items: center; gap: 10px;">
-                    <span style="font-size: 2.2rem;">🗺️</span> Mapa de Destinos
-                </h1>
-                <span style="font-size: 1.15rem; color: var(--text-secondary);">Descubre los destinos más populares cerca de tu ciudad</span>
+
+    <header class="site-header">
+        <div class="header-content">
+            <div class="header-left">
+                <a href="index.html" class="header-logo">✈️ Travel Advisor</a>
             </div>
-            <div style="display: flex; gap: 12px; align-items: center;">
-                <select class="language-select" style="min-width: 80px;">
-                    <option value="es">es ES</option>
-                    <option value="en">en EN</option>
+            <div class="header-right">
+                <select id="language-selector" class="language-select">
+                    <option value="es">🇪🇸 ES</option>
+                    <option value="en">🇺🇸 EN</option>
+                    <option value="pt">🇧🇷 PT</option>
                 </select>
-                <a href="index.html" class="currency-link" style="background: white; color: var(--primary-color); border: 1px solid var(--primary-color);">Volver</a>
+                <select id="currency-selector" class="currency-select">
+                    <option value="USD">🇺🇸 USD</option>
+                    <option value="MXN" selected>🇲🇽 MXN</option>
+                    <option value="COP">🇨🇴 COP</option>
+                </select>
+                <a href="flight-search.html" class="nav-link">✈️ Vuelos</a>
+                <a href="currency-converter.html" class="nav-link">💱 Convertidor</a>
+                <a href="map.html" class="nav-link">🗺️ Mapa</a>
             </div>
-        </header>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="hero">
+            <h1>🗺️ Mapa de Destinos</h1>
+            <p class="hero-subtitle">Descubre los destinos más populares cerca de tu ciudad</p>
+        </div>
+
         <main>
-            <section class="card" style="max-width: 600px; margin: 0 auto 32px auto; text-align: center;">
-                <h2 style="margin-bottom: 18px;">Destinos cerca de <span id="city-title" style="color:#FF385C"></span></h2>
+            <section class="card" style="max-width: 600px; margin: 0 auto 20px auto; text-align: center;">
+                <h2 style="margin-bottom: 0;">Destinos cerca de <span id="city-title" style="color: var(--primary-color);"></span></h2>
             </section>
-            <section class="card" style="max-width: 900px; margin: 0 auto 32px auto;">
-                <div id="map" style="width: 100%; height: 400px; border-radius: 12px;"></div>
+
+            <section class="card" style="max-width: 900px; margin: 0 auto 20px auto;">
+                <div id="map" style="width: 100%; height: 420px; border-radius: 12px;"></div>
             </section>
+
             <section class="card" style="max-width: 600px; margin: 0 auto;">
-                <div style="text-align: center; margin-bottom: 24px;">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/World_map_blank_without_borders.svg/1200px-World_map_blank_without_borders.svg.png" alt="Mapa" style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 2px 8px #0002;">
-                </div>
                 <div id="destinations-section">
                     <h3 style="margin-bottom: 12px;">Destinos populares para visitar</h3>
-                    <ul id="destinations-list" style="list-style: none; padding: 0; font-size: 1.1rem;"></ul>
+                    <ul id="destinations-list" style="list-style: none; padding: 0; font-size: 1.05rem;"></ul>
                 </div>
             </section>
         </main>
-        <!-- Leaflet JS -->
-        <!-- Leaflet JS (local) -->
-        <!-- Leaflet JS (jsDelivr CDN) -->
-        <!-- MapLibre GL JS (local) -->
-        <script src="libs/maplibre-gl.js"></script>
+
+        <footer>
+            <p>Travel Advisor · Datos via OpenTripMap</p>
+        </footer>
     </div>
+
+    <script src="libs/maplibre-gl.js"></script>
     <script src="js/config.js"></script>
     <script src="js/opentripmap.js"></script>
-    <!-- Removed old script: all logic is now in opentripmap.js -->
 </body>
 </html>
