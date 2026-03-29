@@ -1,4 +1,5 @@
 import os
+import requests
 from flask import Blueprint, request, jsonify
 from .ai_advisor import TravelAdvisor
 from .flight_search import FlightSearcher
@@ -19,6 +20,45 @@ def get_flight_searcher():
     if _flight_searcher is None:
         _flight_searcher = FlightSearcher()
     return _flight_searcher
+
+@bp.route('/api/map/geoname', methods=['GET'])
+def map_geoname():
+    """Proxy: OpenTripMap geoname — keeps API key server-side."""
+    from .config import Config
+    city = request.args.get('name', '')
+    if not city:
+        return jsonify({'error': 'name is required'}), 400
+    res = requests.get(
+        'https://api.opentripmap.com/0.1/en/places/geoname',
+        params={'name': city, 'apikey': Config.OPENTRIPMAP_API_KEY},
+        timeout=10
+    )
+    return (res.content, res.status_code, {'Content-Type': 'application/json'})
+
+
+@bp.route('/api/map/places', methods=['GET'])
+def map_places():
+    """Proxy: OpenTripMap radius search — keeps API key server-side."""
+    from .config import Config
+    lat = request.args.get('lat')
+    lon = request.args.get('lon')
+    if not lat or not lon:
+        return jsonify({'error': 'lat and lon are required'}), 400
+    res = requests.get(
+        'https://api.opentripmap.com/0.1/en/places/radius',
+        params={
+            'radius': 10000,
+            'lon': lon,
+            'lat': lat,
+            'rate': 3,
+            'format': 'json',
+            'limit': 15,
+            'apikey': Config.OPENTRIPMAP_API_KEY,
+        },
+        timeout=10
+    )
+    return (res.content, res.status_code, {'Content-Type': 'application/json'})
+
 
 @bp.route('/api/vplus', methods=['GET'])
 def get_vplus():
