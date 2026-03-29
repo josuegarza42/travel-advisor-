@@ -39,11 +39,36 @@ async function showPopularDestinations(city) {
         return;
     }
 
+<<<<<<< HEAD
     list.innerHTML = places.map(d =>
         `<li style="padding: 10px 0; border-bottom: 1px solid #F0F0F0;">${d.name}</li>`
     ).join('');
 
     renderMap(coords, places);
+=======
+    // --- MapLibre GL JS integration ---
+    if (!window.map || typeof window.map.setCenter !== 'function' || typeof window.map.setZoom !== 'function') {
+        // Remove previous map instance if any
+        const mapDiv = document.getElementById('map');
+        if (mapDiv) {
+            mapDiv.innerHTML = '';
+        }
+        window.map = new maplibregl.Map({
+            container: 'map',
+            style: 'https://demotiles.maplibre.org/style.json',
+            center: [coords.lon, coords.lat],
+            zoom: 12
+        });
+        window.map.on('load', function() {
+            addMapLibreMarkers(window.map, places);
+        });
+    } else {
+        window.map.setCenter([coords.lon, coords.lat]);
+        window.map.setZoom(12);
+        removeMapLibreMarkers(window.map);
+        addMapLibreMarkers(window.map, places);
+    }
+>>>>>>> 408ef4e (feature: adding map and fixing previous map bug where it doesn't load correctly)
 }
 
 function renderMap(coords, places) {
