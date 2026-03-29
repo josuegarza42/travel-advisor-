@@ -26,7 +26,6 @@ def debug_config():
     from .config import Config
     return jsonify({
         "has_groq_key": bool(Config.GROQ_API_KEY),
-        "has_anthropic_key": bool(Config.ANTHROPIC_API_KEY),
         "has_serpapi_key": bool(Config.SERPAPI_KEY),
         "flask_env": Config.FLASK_ENV,
     })

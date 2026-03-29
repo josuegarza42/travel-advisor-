@@ -5,7 +5,6 @@ load_dotenv()
 
 class Config:
     SECRET_KEY = os.getenv('SECRET_KEY', 'dev-secret-key-change-in-production')
-    ANTHROPIC_API_KEY = os.getenv('ANTHROPIC_API_KEY')
     GROQ_API_KEY = os.getenv('GROQ_API_KEY')
     SERPAPI_KEY = os.getenv('SERPAPI_KEY')
     FLASK_ENV = os.getenv('FLASK_ENV', 'development')

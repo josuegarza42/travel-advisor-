@@ -7,14 +7,8 @@ class TravelAdvisor:
     """Clase para análisis inteligente de destinos usando Claude AI"""
 
     def __init__(self):
-        self.use_groq = bool(Config.GROQ_API_KEY)
-
-        if self.use_groq:
-            from groq import Groq
-            self.client = Groq(api_key=Config.GROQ_API_KEY)
-        else:
-            import anthropic
-            self.client = anthropic.Anthropic(api_key=Config.ANTHROPIC_API_KEY)
+        from groq import Groq
+        self.client = Groq(api_key=Config.GROQ_API_KEY)
 
         self.risk_checker = CountryRiskChecker()
 
@@ -40,20 +34,12 @@ class TravelAdvisor:
             max_tokens = 4096  # Respuesta completa
 
         try:
-            if self.use_groq:
-                message = self.client.chat.completions.create(
-                    model="llama-3.3-70b-versatile",
-                    max_tokens=max_tokens,
-                    messages=[{"role": "user", "content": prompt}]
-                )
-                response_text = message.choices[0].message.content
-            else:
-                message = self.client.messages.create(
-                    model="claude-sonnet-4-20250514",
-                    max_tokens=max_tokens,
-                    messages=[{"role": "user", "content": prompt}]
-                )
-                response_text = message.content[0].text
+            message = self.client.chat.completions.create(
+                model="llama-3.3-70b-versatile",
+                max_tokens=max_tokens,
+                messages=[{"role": "user", "content": prompt}]
+            )
+            response_text = message.choices[0].message.content
 
             # Intentar parsear como JSON si está estructurado
             return self._parse_ai_response(response_text)
@@ -493,20 +479,12 @@ REGLAS IMPORTANTES:
 JSON:"""
 
         try:
-            if self.use_groq:
-                message = self.client.chat.completions.create(
-                    model="llama-3.3-70b-versatile",
-                    max_tokens=2000,
-                    messages=[{"role": "user", "content": prompt}]
-                )
-                response_text = message.choices[0].message.content
-            else:
-                message = self.client.messages.create(
-                    model="claude-sonnet-4-20250514",
-                    max_tokens=2000,
-                    messages=[{"role": "user", "content": prompt}]
-                )
-                response_text = message.content[0].text
+            message = self.client.chat.completions.create(
+                model="llama-3.3-70b-versatile",
+                max_tokens=2000,
+                messages=[{"role": "user", "content": prompt}]
+            )
+            response_text = message.choices[0].message.content
 
             # Parsear JSON de la respuesta
             start_idx = response_text.find('{')
