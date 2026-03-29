@@ -82,9 +82,9 @@ async function fetchRates() {
             day: 'numeric', month: 'short', year: 'numeric',
             hour: 'numeric', minute: '2-digit', hour12: uses12h
         });
-        convUpdateEl.textContent = `Tasas actualizadas: ${dateStr}`;
+        convUpdateEl.textContent = `${t('converter.lastUpdate')} ${dateStr}`;
     } catch (err) {
-        convUpdateEl.textContent = 'No se pudieron cargar las tasas';
+        convUpdateEl.textContent = t('converter.loadError');
         console.error('Error fetching rates:', err);
     }
 }

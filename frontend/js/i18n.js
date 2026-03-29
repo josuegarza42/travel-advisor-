@@ -212,7 +212,64 @@ const translations = {
         'flights.clickToSee': 'Haz clic en "Reservar" para ver horarios y detalles del vuelo de regreso',
         'flights.newSearch': '🔄 Nueva búsqueda',
         'flights.fillRequired': 'Por favor completa todos los campos requeridos',
-        'flights.searchError': 'Error al buscar vuelos'
+        'flights.searchError': 'Error al buscar vuelos',
+
+        // Page titles & heroes
+        'page.flights.hero': 'Vuelos baratos,<br>sin rodeos',
+        'page.flights.subtitle': 'Compara precios reales · Directo a Google Flights',
+        'page.flights.footer': 'TripwiseAI · Vuelos via Google Flights',
+        'page.compare.title': 'Compara destinos',
+        'page.compare.subtitle': 'Deja que la IA recomiende el mejor destino para tu grupo',
+
+        // Navigation
+        'nav.compare': '🔍 Comparar',
+        'nav.map': '🗺️ Mapa',
+        'nav.vplus': '🎫 V+',
+
+        // Converter extras
+        'converter.from': 'De',
+        'converter.to': 'A',
+        'converter.compareMore': 'Comparar con otras monedas',
+        'converter.heroSubtitle': 'Convierte entre monedas en tiempo real',
+        'converter.loadError': 'No se pudieron cargar las tasas',
+        'converter.footerText': 'TripwiseAI · Tasas en tiempo real vía ExchangeRate-API',
+
+        // Map page
+        'page.map.title': 'Mapa de destinos',
+        'page.map.subtitle': 'Descubre los destinos más populares cerca de tu ciudad',
+        'map.searchSection': 'Buscar destinos',
+        'map.searchBtn': '🔍 Buscar',
+        'map.destinationsTitle': 'Destinos populares para visitar',
+        'map.nearCity': 'Destinos cerca de',
+        'map.cityNotFound': 'Ciudad no encontrada.',
+        'map.noDestinations': 'No se encontraron destinos populares.',
+        'map.enterCity': 'Ingresa una ciudad para ver destinos populares.',
+        'map.footer': 'TripwiseAI · Datos via OpenTripMap',
+
+        // V+ page
+        'vplus.title': 'Vuelos V+',
+        'vplus.badge': 'PASE ANUAL VOLARIS',
+        'vplus.loadingInitial': 'Cargando disponibilidad...',
+        'vplus.taxNote': 'Solo pagas TUA e impuestos',
+        'vplus.uploadBtn': '📄 Subir PDF del día',
+        'vplus.uploadHint': 'o se carga automáticamente el último guardado',
+        'vplus.loadingContent': 'Leyendo disponibilidad del día...',
+        'vplus.notFound': 'No se encontró el PDF',
+        'vplus.errorHint': 'Sube el PDF con el botón de arriba, o coloca vplus-disponibilidad.pdf en la carpeta del proyecto.',
+        'vplus.retry': '🔄 Reintentar',
+        'vplus.filterPlaceholder': '🔍 Filtrar por ciudad de origen...',
+        'vplus.sortBtn': '🟢 Ordenar por asientos',
+        'vplus.sortBtnActive': '🟢 Más disponibles primero',
+        'vplus.tabNational': '🇲🇽 Nacionales',
+        'vplus.tabIntl': '🌎 Internacionales',
+        'vplus.seats': 'asientos',
+        'vplus.footer': 'TripwiseAI · Disponibilidad V+ Volaris',
+        'vplus.noNational': 'No hay vuelos nacionales desde esa ciudad.',
+        'vplus.noIntl': 'No hay vuelos internacionales desde esa ciudad.',
+        'vplus.updated': 'Actualizado:',
+        'vplus.statNational': 'nacionales',
+        'vplus.statIntl': 'internacionales',
+        'vplus.loadingFile': 'Cargando'
     },
 
     en: {
@@ -427,7 +484,55 @@ const translations = {
         'flights.clickToSee': 'Click "Book" to see return flight times and details',
         'flights.newSearch': '🔄 New search',
         'flights.fillRequired': 'Please fill all required fields',
-        'flights.searchError': 'Error searching flights'
+        'flights.searchError': 'Error searching flights',
+
+        'page.flights.hero': 'Cheap flights,<br>no nonsense',
+        'page.flights.subtitle': 'Compare real prices · Direct to Google Flights',
+        'page.flights.footer': 'TripwiseAI · Flights via Google Flights',
+        'page.compare.title': 'Compare destinations',
+        'page.compare.subtitle': 'Let AI recommend the best destination for your group',
+        'nav.compare': '🔍 Compare',
+        'nav.map': '🗺️ Map',
+        'nav.vplus': '🎫 V+',
+        'converter.from': 'From',
+        'converter.to': 'To',
+        'converter.compareMore': 'Compare with other currencies',
+        'converter.heroSubtitle': 'Convert currencies in real time',
+        'converter.loadError': 'Could not load exchange rates',
+        'converter.footerText': 'TripwiseAI · Real-time rates via ExchangeRate-API',
+        'page.map.title': 'Destination Map',
+        'page.map.subtitle': 'Discover the most popular destinations near your city',
+        'map.searchSection': 'Search destinations',
+        'map.searchBtn': '🔍 Search',
+        'map.destinationsTitle': 'Popular destinations to visit',
+        'map.nearCity': 'Destinations near',
+        'map.cityNotFound': 'City not found.',
+        'map.noDestinations': 'No popular destinations found.',
+        'map.enterCity': 'Enter a city to see popular destinations.',
+        'map.footer': 'TripwiseAI · Data via OpenTripMap',
+        'vplus.title': 'V+ Flights',
+        'vplus.badge': 'VOLARIS ANNUAL PASS',
+        'vplus.loadingInitial': 'Loading availability...',
+        'vplus.taxNote': 'You only pay TUA and taxes',
+        'vplus.uploadBtn': '📄 Upload today\'s PDF',
+        'vplus.uploadHint': 'or the last saved file loads automatically',
+        'vplus.loadingContent': 'Reading today\'s availability...',
+        'vplus.notFound': 'PDF not found',
+        'vplus.errorHint': 'Upload the PDF with the button above, or place vplus-disponibilidad.pdf in the project folder.',
+        'vplus.retry': '🔄 Retry',
+        'vplus.filterPlaceholder': '🔍 Filter by origin city...',
+        'vplus.sortBtn': '🟢 Sort by seats',
+        'vplus.sortBtnActive': '🟢 Most available first',
+        'vplus.tabNational': '🇲🇽 Domestic',
+        'vplus.tabIntl': '🌎 International',
+        'vplus.seats': 'seats',
+        'vplus.footer': 'TripwiseAI · Volaris V+ Availability',
+        'vplus.noNational': 'No domestic flights from that city.',
+        'vplus.noIntl': 'No international flights from that city.',
+        'vplus.updated': 'Updated:',
+        'vplus.statNational': 'domestic',
+        'vplus.statIntl': 'international',
+        'vplus.loadingFile': 'Loading'
     },
 
     pt: {
@@ -642,7 +747,55 @@ const translations = {
         'flights.clickToSee': 'Clique em "Reservar" para ver horários e detalhes do voo de retorno',
         'flights.newSearch': '🔄 Nova busca',
         'flights.fillRequired': 'Por favor preencha todos os campos obrigatórios',
-        'flights.searchError': 'Erro ao buscar voos'
+        'flights.searchError': 'Erro ao buscar voos',
+
+        'page.flights.hero': 'Voos baratos,<br>sem rodeios',
+        'page.flights.subtitle': 'Compare preços reais · Direto ao Google Flights',
+        'page.flights.footer': 'TripwiseAI · Voos via Google Flights',
+        'page.compare.title': 'Comparar destinos',
+        'page.compare.subtitle': 'Deixe a IA recomendar o melhor destino para seu grupo',
+        'nav.compare': '🔍 Comparar',
+        'nav.map': '🗺️ Mapa',
+        'nav.vplus': '🎫 V+',
+        'converter.from': 'De',
+        'converter.to': 'Para',
+        'converter.compareMore': 'Comparar com outras moedas',
+        'converter.heroSubtitle': 'Converta entre moedas em tempo real',
+        'converter.loadError': 'Não foi possível carregar as taxas',
+        'converter.footerText': 'TripwiseAI · Taxas em tempo real via ExchangeRate-API',
+        'page.map.title': 'Mapa de destinos',
+        'page.map.subtitle': 'Descubra os destinos mais populares perto da sua cidade',
+        'map.searchSection': 'Buscar destinos',
+        'map.searchBtn': '🔍 Buscar',
+        'map.destinationsTitle': 'Destinos populares para visitar',
+        'map.nearCity': 'Destinos perto de',
+        'map.cityNotFound': 'Cidade não encontrada.',
+        'map.noDestinations': 'Nenhum destino popular encontrado.',
+        'map.enterCity': 'Digite uma cidade para ver destinos populares.',
+        'map.footer': 'TripwiseAI · Dados via OpenTripMap',
+        'vplus.title': 'Voos V+',
+        'vplus.badge': 'PASSE ANUAL VOLARIS',
+        'vplus.loadingInitial': 'Carregando disponibilidade...',
+        'vplus.taxNote': 'Você paga apenas TUA e impostos',
+        'vplus.uploadBtn': '📄 Enviar PDF do dia',
+        'vplus.uploadHint': 'ou o último arquivo salvo é carregado automaticamente',
+        'vplus.loadingContent': 'Lendo disponibilidade do dia...',
+        'vplus.notFound': 'PDF não encontrado',
+        'vplus.errorHint': 'Envie o PDF com o botão acima ou coloque vplus-disponibilidad.pdf na pasta do projeto.',
+        'vplus.retry': '🔄 Tentar novamente',
+        'vplus.filterPlaceholder': '🔍 Filtrar por cidade de origem...',
+        'vplus.sortBtn': '🟢 Ordenar por assentos',
+        'vplus.sortBtnActive': '🟢 Mais disponíveis primeiro',
+        'vplus.tabNational': '🇲🇽 Domésticos',
+        'vplus.tabIntl': '🌎 Internacionais',
+        'vplus.seats': 'assentos',
+        'vplus.footer': 'TripwiseAI · Disponibilidade V+ Volaris',
+        'vplus.noNational': 'Nenhum voo doméstico dessa cidade.',
+        'vplus.noIntl': 'Nenhum voo internacional dessa cidade.',
+        'vplus.updated': 'Atualizado:',
+        'vplus.statNational': 'domésticos',
+        'vplus.statIntl': 'internacionais',
+        'vplus.loadingFile': 'Carregando'
     },
 
     fr: {
@@ -810,7 +963,55 @@ const translations = {
         'flights.clickToSee': 'Cliquez sur "Réserver" pour voir les détails du vol retour',
         'flights.newSearch': '🔄 Nouvelle recherche',
         'flights.fillRequired': 'Veuillez remplir tous les champs obligatoires',
-        'flights.searchError': 'Erreur lors de la recherche de vols'
+        'flights.searchError': 'Erreur lors de la recherche de vols',
+
+        'page.flights.hero': 'Vols pas chers,<br>sans détours',
+        'page.flights.subtitle': 'Comparez les vrais prix · Directement sur Google Flights',
+        'page.flights.footer': 'TripwiseAI · Vols via Google Flights',
+        'page.compare.title': 'Comparer les destinations',
+        'page.compare.subtitle': 'Laissez l\'IA recommander la meilleure destination pour votre groupe',
+        'nav.compare': '🔍 Comparer',
+        'nav.map': '🗺️ Carte',
+        'nav.vplus': '🎫 V+',
+        'converter.from': 'De',
+        'converter.to': 'Vers',
+        'converter.compareMore': 'Comparer avec d\'autres devises',
+        'converter.heroSubtitle': 'Convertissez des devises en temps réel',
+        'converter.loadError': 'Impossible de charger les taux',
+        'converter.footerText': 'TripwiseAI · Taux en temps réel via ExchangeRate-API',
+        'page.map.title': 'Carte des destinations',
+        'page.map.subtitle': 'Découvrez les destinations les plus populaires près de votre ville',
+        'map.searchSection': 'Rechercher des destinations',
+        'map.searchBtn': '🔍 Rechercher',
+        'map.destinationsTitle': 'Destinations populaires à visiter',
+        'map.nearCity': 'Destinations près de',
+        'map.cityNotFound': 'Ville introuvable.',
+        'map.noDestinations': 'Aucune destination populaire trouvée.',
+        'map.enterCity': 'Saisissez une ville pour voir les destinations populaires.',
+        'map.footer': 'TripwiseAI · Données via OpenTripMap',
+        'vplus.title': 'Vols V+',
+        'vplus.badge': 'PASS ANNUEL VOLARIS',
+        'vplus.loadingInitial': 'Chargement de la disponibilité...',
+        'vplus.taxNote': 'Vous payez uniquement les taxes et frais',
+        'vplus.uploadBtn': '📄 Télécharger le PDF du jour',
+        'vplus.uploadHint': 'ou le dernier fichier sauvegardé se charge automatiquement',
+        'vplus.loadingContent': 'Lecture de la disponibilité du jour...',
+        'vplus.notFound': 'PDF introuvable',
+        'vplus.errorHint': 'Téléchargez le PDF avec le bouton ci-dessus ou placez vplus-disponibilidad.pdf dans le dossier du projet.',
+        'vplus.retry': '🔄 Réessayer',
+        'vplus.filterPlaceholder': '🔍 Filtrer par ville d\'origine...',
+        'vplus.sortBtn': '🟢 Trier par sièges',
+        'vplus.sortBtnActive': '🟢 Plus disponibles en premier',
+        'vplus.tabNational': '🇲🇽 Nationaux',
+        'vplus.tabIntl': '🌎 Internationaux',
+        'vplus.seats': 'sièges',
+        'vplus.footer': 'TripwiseAI · Disponibilité V+ Volaris',
+        'vplus.noNational': 'Aucun vol national depuis cette ville.',
+        'vplus.noIntl': 'Aucun vol international depuis cette ville.',
+        'vplus.updated': 'Mis à jour :',
+        'vplus.statNational': 'nationaux',
+        'vplus.statIntl': 'internationaux',
+        'vplus.loadingFile': 'Chargement'
     },
 
     de: {
@@ -978,7 +1179,55 @@ const translations = {
         'flights.clickToSee': 'Klicken Sie auf "Buchen", um Rückflugdetails zu sehen',
         'flights.newSearch': '🔄 Neue Suche',
         'flights.fillRequired': 'Bitte alle Pflichtfelder ausfüllen',
-        'flights.searchError': 'Fehler bei der Flugsuche'
+        'flights.searchError': 'Fehler bei der Flugsuche',
+
+        'page.flights.hero': 'Günstige Flüge,<br>ohne Umwege',
+        'page.flights.subtitle': 'Echte Preise vergleichen · Direkt zu Google Flights',
+        'page.flights.footer': 'TripwiseAI · Flüge via Google Flights',
+        'page.compare.title': 'Reiseziele vergleichen',
+        'page.compare.subtitle': 'Lassen Sie die KI das beste Reiseziel für Ihre Gruppe empfehlen',
+        'nav.compare': '🔍 Vergleichen',
+        'nav.map': '🗺️ Karte',
+        'nav.vplus': '🎫 V+',
+        'converter.from': 'Von',
+        'converter.to': 'Nach',
+        'converter.compareMore': 'Mit anderen Währungen vergleichen',
+        'converter.heroSubtitle': 'Währungen in Echtzeit umrechnen',
+        'converter.loadError': 'Kurse konnten nicht geladen werden',
+        'converter.footerText': 'TripwiseAI · Echtzeit-Kurse via ExchangeRate-API',
+        'page.map.title': 'Reisezielkarte',
+        'page.map.subtitle': 'Entdecken Sie beliebte Reiseziele in Ihrer Nähe',
+        'map.searchSection': 'Reiseziele suchen',
+        'map.searchBtn': '🔍 Suchen',
+        'map.destinationsTitle': 'Beliebte Reiseziele',
+        'map.nearCity': 'Reiseziele nahe',
+        'map.cityNotFound': 'Stadt nicht gefunden.',
+        'map.noDestinations': 'Keine beliebten Reiseziele gefunden.',
+        'map.enterCity': 'Stadt eingeben, um beliebte Reiseziele zu sehen.',
+        'map.footer': 'TripwiseAI · Daten via OpenTripMap',
+        'vplus.title': 'V+ Flüge',
+        'vplus.badge': 'VOLARIS JAHRESPASS',
+        'vplus.loadingInitial': 'Verfügbarkeit wird geladen...',
+        'vplus.taxNote': 'Sie zahlen nur Steuern und Gebühren',
+        'vplus.uploadBtn': '📄 PDF des Tages hochladen',
+        'vplus.uploadHint': 'oder die zuletzt gespeicherte Datei wird automatisch geladen',
+        'vplus.loadingContent': 'Tagesverfügbarkeit wird gelesen...',
+        'vplus.notFound': 'PDF nicht gefunden',
+        'vplus.errorHint': 'Laden Sie das PDF mit der Schaltfläche oben hoch oder legen Sie vplus-disponibilidad.pdf in den Projektordner.',
+        'vplus.retry': '🔄 Erneut versuchen',
+        'vplus.filterPlaceholder': '🔍 Nach Abflugstadt filtern...',
+        'vplus.sortBtn': '🟢 Nach Sitzen sortieren',
+        'vplus.sortBtnActive': '🟢 Meiste verfügbare zuerst',
+        'vplus.tabNational': '🇲🇽 Inland',
+        'vplus.tabIntl': '🌎 International',
+        'vplus.seats': 'Sitze',
+        'vplus.footer': 'TripwiseAI · Volaris V+ Verfügbarkeit',
+        'vplus.noNational': 'Keine Inlandsflüge von dieser Stadt.',
+        'vplus.noIntl': 'Keine internationalen Flüge von dieser Stadt.',
+        'vplus.updated': 'Aktualisiert:',
+        'vplus.statNational': 'Inland',
+        'vplus.statIntl': 'International',
+        'vplus.loadingFile': 'Lade'
     },
 
     zh: {
@@ -1146,7 +1395,55 @@ const translations = {
         'flights.clickToSee': '点击"预订"查看返程详情',
         'flights.newSearch': '🔄 新搜索',
         'flights.fillRequired': '请填写所有必填项',
-        'flights.searchError': '搜索航班时出错'
+        'flights.searchError': '搜索航班时出错',
+
+        'page.flights.hero': '便宜机票，<br>不绕弯子',
+        'page.flights.subtitle': '比较真实价格 · 直接跳转 Google Flights',
+        'page.flights.footer': 'TripwiseAI · 机票来自 Google Flights',
+        'page.compare.title': '比较目的地',
+        'page.compare.subtitle': '让AI为你的团队推荐最佳目的地',
+        'nav.compare': '🔍 比较',
+        'nav.map': '🗺️ 地图',
+        'nav.vplus': '🎫 V+',
+        'converter.from': '从',
+        'converter.to': '到',
+        'converter.compareMore': '与其他货币比较',
+        'converter.heroSubtitle': '实时汇率换算',
+        'converter.loadError': '无法加载汇率',
+        'converter.footerText': 'TripwiseAI · 实时汇率 via ExchangeRate-API',
+        'page.map.title': '目的地地图',
+        'page.map.subtitle': '探索你城市附近的热门目的地',
+        'map.searchSection': '搜索目的地',
+        'map.searchBtn': '🔍 搜索',
+        'map.destinationsTitle': '热门旅游目的地',
+        'map.nearCity': '附近目的地：',
+        'map.cityNotFound': '未找到该城市。',
+        'map.noDestinations': '未找到热门目的地。',
+        'map.enterCity': '输入城市查看热门目的地。',
+        'map.footer': 'TripwiseAI · 数据来自 OpenTripMap',
+        'vplus.title': 'V+航班',
+        'vplus.badge': 'VOLARIS年票',
+        'vplus.loadingInitial': '正在加载可用性...',
+        'vplus.taxNote': '仅需支付TUA和税费',
+        'vplus.uploadBtn': '📄 上传今日PDF',
+        'vplus.uploadHint': '或自动加载上次保存的文件',
+        'vplus.loadingContent': '正在读取今日可用性...',
+        'vplus.notFound': '未找到PDF',
+        'vplus.errorHint': '使用上方按钮上传PDF，或将vplus-disponibilidad.pdf放入项目文件夹。',
+        'vplus.retry': '🔄 重试',
+        'vplus.filterPlaceholder': '🔍 按出发城市筛选...',
+        'vplus.sortBtn': '🟢 按座位排序',
+        'vplus.sortBtnActive': '🟢 可用最多优先',
+        'vplus.tabNational': '🇲🇽 国内航班',
+        'vplus.tabIntl': '🌎 国际航班',
+        'vplus.seats': '座位',
+        'vplus.footer': 'TripwiseAI · Volaris V+可用性',
+        'vplus.noNational': '该城市没有国内航班。',
+        'vplus.noIntl': '该城市没有国际航班。',
+        'vplus.updated': '更新时间：',
+        'vplus.statNational': '国内',
+        'vplus.statIntl': '国际',
+        'vplus.loadingFile': '正在加载'
     },
 
     ja: {
@@ -1314,7 +1611,55 @@ const translations = {
         'flights.clickToSee': '「予約する」をクリックして帰りのフライト詳細を確認',
         'flights.newSearch': '🔄 新しい検索',
         'flights.fillRequired': '必須項目をすべて入力してください',
-        'flights.searchError': 'フライト検索中にエラーが発生しました'
+        'flights.searchError': 'フライト検索中にエラーが発生しました',
+
+        'page.flights.hero': '格安フライト、<br>ズバリ比較',
+        'page.flights.subtitle': '実際の価格を比較 · Google Flightsへ直接',
+        'page.flights.footer': 'TripwiseAI · Google Flights提供',
+        'page.compare.title': '目的地を比較',
+        'page.compare.subtitle': 'AIがグループに最適な目的地を推薦します',
+        'nav.compare': '🔍 比較',
+        'nav.map': '🗺️ マップ',
+        'nav.vplus': '🎫 V+',
+        'converter.from': '変換元',
+        'converter.to': '変換先',
+        'converter.compareMore': '他の通貨と比較',
+        'converter.heroSubtitle': 'リアルタイム通貨換算',
+        'converter.loadError': '為替レートを読み込めませんでした',
+        'converter.footerText': 'TripwiseAI · リアルタイムレート via ExchangeRate-API',
+        'page.map.title': '目的地マップ',
+        'page.map.subtitle': '近くの人気観光スポットを探索しましょう',
+        'map.searchSection': '目的地を検索',
+        'map.searchBtn': '🔍 検索',
+        'map.destinationsTitle': '人気の観光スポット',
+        'map.nearCity': '近くの目的地：',
+        'map.cityNotFound': '都市が見つかりませんでした。',
+        'map.noDestinations': '人気の目的地が見つかりませんでした。',
+        'map.enterCity': '都市を入力して人気スポットを表示。',
+        'map.footer': 'TripwiseAI · データ提供：OpenTripMap',
+        'vplus.title': 'V+フライト',
+        'vplus.badge': 'VOLARISアニュアルパス',
+        'vplus.loadingInitial': '空席状況を読み込み中...',
+        'vplus.taxNote': 'TUAと税金のみお支払い',
+        'vplus.uploadBtn': '📄 本日のPDFをアップロード',
+        'vplus.uploadHint': 'または最後に保存したファイルが自動読み込みされます',
+        'vplus.loadingContent': '本日の空席状況を読み込み中...',
+        'vplus.notFound': 'PDFが見つかりません',
+        'vplus.errorHint': '上のボタンでPDFをアップロードするか、vplus-disponibilidad.pdfをプロジェクトフォルダに配置してください。',
+        'vplus.retry': '🔄 再試行',
+        'vplus.filterPlaceholder': '🔍 出発都市でフィルター...',
+        'vplus.sortBtn': '🟢 座席数で並べ替え',
+        'vplus.sortBtnActive': '🟢 空席の多い順',
+        'vplus.tabNational': '🇲🇽 国内線',
+        'vplus.tabIntl': '🌎 国際線',
+        'vplus.seats': '席',
+        'vplus.footer': 'TripwiseAI · Volaris V+空席情報',
+        'vplus.noNational': 'その都市からの国内線はありません。',
+        'vplus.noIntl': 'その都市からの国際線はありません。',
+        'vplus.updated': '更新：',
+        'vplus.statNational': '国内線',
+        'vplus.statIntl': '国際線',
+        'vplus.loadingFile': '読み込み中'
     }
 };
 
@@ -1365,47 +1710,38 @@ function initLanguage() {
 
 // Update all texts on the page
 function updateAllTexts() {
-    // Update document title
-    const isConverterPage = window.location.pathname.includes('currency-converter');
-    if (isConverterPage) {
-        document.title = `${t('converter.title')} - ${t('app.title')}`;
-    } else {
-        document.title = `${t('app.title')} - ${t('app.subtitle')}`;
-    }
+    // ── Pass 1: [data-i18n] — textContent ──────────────────────────
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+        el.textContent = t(el.getAttribute('data-i18n'));
+    });
 
-    // Update header
-    document.querySelector('h1').textContent = isConverterPage ? t('converter.title') : t('app.title');
-    const subtitle = document.querySelector('.subtitle');
-    if (subtitle) {
-        subtitle.textContent = isConverterPage ? t('converter.subtitle') : t('app.subtitle');
-    }
+    // ── Pass 2: [data-i18n-html] — innerHTML (allows <br> etc) ─────
+    document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
+        el.innerHTML = t(el.getAttribute('data-i18n-html'));
+    });
 
-    // Update converter link
-    const converterLink = document.querySelector('[data-i18n="header.converter"]');
-    if (converterLink) {
-        converterLink.innerHTML = `💱 ${t('header.converter')}`;
-    }
+    // ── Page detection ──────────────────────────────────────────────
+    const path = window.location.pathname;
+    const isConverterPage = path.includes('currency-converter');
+    const isMapPage = path.includes('map');
+    const isVplusPage = path.includes('vplus');
 
-    // Update quick fill section
-    const quickFillTitle = document.querySelector('.quick-fill-section h2 span[data-i18n="quickfill.title"]');
-    if (quickFillTitle) quickFillTitle.textContent = t('quickfill.title');
+    // ── Document title ──────────────────────────────────────────────
+    if (isConverterPage) document.title = `${t('header.converter')} - TripwiseAI`;
+    else if (isMapPage) document.title = `${t('page.map.title')} - TripwiseAI`;
+    else if (isVplusPage) document.title = `${t('vplus.title')} - TripwiseAI`;
+    else document.title = `TripwiseAI - ${t('page.flights.subtitle')}`;
 
-    const quickFillDesc = document.querySelector('.quick-fill-section .section-description[data-i18n="quickfill.description"]');
-    if (quickFillDesc) quickFillDesc.textContent = t('quickfill.description');
+    // ── Mobile bottom nav labels ────────────────────────────────────
+    const mbnLabels = document.querySelectorAll('.mbn-item .mbn-label');
+    const mbnKeys = ['header.flights', 'nav.compare', 'header.converter', 'nav.map', 'nav.vplus'];
+    mbnLabels.forEach(function(el, i) { if (mbnKeys[i]) el.textContent = t(mbnKeys[i]); });
 
-    const quickFillTextarea = document.getElementById('quick-fill-text');
-    if (quickFillTextarea) quickFillTextarea.placeholder = t('quickfill.placeholder');
+    // ── V+ filter placeholder (dynamic element) ─────────────────────
+    const filterInput = document.getElementById('origin-filter');
+    if (filterInput) filterInput.placeholder = t('vplus.filterPlaceholder');
 
-    const quickFillBtn = document.querySelector('#quick-fill-btn span[data-i18n="quickfill.button"]');
-    if (quickFillBtn) quickFillBtn.textContent = t('quickfill.button');
-
-    const quickFillLoading = document.querySelector('#quick-fill-loading p[data-i18n="quickfill.loading"]');
-    if (quickFillLoading) quickFillLoading.textContent = t('quickfill.loading');
-
-    // Update mode selector
-    const modeSection = document.querySelector('.mode-selector h2');
-    if (modeSection) modeSection.textContent = t('mode.title');
-
+    // ── Compare page form (selects/checkboxes — can't use data-i18n) ─
     const modeCards = document.querySelectorAll('.mode-card');
     if (modeCards[0]) {
         modeCards[0].querySelector('.mode-title').textContent = `⚡ ${t('mode.practical.title')}`;
@@ -1418,19 +1754,6 @@ function updateAllTexts() {
         modeCards[1].querySelector('.mode-time').textContent = t('mode.complete.time');
     }
 
-    // Update preferences section
-    const prefsSection = document.querySelector('.preferences-section h2');
-    if (prefsSection) prefsSection.textContent = t('prefs.title');
-
-    // Update form labels
-    updateLabel('num-travelers', t('prefs.travelers'));
-    updateLabel('max-budget', t('prefs.maxBudget'));
-    updateLabel('min-days', t('prefs.minDays'));
-    updateLabel('max-days', t('prefs.maxDays'));
-    updateLabel('advance-days', t('prefs.advanceDays'));
-    updateLabel('priority', t('prefs.priority'));
-
-    // Update priority options
     const prioritySelect = document.getElementById('priority');
     if (prioritySelect) {
         prioritySelect.options[0].text = t('prefs.priority.price');
@@ -1438,58 +1761,34 @@ function updateAllTexts() {
         prioritySelect.options[2].text = t('prefs.priority.experience');
     }
 
-    // Update checkboxes labels
     updateCheckboxLabels('.travel-type', ['travel.beach', 'travel.city', 'travel.nature', 'travel.cultural', 'travel.adventure']);
     updateCheckboxLabels('.activity', ['activity.food', 'activity.party', 'activity.history', 'activity.sports', 'activity.relax', 'activity.shopping']);
     updateCheckboxLabels('.avoid-activity', ['avoid.heights', 'avoid.heat', 'avoid.cold', 'avoid.crowds']);
 
-    // Update section headers
-    const sections = {
-        '.preferences-section h2': 'prefs.title',
-        '.preferences-section h3:nth-of-type(1)': 'style.title',
-        '.preferences-section h3:nth-of-type(2)': 'work.title',
-        '.preferences-section h3:nth-of-type(3)': 'docs.title'
-    };
-
-    for (const [selector, key] of Object.entries(sections)) {
-        const element = document.querySelector(selector);
-        if (element) element.textContent = t(key);
-    }
-
-    // Update hostels checkbox
     const hostelsCheckbox = document.querySelector('label[style*="bold"] input#prefers-hostels');
     if (hostelsCheckbox && hostelsCheckbox.parentElement) {
         hostelsCheckbox.parentElement.innerHTML = `<input type="checkbox" id="prefers-hostels" ${hostelsCheckbox.checked ? 'checked' : ''}> 🛏️ ${t('style.hostels')}`;
     }
-
-    // Update social checkbox
     const socialCheckbox = document.querySelector('label[style*="bold"] input#values-social');
     if (socialCheckbox && socialCheckbox.parentElement) {
         socialCheckbox.parentElement.innerHTML = `<input type="checkbox" id="values-social" ${socialCheckbox.checked ? 'checked' : ''}> 👥 ${t('style.social')}`;
     }
-
-    // Update safety checkbox
     const safetyCheckbox = document.querySelector('input#city-safety-important');
     if (safetyCheckbox && safetyCheckbox.parentElement) {
         const isChecked = safetyCheckbox.checked;
         safetyCheckbox.parentElement.innerHTML = `<input type="checkbox" id="city-safety-important" ${isChecked ? 'checked' : ''}> 🛡️ ${t('style.safety')}`;
     }
-
-    // Update WiFi checkbox
     const wifiCheckbox = document.querySelector('input#needs-wifi');
     if (wifiCheckbox && wifiCheckbox.parentElement) {
         const isChecked = wifiCheckbox.checked;
         wifiCheckbox.parentElement.innerHTML = `<input type="checkbox" id="needs-wifi" ${isChecked ? 'checked' : ''}> 🔴 ${t('work.wifi')}`;
     }
-
-    // Update works during trip checkbox
     const worksCheckbox = document.querySelector('input#works-during-trip');
     if (worksCheckbox && worksCheckbox.parentElement) {
         const isChecked = worksCheckbox.checked;
         worksCheckbox.parentElement.innerHTML = `<input type="checkbox" id="works-during-trip" ${isChecked ? 'checked' : ''}> ${t('work.duringTrip')}`;
     }
 
-    // Update English level
     updateLabel('english-level', t('work.englishLevel'));
     const englishSelect = document.getElementById('english-level');
     if (englishSelect) {
@@ -1499,40 +1798,30 @@ function updateAllTexts() {
         englishSelect.options[3].text = t('work.english.fluent');
     }
 
-    // Update currency preference
+    updateLabel('num-travelers', t('prefs.travelers'));
+    updateLabel('max-budget', t('prefs.maxBudget'));
+    updateLabel('min-days', t('prefs.minDays'));
+    updateLabel('max-days', t('prefs.maxDays'));
+    updateLabel('advance-days', t('prefs.advanceDays'));
+    updateLabel('priority', t('prefs.priority'));
     updateLabel('currency-preference', t('work.currency'));
 
-    // Update documents checkboxes
     updateDocumentCheckbox('has-passport', t('docs.passport'));
     updateDocumentCheckbox('has-us-visa', t('docs.visa'));
     updateDocumentCheckbox('has-insurance', t('docs.insurance'));
     updateDocumentCheckbox('has-vaccines', t('docs.vaccines'));
 
-    // Update destinations section
-    const destSection = document.querySelector('.destinations-section h2');
-    if (destSection) destSection.textContent = t('dest.title');
-
     const addDestBtn = document.getElementById('add-destination');
     if (addDestBtn) addDestBtn.textContent = `+ ${t('dest.add')}`;
 
-    // Update analyze button
     const analyzeBtn = document.getElementById('analyze-btn');
     if (analyzeBtn) analyzeBtn.textContent = t('analyze.button');
 
-    // Update loading text
     const loadingText = document.querySelector('#loading p');
     if (loadingText) {
-        const mode = document.querySelector('input[name="analysis-mode"]:checked').value;
-        loadingText.textContent = mode === 'practical' ? t('analyze.loadingFast') : t('analyze.loadingDetailed');
+        const modeEl = document.querySelector('input[name="analysis-mode"]:checked');
+        if (modeEl) loadingText.textContent = modeEl.value === 'practical' ? t('analyze.loadingFast') : t('analyze.loadingDetailed');
     }
-
-    // Update results section
-    const resultsTitle = document.querySelector('#results h2');
-    if (resultsTitle) resultsTitle.textContent = t('results.title');
-
-    // Update footer
-    const footer = document.querySelector('footer p');
-    if (footer) footer.textContent = t('footer.powered');
 
     // Update existing destination cards
     updateDestinationCards();
@@ -1577,3 +1866,23 @@ function updateDestinationCards() {
         window.updateAllDestinationCards();
     }
 }
+
+// ── Auto-initialize on all pages ────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+    currentLanguage = getInitialLanguage();
+    document.documentElement.lang = currentLanguage;
+
+    // Wire language selector on every page that has one
+    const selector = document.getElementById('language-selector');
+    if (selector) {
+        selector.value = currentLanguage;
+        selector.addEventListener('change', function() {
+            changeLanguage(this.value);
+        });
+    }
+
+    // Apply saved language on load
+    if (currentLanguage !== 'es') {
+        updateAllTexts();
+    }
+});
