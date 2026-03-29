@@ -6,17 +6,6 @@ bp = Blueprint('main', __name__)
 advisor = TravelAdvisor()
 flight_searcher = FlightSearcher()
 
-@bp.route('/')
-def index():
-    return jsonify({
-        "message": "Travel Advisor API",
-        "version": "1.0.0",
-        "endpoints": {
-            "/api/analyze": "POST - Analiza destinos y obtén recomendación",
-            "/api/health": "GET - Health check"
-        }
-    })
-
 @bp.route('/api/health')
 def health():
     return jsonify({"status": "healthy"})
