@@ -34,6 +34,7 @@
     font-weight: 600;
     cursor: pointer;
     transition: all 0.15s ease;
+    white-space: nowrap;
 }
 
 .upload-btn:hover {
@@ -266,11 +267,11 @@
 }
 
 .vplus-city.origin {
-    max-width: 110px;
+    max-width: clamp(70px, 30%, 110px);
 }
 
 .vplus-city.destination {
-    max-width: 110px;
+    max-width: clamp(70px, 30%, 110px);
 }
 
 .vplus-arrow {
@@ -338,6 +339,12 @@
 
     .vplus-filter {
         width: 100%;
+        min-width: unset;
+    }
+
+    .sort-btn {
+        width: 100%;
+        font-size: 0.8125rem;
     }
 
     .vplus-tabs {
