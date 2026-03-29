@@ -32,7 +32,6 @@ const departureDateInput = document.getElementById('departure-date');
 const returnDateInput = document.getElementById('return-date');
 const passengersInput = document.getElementById('passengers');
 const flightTypeInput = document.getElementById('flight-type');
-const currencyInput = document.getElementById('flight-currency');
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
@@ -99,12 +98,6 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('❌ Search button not found!');
     }
 
-    // Load saved currency preference
-    if (currencyInput) {
-        const savedCurrency = localStorage.getItem('preferredCurrency') || 'MXN';
-        currencyInput.value = savedCurrency;
-        console.log('✅ Currency set to:', savedCurrency);
-    }
 
     console.log('✅ Flight search page ready!');
 
@@ -156,7 +149,7 @@ async function handleSearch() {
     const returnDate = returnDateInput.value;
     const passengers = parseInt(passengersInput.value);
     const maxStopovers = parseInt(flightTypeInput.value);
-    const currency = currencyInput.value;
+    const currency = localStorage.getItem('preferredCurrency') || 'MXN';
 
     console.log('📋 Form values:', { origin, destination, departureDate, passengers, maxStopovers, currency });
 

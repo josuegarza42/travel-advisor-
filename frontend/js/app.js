@@ -688,12 +688,7 @@ function addDestinationForm() {
             </div>
 
             <div class="form-group">
-                <label>👤 ${t('dest.proposedBy')}</label>
-                <input type="text" class="input dest-proposed-by" placeholder="${t('dest.proposedBy')}" required>
-            </div>
-
-            <div class="form-group">
-                <label>💰 ${t('dest.budget')} (${CURRENCY_SYMBOLS[currentCurrency].name}/${t('dest.budgetPerPerson')})</label>
+                <label>💰 ${t('dest.budget')} (${CURRENCY_SYMBOLS[currentCurrency].name}/${t('dest.budgetPerPerson')}) <span style="font-weight:400;color:var(--text-secondary);font-size:0.8125rem;">— costo estimado</span></label>
                 <input type="number" class="input dest-budget" placeholder="${getPlaceholderForCurrency(currentCurrency)}" min="0" required>
             </div>
 
@@ -716,12 +711,44 @@ function addDestinationForm() {
                 <label>🛫 ${t('dest.airport')}</label>
                 <select class="input dest-airport" required>
                     <option value="">${t('dest.airportSelect')}</option>
-                    <option value="CDMX">🇲🇽 Ciudad de México (MEX)</option>
-                    <option value="GDL">🇲🇽 Guadalajara (GDL)</option>
-                    <option value="MTY">🇲🇽 Monterrey (MTY)</option>
-                    <option value="CUN">🇲🇽 Cancún (CUN)</option>
-                    <option value="TIJ">🇲🇽 Tijuana (TIJ)</option>
-                    <option value="BJX">🇲🇽 León/Bajío (BJX)</option>
+                    <optgroup label="🇲🇽 México">
+                        <option value="MEX">Ciudad de México (MEX)</option>
+                        <option value="GDL">Guadalajara (GDL)</option>
+                        <option value="MTY">Monterrey (MTY)</option>
+                        <option value="CUN">Cancún (CUN)</option>
+                        <option value="TIJ">Tijuana (TIJ)</option>
+                        <option value="BJX">León/Bajío (BJX)</option>
+                        <option value="QRO">Querétaro (QRO)</option>
+                        <option value="OAX">Oaxaca (OAX)</option>
+                    </optgroup>
+                    <optgroup label="🇨🇴 Colombia">
+                        <option value="BOG">Bogotá (BOG)</option>
+                        <option value="MDE">Medellín (MDE)</option>
+                        <option value="CTG">Cartagena (CTG)</option>
+                        <option value="CLO">Cali (CLO)</option>
+                        <option value="BAQ">Barranquilla (BAQ)</option>
+                    </optgroup>
+                    <optgroup label="🇺🇸 Estados Unidos">
+                        <option value="MIA">Miami (MIA)</option>
+                        <option value="LAX">Los Angeles (LAX)</option>
+                        <option value="JFK">Nueva York (JFK)</option>
+                        <option value="DFW">Dallas (DFW)</option>
+                        <option value="ORD">Chicago (ORD)</option>
+                    </optgroup>
+                    <optgroup label="🌎 América del Sur">
+                        <option value="LIM">Lima (LIM)</option>
+                        <option value="SCL">Santiago (SCL)</option>
+                        <option value="EZE">Buenos Aires (EZE)</option>
+                        <option value="GRU">São Paulo (GRU)</option>
+                        <option value="UIO">Quito (UIO)</option>
+                        <option value="PTY">Panamá (PTY)</option>
+                    </optgroup>
+                    <optgroup label="🇪🇸 Europa">
+                        <option value="MAD">Madrid (MAD)</option>
+                        <option value="BCN">Barcelona (BCN)</option>
+                        <option value="LHR">Londres (LHR)</option>
+                        <option value="CDG">París (CDG)</option>
+                    </optgroup>
                 </select>
             </div>
 
@@ -913,7 +940,7 @@ function collectFormData() {
         has_us_visa: isPractical ? false : document.getElementById('has-us-visa').checked,
         max_trip_days: parseInt(document.getElementById('max-days').value),
         min_trip_days: parseInt(document.getElementById('min-days').value),
-        advance_booking_days: parseInt(document.getElementById('advance-days').value),
+        advance_booking_days: 30,
         priority: document.getElementById('priority').value,
         prefers_hostels: isPractical ? true : document.getElementById('prefers-hostels').checked,
         values_social_atmosphere: isPractical ? false : document.getElementById('values-social').checked,
@@ -935,7 +962,7 @@ function collectFormData() {
         const destination = {
             name: card.querySelector('.dest-name').value,
             country: card.querySelector('.dest-country-input').value,
-            proposed_by: card.querySelector('.dest-proposed-by').value,
+            proposed_by: '',
             budget_per_person: parseFloat(card.querySelector('.dest-budget').value),
             start_date: startDate,
             end_date: endDate,
@@ -975,7 +1002,7 @@ function validateForm(data) {
     }
 
     for (let dest of data.destinations) {
-        if (!dest.name || !dest.country || !dest.proposed_by) {
+        if (!dest.name || !dest.country) {
             alert('Por favor completa todos los campos obligatorios de los destinos');
             return false;
         }
