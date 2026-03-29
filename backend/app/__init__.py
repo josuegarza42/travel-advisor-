@@ -8,7 +8,7 @@ def create_app():
     backend_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     frontend_dir = os.path.join(os.path.dirname(backend_dir), 'frontend')
 
-    app = Flask(__name__, static_folder=frontend_dir, static_url_path='')
+    app = Flask(__name__)
     app.config.from_object(Config)
 
     # Enable CORS
