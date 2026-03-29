@@ -21,6 +21,18 @@ def index():
 def health():
     return jsonify({"status": "healthy"})
 
+@bp.route('/api/debug-config')
+def debug_config():
+    from .config import Config
+    return jsonify({
+        "use_bedrock": bool(Config.AWS_ENDPOINT_URL_BEDROCK and Config.AWS_BEARER_TOKEN),
+        "has_bedrock_url": bool(Config.AWS_ENDPOINT_URL_BEDROCK),
+        "has_bedrock_token": bool(Config.AWS_BEARER_TOKEN),
+        "has_anthropic_key": bool(Config.ANTHROPIC_API_KEY),
+        "has_serpapi_key": bool(Config.SERPAPI_KEY),
+        "flask_env": Config.FLASK_ENV,
+    })
+
 @bp.route('/api/analyze', methods=['POST'])
 def analyze_destinations():
     """
