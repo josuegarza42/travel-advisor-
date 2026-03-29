@@ -101,6 +101,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     console.log('✅ Flight search page ready!');
 
+    // Currency selector — save preference and re-search if results are visible
+    const currencySelector = document.getElementById('currency-selector');
+    if (currencySelector) {
+        const saved = localStorage.getItem('preferredCurrency') || 'MXN';
+        currencySelector.value = saved;
+        currencySelector.addEventListener('change', function() {
+            localStorage.setItem('preferredCurrency', this.value);
+            if (resultsSection && !resultsSection.classList.contains('hidden')) {
+                handleSearch();
+            }
+        });
+    }
+
     // Swap airports button
     const swapBtn = document.getElementById('swap-airports');
     if (swapBtn) {
