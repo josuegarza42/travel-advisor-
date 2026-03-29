@@ -14,22 +14,16 @@ def create_app():
     # Enable CORS
     CORS(app)
 
-    # Serve frontend files
+    # Register API routes FIRST so they take priority over catch-all
+    from .routes import bp
+    app.register_blueprint(bp)
+
+    # Serve frontend files (catch-all, must be registered AFTER API routes)
     @app.route('/', defaults={'path': ''})
     @app.route('/<path:path>')
     def serve_frontend(path):
         if path and os.path.exists(os.path.join(frontend_dir, path)):
             return send_from_directory(frontend_dir, path)
-        elif path.startswith('api/'):
-            # Let API routes handle this
-            return None
-        elif not path:
-            return send_from_directory(frontend_dir, 'index.html')
-        else:
-            return send_from_directory(frontend_dir, 'index.html')
-
-    # Register routes
-    from .routes import bp
-    app.register_blueprint(bp)
+        return send_from_directory(frontend_dir, 'index.html')
 
     return app
