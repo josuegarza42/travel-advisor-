@@ -51,9 +51,11 @@ if (quickFillBtn && quickFillText) {
 
 // Currency data
 const CURRENCY_SYMBOLS = {
-    'USD': { symbol: '$', name: 'USD', rate: 1 },
-    'MXN': { symbol: '$', name: 'MXN', rate: 17.2 },
-    'COP': { symbol: '$', name: 'COP', rate: 4200 }
+    'USD': { symbol: '$',  name: 'USD', rate: 1 },
+    'MXN': { symbol: '$',  name: 'MXN', rate: 17.2 },
+    'COP': { symbol: '$',  name: 'COP', rate: 4200 },
+    'EUR': { symbol: '€',  name: 'EUR', rate: 0.92 },
+    'BRL': { symbol: 'R$', name: 'BRL', rate: 5.0 }
 };
 
 let currentCurrency = 'MXN';
@@ -99,7 +101,9 @@ function updateCurrencyDisplay(currency) {
         const emojiMap = {
             'USD': '🇺🇸',
             'MXN': '🇲🇽',
-            'COP': '🇨🇴'
+            'COP': '🇨🇴',
+            'EUR': '🇪🇺',
+            'BRL': '🇧🇷'
         };
         currencyEmoji.textContent = emojiMap[currency];
     }
@@ -181,6 +185,8 @@ async function fetchExchangeRates() {
         CURRENCY_SYMBOLS['USD'].rate = 1;
         CURRENCY_SYMBOLS['MXN'].rate = exchangeRates['MXN'] || 17.2;
         CURRENCY_SYMBOLS['COP'].rate = exchangeRates['COP'] || 4200;
+        CURRENCY_SYMBOLS['EUR'].rate = exchangeRates['EUR'] || 0.92;
+        CURRENCY_SYMBOLS['BRL'].rate = exchangeRates['BRL'] || 5.0;
 
         // Detectar configuración regional del usuario
         const userLocale = navigator.language || navigator.userLanguage || 'es-MX';
@@ -210,6 +216,8 @@ async function fetchExchangeRates() {
         CURRENCY_SYMBOLS['USD'].rate = 1;
         CURRENCY_SYMBOLS['MXN'].rate = 17.2;
         CURRENCY_SYMBOLS['COP'].rate = 4200;
+        CURRENCY_SYMBOLS['EUR'].rate = 0.92;
+        CURRENCY_SYMBOLS['BRL'].rate = 5.0;
 
         showLoadingIndicator(false);
         return false;
@@ -367,27 +375,23 @@ function convertCurrency(amount, fromCurrency, toCurrency) {
 
 function getPlaceholderForCurrency(currency) {
     switch(currency) {
-        case 'USD':
-            return '800';
-        case 'MXN':
-            return '14000';
-        case 'COP':
-            return '3400000';
-        default:
-            return '800';
+        case 'USD': return '800';
+        case 'MXN': return '14000';
+        case 'COP': return '3400000';
+        case 'EUR': return '750';
+        case 'BRL': return '4000';
+        default:    return '800';
     }
 }
 
 function getDefaultBudget(currency) {
     switch(currency) {
-        case 'USD':
-            return '1000';
-        case 'MXN':
-            return '17200';
-        case 'COP':
-            return '4200000';
-        default:
-            return '1000';
+        case 'USD': return '1000';
+        case 'MXN': return '17200';
+        case 'COP': return '4200000';
+        case 'EUR': return '920';
+        case 'BRL': return '5000';
+        default:    return '1000';
     }
 }
 
