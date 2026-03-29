@@ -11,31 +11,33 @@
     <link rel="stylesheet" href="css/flights.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="header-content">
-                <div class="header-left">
-                    <h1 data-i18n="flights.title">✈️ Buscador de Vuelos</h1>
-                    <p class="subtitle" data-i18n="flights.subtitle">Encuentra los 5 vuelos más baratos para tu destino</p>
-                </div>
-                <div class="header-right">
-                    <select id="language-selector" class="language-select">
-                        <option value="es">🇪🇸 ES</option>
-                        <option value="en">🇺🇸 EN</option>
-                        <option value="pt">🇧🇷 PT</option>
-                    </select>
-                    <a href="index.html" class="back-link">
-                        <span data-i18n="converter.back">← Volver</span>
-                    </a>
-                </div>
+
+    <header class="site-header">
+        <div class="header-content">
+            <div class="header-left">
+                <a href="index.html" class="header-logo">✈️ Travel Advisor</a>
             </div>
-        </header>
+            <div class="header-right">
+                <select id="language-selector" class="language-select">
+                    <option value="es">🇪🇸 ES</option>
+                    <option value="en">🇺🇸 EN</option>
+                    <option value="pt">🇧🇷 PT</option>
+                </select>
+                <a href="currency-converter.html" class="nav-link" data-i18n="header.converter">💱 Convertidor</a>
+                <a href="index.html" class="back-link">← Volver</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="hero">
+            <h1 data-i18n="flights.title">Buscador de Vuelos</h1>
+            <p class="hero-subtitle" data-i18n="flights.subtitle">Encuentra los vuelos más baratos para tu destino</p>
+        </div>
 
         <main>
             <!-- Search Form -->
             <section class="card search-card">
-                <h2 data-i18n="flights.search">Buscar Vuelos</h2>
-
                 <div class="flight-search-form">
                     <!-- Origin & Destination -->
                     <div class="form-row">
@@ -51,10 +53,52 @@
                                     <option value="CUN">Cancún (CUN)</option>
                                     <option value="TIJ">Tijuana (TIJ)</option>
                                     <option value="BJX">León/Bajío (BJX)</option>
+                                    <option value="QRO">Querétaro (QRO)</option>
+                                </optgroup>
+                                <optgroup label="🇲🇽 México (Playa/Pacífico)">
                                     <option value="PVR">Puerto Vallarta (PVR)</option>
                                     <option value="SJD">Los Cabos (SJD)</option>
+                                    <option value="ZIH">Zihuatanejo (ZIH)</option>
+                                    <option value="ACA">Acapulco (ACA)</option>
+                                    <option value="MZT">Mazatlán (MZT)</option>
+                                    <option value="LAP">La Paz (LAP)</option>
+                                    <option value="LTO">Loreto (LTO)</option>
+                                    <option value="CZM">Cozumel (CZM)</option>
+                                    <option value="HUX">Huatulco (HUX)</option>
+                                    <option value="PXM">Puerto Escondido (PXM)</option>
+                                    <option value="CLQ">Colima/Manzanillo (CLQ)</option>
+                                </optgroup>
+                                <optgroup label="🇲🇽 México (Yucatán/Caribe)">
+                                    <option value="MID">Mérida (MID)</option>
+                                    <option value="CTM">Chetumal (CTM)</option>
+                                    <option value="CPE">Campeche (CPE)</option>
+                                </optgroup>
+                                <optgroup label="🇲🇽 México (Centro)">
+                                    <option value="OAX">Oaxaca (OAX)</option>
+                                    <option value="PBC">Puebla (PBC)</option>
+                                    <option value="VER">Veracruz (VER)</option>
+                                    <option value="MLM">Morelia (MLM)</option>
+                                    <option value="AGU">Aguascalientes (AGU)</option>
+                                    <option value="SLP">San Luis Potosí (SLP)</option>
+                                    <option value="ZCL">Zacatecas (ZCL)</option>
+                                    <option value="TLC">Toluca (TLC)</option>
+                                </optgroup>
+                                <optgroup label="🇲🇽 México (Norte)">
                                     <option value="HMO">Hermosillo (HMO)</option>
-                                    <option value="QRO">Querétaro (QRO)</option>
+                                    <option value="CUU">Chihuahua (CUU)</option>
+                                    <option value="CJS">Ciudad Juárez (CJS)</option>
+                                    <option value="TRC">Torreón (TRC)</option>
+                                    <option value="DGO">Durango (DGO)</option>
+                                    <option value="MXL">Mexicali (MXL)</option>
+                                    <option value="CUL">Culiacán (CUL)</option>
+                                    <option value="LMM">Los Mochis (LMM)</option>
+                                </optgroup>
+                                <optgroup label="🇲🇽 México (Golfo/Sur)">
+                                    <option value="TAM">Tampico (TAM)</option>
+                                    <option value="VSA">Villahermosa (VSA)</option>
+                                    <option value="TGZ">Tuxtla Gutiérrez (TGZ)</option>
+                                    <option value="TAP">Tapachula (TAP)</option>
+                                    <option value="PQM">Palenque (PQM)</option>
                                 </optgroup>
                                 <optgroup label="🇨🇴 Colombia">
                                     <option value="BOG">Bogotá (BOG)</option>
@@ -103,7 +147,7 @@
                             <label data-i18n="flights.destination">Destino</label>
                             <select id="destination" class="input" required>
                                 <option value="">Selecciona destino...</option>
-                                <optgroup label="🇲🇽 México">
+                                <optgroup label="🇲🇽 México (Principal)">
                                     <option value="MEX">CDMX - Benito Juárez (MEX)</option>
                                     <option value="NLU">CDMX - Santa Lucía (NLU)</option>
                                     <option value="GDL">Guadalajara (GDL)</option>
@@ -111,8 +155,52 @@
                                     <option value="CUN">Cancún (CUN)</option>
                                     <option value="TIJ">Tijuana (TIJ)</option>
                                     <option value="BJX">León/Bajío (BJX)</option>
+                                    <option value="QRO">Querétaro (QRO)</option>
+                                </optgroup>
+                                <optgroup label="🇲🇽 México (Playa/Pacífico)">
                                     <option value="PVR">Puerto Vallarta (PVR)</option>
                                     <option value="SJD">Los Cabos (SJD)</option>
+                                    <option value="ZIH">Zihuatanejo (ZIH)</option>
+                                    <option value="ACA">Acapulco (ACA)</option>
+                                    <option value="MZT">Mazatlán (MZT)</option>
+                                    <option value="LAP">La Paz (LAP)</option>
+                                    <option value="LTO">Loreto (LTO)</option>
+                                    <option value="CZM">Cozumel (CZM)</option>
+                                    <option value="HUX">Huatulco (HUX)</option>
+                                    <option value="PXM">Puerto Escondido (PXM)</option>
+                                    <option value="CLQ">Colima/Manzanillo (CLQ)</option>
+                                </optgroup>
+                                <optgroup label="🇲🇽 México (Yucatán/Caribe)">
+                                    <option value="MID">Mérida (MID)</option>
+                                    <option value="CTM">Chetumal (CTM)</option>
+                                    <option value="CPE">Campeche (CPE)</option>
+                                </optgroup>
+                                <optgroup label="🇲🇽 México (Centro)">
+                                    <option value="OAX">Oaxaca (OAX)</option>
+                                    <option value="PBC">Puebla (PBC)</option>
+                                    <option value="VER">Veracruz (VER)</option>
+                                    <option value="MLM">Morelia (MLM)</option>
+                                    <option value="AGU">Aguascalientes (AGU)</option>
+                                    <option value="SLP">San Luis Potosí (SLP)</option>
+                                    <option value="ZCL">Zacatecas (ZCL)</option>
+                                    <option value="TLC">Toluca (TLC)</option>
+                                </optgroup>
+                                <optgroup label="🇲🇽 México (Norte)">
+                                    <option value="HMO">Hermosillo (HMO)</option>
+                                    <option value="CUU">Chihuahua (CUU)</option>
+                                    <option value="CJS">Ciudad Juárez (CJS)</option>
+                                    <option value="TRC">Torreón (TRC)</option>
+                                    <option value="DGO">Durango (DGO)</option>
+                                    <option value="MXL">Mexicali (MXL)</option>
+                                    <option value="CUL">Culiacán (CUL)</option>
+                                    <option value="LMM">Los Mochis (LMM)</option>
+                                </optgroup>
+                                <optgroup label="🇲🇽 México (Golfo/Sur)">
+                                    <option value="TAM">Tampico (TAM)</option>
+                                    <option value="VSA">Villahermosa (VSA)</option>
+                                    <option value="TGZ">Tuxtla Gutiérrez (TGZ)</option>
+                                    <option value="TAP">Tapachula (TAP)</option>
+                                    <option value="PQM">Palenque (PQM)</option>
                                 </optgroup>
                                 <optgroup label="🇨🇴 Colombia">
                                     <option value="BOG">Bogotá (BOG)</option>
@@ -188,7 +276,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label data-i18n="flights.returnDate">Fecha de regreso (opcional)</label>
+                            <label data-i18n="flights.returnDate">Fecha de regreso <span class="label-optional">(opcional)</span></label>
                             <input type="date" id="return-date" class="input">
                         </div>
                     </div>
@@ -248,20 +336,18 @@
                     </button>
                 </div>
 
-                <div id="flights-container" class="flights-container">
-                    <!-- Flight cards will be inserted here -->
-                </div>
+                <div id="flights-container" class="flights-container"></div>
 
                 <div id="no-results" class="no-results hidden">
                     <div class="no-results-icon">✈️</div>
                     <h3 data-i18n="flights.noResults">No se encontraron vuelos</h3>
-                    <p data-i18n="flights.tryDifferent">Intenta con fechas diferentes o más flexibilidad</p>
+                    <p data-i18n="flights.tryDifferent">Intenta con fechas diferentes o más flexibilidad en escalas</p>
                 </div>
             </section>
         </main>
 
         <footer>
-            <p>Powered by SerpApi + Google Flights | Travel Advisor v1.0</p>
+            <p>Travel Advisor · Vuelos via Google Flights</p>
         </footer>
     </div>
 

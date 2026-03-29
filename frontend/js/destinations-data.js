@@ -1,10 +1,31 @@
 // Datos de países y ciudades populares para viajeros desde México
 const DESTINATIONS_DATA = {
     "México": [
-        "Oaxaca", "Playa del Carmen", "Tulum", "Puerto Escondido", "San Cristóbal de las Casas",
-        "Guanajuato", "San Miguel de Allende", "Guadalajara", "Mérida", "Mazatlán",
-        "Puerto Vallarta", "Cancún", "Los Cabos", "Valle de Guadalupe", "Real de Catorce",
-        "Bacalar", "Holbox", "Sayulita", "Puebla", "Taxco"
+        // Zona Centro (CDMX, Bajío, Centro)
+        "Ciudad de México", "Guadalajara", "Monterrey", "Querétaro", "León/Guanajuato",
+        "Aguascalientes", "San Luis Potosí", "Morelia", "Zacatecas", "Puebla",
+
+        // Caribe Mexicano y Península de Yucatán
+        "Cancún", "Playa del Carmen", "Tulum", "Cozumel", "Mérida", "Chetumal", "Campeche",
+
+        // Pacífico Norte
+        "Puerto Vallarta", "Mazatlán", "Los Cabos", "La Paz", "Loreto", "Culiacán",
+        "Tepic", "Colima", "Manzanillo",
+
+        // Pacífico Sur
+        "Zihuatanejo/Ixtapa", "Acapulco", "Oaxaca", "Puerto Escondido", "Huatulco",
+
+        // Norte
+        "Tijuana", "Hermosillo", "Chihuahua", "Ciudad Juárez", "Torreón", "Durango",
+        "Los Mochis", "Mexicali", "Ensenada", "Saltillo",
+
+        // Golfo de México
+        "Veracruz", "Tampico", "Villahermosa", "Tuxtla Gutiérrez", "Tapachula",
+        "Minatitlán/Coatzacoalcos", "Palenque",
+
+        // Otros destinos con aeropuerto
+        "Toluca", "Cuernavaca", "Uruapan", "Reynosa", "Matamoros", "Nuevo Laredo",
+        "Cd. Obregón", "Guaymas", "Nogales", "Piedras Negras", "Monclova"
     ],
     "Colombia": [
         "Medellín", "Cartagena", "Bogotá", "Cali", "Santa Marta", "Barranquilla",

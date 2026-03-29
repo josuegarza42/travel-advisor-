@@ -1,27 +1,5 @@
 /* Currency Converter Styles */
 
-.back-link {
-    padding: 10px 20px;
-    background: white;
-    color: var(--text-primary);
-    text-decoration: none;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    font-size: 0.938rem;
-    font-weight: 600;
-    transition: all 0.15s ease;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    min-height: 44px;
-    white-space: nowrap;
-}
-
-.back-link:hover {
-    border-color: var(--text-primary);
-    background: var(--bg-secondary);
-}
-
 /* Converter Card */
 .converter-card {
     background: linear-gradient(135deg, #FFF8F9, #FFF);
@@ -289,10 +267,6 @@
         font-size: 1.5rem;
     }
 
-    .back-link {
-        padding: 8px 16px;
-        font-size: 0.875rem;
-    }
 }
 
 /* Animation */

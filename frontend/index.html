@@ -10,41 +10,47 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="header-content">
-                <div class="header-left">
-                    <h1>Travel Advisor</h1>
-                    <p class="subtitle">Deja que la IA te ayude a elegir tu próximo destino</p>
-                </div>
-                <div class="header-right">
-                    <select id="language-selector" class="language-select">
-                        <option value="es">🇪🇸 ES</option>
-                        <option value="en">🇺🇸 EN</option>
-                        <option value="pt">🇧🇷 PT</option>
-                    </select>
-                    <select id="currency-selector" class="currency-select">
-                        <option value="USD">🇺🇸 USD</option>
-                        <option value="MXN" selected>🇲🇽 MXN</option>
-                        <option value="COP">🇨🇴 COP</option>
-                    </select>
-                    <a href="flight-search.html" class="currency-link" data-i18n="header.flights">
-                        ✈️ Vuelos
-                    </a>
-                    <a href="currency-converter.html" class="currency-link" data-i18n="header.converter">
-                        💱 Convertidor
-                    </a>
-                </div>
+
+    <!-- Header sticky — fuera del container para que sea full-width -->
+    <header class="site-header">
+        <div class="header-content">
+            <div class="header-left">
+                <a href="/" class="header-logo">✈️ Travel Advisor</a>
             </div>
-        </header>
+            <div class="header-right">
+                <select id="language-selector" class="language-select">
+                    <option value="es">🇪🇸 ES</option>
+                    <option value="en">🇺🇸 EN</option>
+                    <option value="pt">🇧🇷 PT</option>
+                </select>
+                <select id="currency-selector" class="currency-select">
+                    <option value="USD">🇺🇸 USD</option>
+                    <option value="MXN" selected>🇲🇽 MXN</option>
+                    <option value="COP">🇨🇴 COP</option>
+                </select>
+                <a href="flight-search.html" class="nav-link" data-i18n="header.flights">✈️ Vuelos</a>
+                <a href="currency-converter.html" class="nav-link" data-i18n="header.converter">💱 Convertidor</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Hero -->
+        <div class="hero">
+            <h1>Encuentra tu próximo destino</h1>
+            <p class="hero-subtitle">Compara destinos y deja que la IA recomiende el mejor para tu grupo</p>
+        </div>
 
         <main>
-            <!-- Quick Fill Section -->
-            <section class="card quick-fill-section">
-                <h2>✨ <span data-i18n="quickfill.title">Relleno Rápido con IA</span></h2>
-                <p class="section-description" data-i18n="quickfill.description">
-                    Describe tu viaje en texto libre y la IA rellenará automáticamente todos los campos
-                </p>
+            <!-- Paso 1: Cuéntanos tu viaje -->
+            <section class="card step-card quick-fill-section">
+                <div class="step-header">
+                    <div class="step-badge">1</div>
+                    <div class="step-info">
+                        <h2 data-i18n="quickfill.title">Cuéntanos tu viaje</h2>
+                        <p class="step-subtitle">La forma más rápida: describe tu viaje en texto y la IA rellena todo automáticamente</p>
+                    </div>
+                </div>
 
                 <div class="quick-fill-container">
                     <textarea
@@ -55,9 +61,12 @@
                         placeholder="Ejemplo: Somos 4 amigos que queremos ir a Medellín o Cartagena en Colombia del 15 al 22 de marzo. Presupuesto de 20,000 pesos por persona. Nos gusta la fiesta, comida y conocer gente nueva. Salimos desde Ciudad de México..."
                     ></textarea>
 
-                    <button id="quick-fill-btn" class="btn btn-primary">
-                        <span data-i18n="quickfill.button">🚀 Auto-rellenar campos</span>
-                    </button>
+                    <div class="quick-fill-actions">
+                        <button id="quick-fill-btn" class="btn btn-primary">
+                            <span data-i18n="quickfill.button">🚀 Auto-rellenar campos</span>
+                        </button>
+                        <span class="or-divider">o completa el formulario manualmente abajo</span>
+                    </div>
 
                     <div id="quick-fill-loading" class="loading hidden">
                         <div class="spinner-small"></div>
@@ -66,32 +75,26 @@
                 </div>
             </section>
 
-            <!-- Selector de Modo -->
-            <section class="card mode-selector">
-                <h2>Modo de análisis</h2>
-                <div class="mode-options">
-                    <label class="mode-option">
-                        <input type="radio" name="analysis-mode" value="practical" checked>
-                        <div class="mode-card">
-                            <div class="mode-title">⚡ Modo Práctico</div>
-                            <div class="mode-description">Rápido y simple. Solo información esencial.</div>
-                            <div class="mode-time">~15 segundos</div>
-                        </div>
-                    </label>
-                    <label class="mode-option">
-                        <input type="radio" name="analysis-mode" value="complete">
-                        <div class="mode-card">
-                            <div class="mode-title">🔬 Modo Completo</div>
-                            <div class="mode-description">Análisis profundo con hostales, WiFi, y riesgos.</div>
-                            <div class="mode-time">~30-45 segundos</div>
-                        </div>
-                    </label>
+            <!-- Paso 2: Configura tu búsqueda -->
+            <section class="card step-card preferences-section">
+                <div class="step-header">
+                    <div class="step-badge">2</div>
+                    <div class="step-info">
+                        <h2>Configura tu búsqueda</h2>
+                        <p class="step-subtitle">Ajusta las preferencias de tu grupo</p>
+                    </div>
+                    <div class="mode-toggle">
+                        <label class="mode-option">
+                            <input type="radio" name="analysis-mode" value="practical" checked>
+                            <span class="mode-pill">⚡ Rápido</span>
+                        </label>
+                        <label class="mode-option">
+                            <input type="radio" name="analysis-mode" value="complete">
+                            <span class="mode-pill">🔬 Completo</span>
+                        </label>
+                    </div>
                 </div>
-            </section>
 
-            <!-- Sección de Preferencias del Grupo -->
-            <section class="card preferences-section">
-                <h2>Preferencias del grupo</h2>
                 <div class="form-grid">
                     <div class="form-group">
                         <label>Número de viajeros</label>
@@ -129,103 +132,64 @@
                 </div>
 
                 <div class="form-group complete-mode-only">
-                    <label>Tipos de viaje preferidos (selecciona varios)</label>
+                    <label>Tipos de viaje preferidos</label>
                     <div class="checkbox-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" value="playa" class="travel-type"> Playa
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" value="ciudad" class="travel-type"> Ciudad
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" value="naturaleza" class="travel-type"> Naturaleza
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" value="cultural" class="travel-type"> Cultural
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" value="aventura" class="travel-type"> Aventura
-                        </label>
+                        <label class="checkbox-label"><input type="checkbox" value="playa" class="travel-type"> Playa</label>
+                        <label class="checkbox-label"><input type="checkbox" value="ciudad" class="travel-type"> Ciudad</label>
+                        <label class="checkbox-label"><input type="checkbox" value="naturaleza" class="travel-type"> Naturaleza</label>
+                        <label class="checkbox-label"><input type="checkbox" value="cultural" class="travel-type"> Cultural</label>
+                        <label class="checkbox-label"><input type="checkbox" value="aventura" class="travel-type"> Aventura</label>
                     </div>
                 </div>
 
                 <div class="form-group complete-mode-only">
-                    <label>Actividades de interés (selecciona varias)</label>
+                    <label>Actividades de interés</label>
                     <div class="checkbox-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" value="comida" class="activity"> Comida
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" value="fiesta" class="activity"> Fiesta
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" value="historia" class="activity"> Historia
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" value="deportes" class="activity"> Deportes extremos
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" value="relajacion" class="activity"> Relajación
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" value="compras" class="activity"> Compras
-                        </label>
+                        <label class="checkbox-label"><input type="checkbox" value="comida" class="activity"> Comida</label>
+                        <label class="checkbox-label"><input type="checkbox" value="fiesta" class="activity"> Fiesta</label>
+                        <label class="checkbox-label"><input type="checkbox" value="historia" class="activity"> Historia</label>
+                        <label class="checkbox-label"><input type="checkbox" value="deportes" class="activity"> Deportes extremos</label>
+                        <label class="checkbox-label"><input type="checkbox" value="relajacion" class="activity"> Relajación</label>
+                        <label class="checkbox-label"><input type="checkbox" value="compras" class="activity"> Compras</label>
                     </div>
                 </div>
 
                 <div class="form-group complete-mode-only">
-                    <label>Actividades a EVITAR</label>
+                    <label>Actividades a evitar</label>
                     <div class="checkbox-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" value="alturas" class="avoid-activity"> Alturas
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" value="calor_extremo" class="avoid-activity"> Calor extremo
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" value="frio_extremo" class="avoid-activity"> Frío extremo
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" value="multitudes" class="avoid-activity"> Multitudes
-                        </label>
+                        <label class="checkbox-label"><input type="checkbox" value="alturas" class="avoid-activity"> Alturas</label>
+                        <label class="checkbox-label"><input type="checkbox" value="calor_extremo" class="avoid-activity"> Calor extremo</label>
+                        <label class="checkbox-label"><input type="checkbox" value="frio_extremo" class="avoid-activity"> Frío extremo</label>
+                        <label class="checkbox-label"><input type="checkbox" value="multitudes" class="avoid-activity"> Multitudes</label>
                     </div>
                 </div>
 
-                <h3 class="complete-mode-only" style="margin-top: 30px;">Estilo de viaje</h3>
+                <h3 class="complete-mode-only section-divider-title">Estilo de viaje</h3>
 
                 <div class="form-grid complete-mode-only">
                     <div class="form-group">
-                        <label class="checkbox-label" style="font-weight: bold;">
-                            <input type="checkbox" id="prefers-hostels" checked> 🛏️ Siempre nos quedamos en hostales
-                        </label>
+                        <label class="checkbox-label"><input type="checkbox" id="prefers-hostels" checked> 🛏️ Siempre nos quedamos en hostales</label>
                     </div>
                     <div class="form-group">
-                        <label class="checkbox-label" style="font-weight: bold;">
-                            <input type="checkbox" id="values-social" checked> 👥 Nos gusta conocer gente nueva
-                        </label>
+                        <label class="checkbox-label"><input type="checkbox" id="values-social" checked> 👥 Nos gusta conocer gente nueva</label>
                     </div>
                 </div>
 
                 <div class="form-group complete-mode-only">
-                    <label class="checkbox-label" style="font-weight: bold; color: var(--danger-color);">
-                        <input type="checkbox" id="city-safety-important" checked> 🛡️ La seguridad de la ciudad/barrio es muy importante
-                    </label>
+                    <label class="checkbox-label"><input type="checkbox" id="city-safety-important" checked> 🛡️ La seguridad de la ciudad/barrio es muy importante</label>
                 </div>
 
-                <h3 class="complete-mode-only" style="margin-top: 30px;">Trabajo remoto</h3>
+                <h3 class="complete-mode-only section-divider-title">Trabajo remoto</h3>
 
                 <div class="form-grid complete-mode-only">
                     <div class="form-group">
-                        <label class="checkbox-label" style="font-weight: bold; color: var(--danger-color);">
-                            <input type="checkbox" id="needs-wifi" checked> 🔴 Requiere WiFi confiable (trabajo remoto)
-                        </label>
+                        <label class="checkbox-label"><input type="checkbox" id="needs-wifi" checked> 🔴 Requiere WiFi confiable</label>
                     </div>
                     <div class="form-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="works-during-trip" checked> Trabajan durante el viaje
-                        </label>
+                        <label class="checkbox-label"><input type="checkbox" id="works-during-trip" checked> Trabajan durante el viaje</label>
                     </div>
                 </div>
+
                 <div class="form-grid complete-mode-only">
                     <div class="form-group">
                         <label>Nivel de inglés del grupo</label>
@@ -236,9 +200,8 @@
                             <option value="fluent">Fluido</option>
                         </select>
                     </div>
-
                     <div class="form-group">
-                        <label>Moneda preferida / Mejor tasa de cambio</label>
+                        <label>Moneda preferida</label>
                         <select id="currency-preference" class="input">
                             <option value="">No aplica</option>
                             <option value="USD">USD (Dólar americano)</option>
@@ -249,40 +212,36 @@
                     </div>
                 </div>
 
-                <h3 class="complete-mode-only" style="margin-top: 20px;">Documentos y salud</h3>
+                <h3 class="complete-mode-only section-divider-title">Documentos y salud</h3>
 
                 <div class="form-grid complete-mode-only">
                     <div class="form-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="has-passport"> ¿Todos tienen pasaporte vigente?
-                        </label>
+                        <label class="checkbox-label"><input type="checkbox" id="has-passport"> ¿Todos tienen pasaporte vigente?</label>
                     </div>
                     <div class="form-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="has-us-visa"> ¿Tienen visa americana?
-                        </label>
+                        <label class="checkbox-label"><input type="checkbox" id="has-us-visa"> ¿Tienen visa americana?</label>
                     </div>
                 </div>
 
                 <div class="form-grid complete-mode-only">
                     <div class="form-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="has-insurance"> ¿Ya tienen seguro de viaje?
-                        </label>
+                        <label class="checkbox-label"><input type="checkbox" id="has-insurance"> ¿Ya tienen seguro de viaje?</label>
                     </div>
                     <div class="form-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="has-vaccines"> ¿Tienen vacunas requeridas?
-                        </label>
+                        <label class="checkbox-label"><input type="checkbox" id="has-vaccines"> ¿Tienen vacunas requeridas?</label>
                     </div>
                 </div>
             </section>
 
-            <!-- Sección de Destinos -->
-            <section class="destinations-section">
-                <div class="section-header">
-                    <h2>Tus destinos</h2>
-                    <button id="add-destination" class="btn btn-primary">+ Agregar destino</button>
+            <!-- Paso 3: Destinos -->
+            <section class="step-card destinations-section">
+                <div class="step-header section-header">
+                    <div class="step-badge">3</div>
+                    <div class="step-info">
+                        <h2>Tus destinos</h2>
+                        <p class="step-subtitle">Agrega al menos 2 destinos para comparar</p>
+                    </div>
+                    <button id="add-destination" class="btn btn-outline">+ Agregar destino</button>
                 </div>
 
                 <div id="destinations-container"></div>
@@ -291,11 +250,11 @@
             <!-- Botón de Análisis -->
             <section class="analyze-section">
                 <button id="analyze-btn" class="btn btn-analyze">
-                    Analizar destinos
+                    🔍 Analizar y recomendar
                 </button>
                 <div id="loading" class="loading hidden">
                     <div class="spinner"></div>
-                    <p>Claude está analizando los destinos...</p>
+                    <p>La IA está analizando los destinos...</p>
                 </div>
             </section>
 
@@ -307,26 +266,24 @@
         </main>
 
         <footer>
-            <p>Powered by Claude AI | Travel Advisor v1.0</p>
-            <p class="locale-info" id="locale-info">
-                <small></small>
-            </p>
+            <p>Travel Advisor · Powered by Groq AI</p>
+            <p class="locale-info" id="locale-info"><small></small></p>
         </footer>
+    </div>
 
-        <!-- Currency Indicator Badge -->
-        <div id="currency-badge" class="currency-indicator" title="Cargando tasas de cambio...">
-            <span class="currency-emoji">🇲🇽</span>
-            <span id="currency-badge-text">MXN</span>
-        </div>
+    <!-- Currency Indicator Badge -->
+    <div id="currency-badge" class="currency-indicator" title="Cargando tasas de cambio...">
+        <span class="currency-emoji">🇲🇽</span>
+        <span id="currency-badge-text">MXN</span>
+    </div>
 
-        <!-- Exchange Rates Info Toast -->
-        <div id="rates-toast" class="rates-toast hidden">
-            <div class="toast-content">
-                <span class="toast-icon">✅</span>
-                <div class="toast-text">
-                    <strong>Tasas actualizadas</strong>
-                    <small id="toast-time"></small>
-                </div>
+    <!-- Exchange Rates Info Toast -->
+    <div id="rates-toast" class="rates-toast hidden">
+        <div class="toast-content">
+            <span class="toast-icon">✅</span>
+            <div class="toast-text">
+                <strong>Tasas actualizadas</strong>
+                <small id="toast-time"></small>
             </div>
         </div>
     </div>

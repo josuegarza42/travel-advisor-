@@ -11,31 +11,35 @@
     <link rel="stylesheet" href="css/converter.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="header-content">
-                <div class="header-left">
-                    <h1 data-i18n="converter.title">Convertidor de Monedas</h1>
-                    <p class="subtitle" data-i18n="converter.subtitle">Compara hasta 4 monedas en tiempo real</p>
-                </div>
-                <div class="header-right">
-                    <select id="language-selector" class="language-select">
-                        <option value="es">🇪🇸 ES</option>
-                        <option value="en">🇺🇸 EN</option>
-                        <option value="pt">🇧🇷 PT</option>
-                    </select>
-                    <a href="index.html" class="back-link" data-i18n="converter.back">
-                        ← Volver
-                    </a>
-                </div>
+
+    <header class="site-header">
+        <div class="header-content">
+            <div class="header-left">
+                <a href="index.html" class="header-logo">✈️ Travel Advisor</a>
             </div>
-        </header>
+            <div class="header-right">
+                <select id="language-selector" class="language-select">
+                    <option value="es">🇪🇸 ES</option>
+                    <option value="en">🇺🇸 EN</option>
+                    <option value="pt">🇧🇷 PT</option>
+                </select>
+                <a href="flight-search.html" class="nav-link" data-i18n="header.flights">✈️ Vuelos</a>
+                <a href="index.html" class="back-link">← Volver</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="hero">
+            <h1 data-i18n="converter.title">Convertidor de Monedas</h1>
+            <p class="hero-subtitle" data-i18n="converter.subtitle">Compara hasta 4 monedas en tiempo real</p>
+        </div>
 
         <main>
             <!-- Amount Input -->
             <section class="card converter-card">
                 <div class="amount-section">
-                    <label for="amount">Cantidad</label>
+                    <label for="amount">Cantidad a convertir</label>
                     <input
                         type="number"
                         id="amount"
@@ -51,13 +55,11 @@
             <!-- Currency Converters -->
             <section class="card converters-section">
                 <h2>Monedas a comparar</h2>
-                <p class="section-description">Selecciona entre 2 y 4 monedas para comparar</p>
+                <p class="step-subtitle">Selecciona entre 2 y 4 monedas para comparar</p>
 
-                <div id="currencies-container" class="currencies-container">
-                    <!-- Currency items will be added here -->
-                </div>
+                <div id="currencies-container" class="currencies-container"></div>
 
-                <button id="add-currency-btn" class="btn btn-secondary" style="display: none;">
+                <button id="add-currency-btn" class="btn btn-outline" style="display: none; margin-top: 16px;">
                     + Agregar moneda
                 </button>
             </section>
@@ -65,9 +67,7 @@
             <!-- Results -->
             <section id="results-section" class="card results-card hidden">
                 <h2>Resultados</h2>
-                <div id="results-container" class="results-container">
-                    <!-- Results will appear here -->
-                </div>
+                <div id="results-container" class="results-container"></div>
                 <div class="update-info">
                     <small>Tasas actualizadas: <span id="last-update"></span></small>
                 </div>
@@ -75,7 +75,7 @@
         </main>
 
         <footer>
-            <p>Powered by Exchange Rates API | Travel Advisor v1.0</p>
+            <p>Travel Advisor · Tasas en tiempo real</p>
         </footer>
     </div>
 
