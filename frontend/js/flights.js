@@ -330,7 +330,9 @@ function createFlightCard(flight, currency, isFirst, isCheapest, searchParams) {
     const currencySymbols = {
         'MXN': '$',
         'USD': '$',
-        'COP': '$'
+        'COP': '$',
+        'EUR': '€',
+        'BRL': 'R$'
     };
     const symbol = currencySymbols[currency] || currency;
 
