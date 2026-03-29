@@ -22,11 +22,7 @@ async function getPopularPlaces(lat, lon) {
 
 async function showPopularDestinations(city) {
     const titleSpan = document.getElementById('city-title');
-    if (city) {
-        titleSpan.textContent = city;
-    } else {
-        titleSpan.textContent = '...';
-    }
+    if (titleSpan) titleSpan.textContent = city ? `Destinos cerca de ${city}` : '';
     const list = document.getElementById('destinations-list');
     list.innerHTML = '<li style="color: #B0B0B0;">Cargando...</li>';
     if (!city) return;
@@ -95,5 +91,30 @@ function removeMapLibreMarkers(map) {
 }
 
 // On load
-let city = (new URL(window.location.href)).searchParams.get('city');
-showPopularDestinations(city);
+document.addEventListener('DOMContentLoaded', function() {
+    const input = document.getElementById('city-input');
+    const btn = document.getElementById('search-btn');
+
+    function search() {
+        const city = input ? input.value.trim() : '';
+        if (city) showPopularDestinations(city);
+    }
+
+    if (btn) btn.addEventListener('click', search);
+    if (input) input.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') search();
+    });
+
+    // Support ?city= query param on load
+    const cityParam = (new URL(window.location.href)).searchParams.get('city');
+    if (cityParam) {
+        if (input) input.value = cityParam;
+        showPopularDestinations(cityParam);
+    } else {
+        // Show empty state
+        const list = document.getElementById('destinations-list');
+        if (list) list.innerHTML = '<li style="color: #B0B0B0;">Ingresa una ciudad para ver destinos populares.</li>';
+        const titleSpan = document.getElementById('city-title');
+        if (titleSpan) titleSpan.textContent = '';
+    }
+});
