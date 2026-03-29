@@ -1,4 +1,3 @@
-import requests
 from .config import Config
 from .risk_checker import CountryRiskChecker
 from typing import Dict, Any
@@ -8,13 +7,9 @@ class TravelAdvisor:
     """Clase para análisis inteligente de destinos usando Claude AI"""
 
     def __init__(self):
-        self.use_bedrock = Config.AWS_ENDPOINT_URL_BEDROCK and Config.AWS_BEARER_TOKEN
-        self.use_groq = not self.use_bedrock and bool(Config.GROQ_API_KEY)
+        self.use_groq = bool(Config.GROQ_API_KEY)
 
-        if self.use_bedrock:
-            self.endpoint = f"{Config.AWS_ENDPOINT_URL_BEDROCK}/model/us.anthropic.claude-sonnet-4-6/invoke"
-            self.bearer_token = Config.AWS_BEARER_TOKEN
-        elif self.use_groq:
+        if self.use_groq:
             from groq import Groq
             self.client = Groq(api_key=Config.GROQ_API_KEY)
         else:
@@ -45,30 +40,7 @@ class TravelAdvisor:
             max_tokens = 4096  # Respuesta completa
 
         try:
-            if self.use_bedrock:
-                # Usar AWS Bedrock gateway
-                headers = {
-                    "Authorization": f"Bearer {self.bearer_token}",
-                    "Content-Type": "application/json"
-                }
-                payload = {
-                    "messages": [
-                        {
-                            "role": "user",
-                            "content": [{"type": "text", "text": prompt}]
-                        }
-                    ],
-                    "anthropic_version": "bedrock-2023-05-31",
-                    "max_tokens": max_tokens
-                }
-
-                response = requests.post(self.endpoint, headers=headers, json=payload, timeout=120)
-                response.raise_for_status()
-
-                result = response.json()
-                response_text = result['content'][0]['text']
-            elif self.use_groq:
-                # Usar Groq
+            if self.use_groq:
                 message = self.client.chat.completions.create(
                     model="llama-3.3-70b-versatile",
                     max_tokens=max_tokens,
@@ -76,7 +48,6 @@ class TravelAdvisor:
                 )
                 response_text = message.choices[0].message.content
             else:
-                # Usar Anthropic directo
                 message = self.client.messages.create(
                     model="claude-sonnet-4-20250514",
                     max_tokens=max_tokens,
@@ -522,30 +493,7 @@ REGLAS IMPORTANTES:
 JSON:"""
 
         try:
-            if self.use_bedrock:
-                # Usar AWS Bedrock gateway
-                headers = {
-                    "Authorization": f"Bearer {self.bearer_token}",
-                    "Content-Type": "application/json"
-                }
-                payload = {
-                    "messages": [
-                        {
-                            "role": "user",
-                            "content": [{"type": "text", "text": prompt}]
-                        }
-                    ],
-                    "anthropic_version": "bedrock-2023-05-31",
-                    "max_tokens": 2000
-                }
-
-                response = requests.post(self.endpoint, headers=headers, json=payload, timeout=60)
-                response.raise_for_status()
-
-                result = response.json()
-                response_text = result['content'][0]['text']
-            elif self.use_groq:
-                # Usar Groq
+            if self.use_groq:
                 message = self.client.chat.completions.create(
                     model="llama-3.3-70b-versatile",
                     max_tokens=2000,
@@ -553,7 +501,6 @@ JSON:"""
                 )
                 response_text = message.choices[0].message.content
             else:
-                # Usar Anthropic directo
                 message = self.client.messages.create(
                     model="claude-sonnet-4-20250514",
                     max_tokens=2000,
