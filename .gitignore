@@ -52,3 +52,7 @@ Thumbs.db
 
 # Docker
 docker-compose.override.yml
+
+# V+ daily PDFs (no subir al repo)
+vplus-disponibilidad.pdf
+vplus*.pdf

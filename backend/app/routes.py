@@ -1,10 +1,49 @@
+import os
 from flask import Blueprint, request, jsonify
 from .ai_advisor import TravelAdvisor
 from .flight_search import FlightSearcher
+from .vplus_parser import parse_vplus_pdf, parse_vplus_from_bytes
 
 bp = Blueprint('main', __name__)
-advisor = TravelAdvisor()
-flight_searcher = FlightSearcher()
+_advisor = None
+_flight_searcher = None
+
+def get_advisor():
+    global _advisor
+    if _advisor is None:
+        _advisor = TravelAdvisor()
+    return _advisor
+
+def get_flight_searcher():
+    global _flight_searcher
+    if _flight_searcher is None:
+        _flight_searcher = FlightSearcher()
+    return _flight_searcher
+
+@bp.route('/api/vplus', methods=['GET'])
+def get_vplus():
+    """Parse V+ PDF from the project folder."""
+    project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    pdf_path = os.path.join(project_root, 'vplus-disponibilidad.pdf')
+    result = parse_vplus_pdf(pdf_path)
+    if not result['success']:
+        return jsonify(result), 404
+    return jsonify(result)
+
+
+@bp.route('/api/vplus/upload', methods=['POST'])
+def upload_vplus():
+    """Parse V+ PDF uploaded by the user."""
+    if 'file' not in request.files:
+        return jsonify({'success': False, 'error': 'No se recibió ningún archivo'}), 400
+    file = request.files['file']
+    if not file.filename.lower().endswith('.pdf'):
+        return jsonify({'success': False, 'error': 'El archivo debe ser un PDF'}), 400
+    result = parse_vplus_from_bytes(file.read())
+    if not result['success']:
+        return jsonify(result), 500
+    return jsonify(result)
+
 
 @bp.route('/api/health')
 def health():
@@ -47,7 +86,7 @@ def analyze_destinations():
             return jsonify({"error": "group_preferences es requerido"}), 400
 
         # Analizar con IA
-        result = advisor.analyze_destinations(data)
+        result = get_advisor().analyze_destinations(data)
 
         if result.get('error'):
             return jsonify(result), 500
@@ -114,7 +153,7 @@ def quick_fill():
             return jsonify({"error": "Text cannot be empty"}), 400
 
         # Extraer información con IA
-        result = advisor.extract_trip_info(text)
+        result = get_advisor().extract_trip_info(text)
 
         if result.get('error'):
             return jsonify(result), 500
@@ -176,7 +215,7 @@ def search_flights():
         limit = data.get('limit', 5)
 
         # Buscar vuelos
-        result = flight_searcher.search_flights(
+        result = get_flight_searcher().search_flights(
             origin=origin,
             destination=destination,
             date_from=date_from,
@@ -209,7 +248,7 @@ def get_airport_code(city):
     Example: GET /api/airport-code/Medellin
     """
     try:
-        code = flight_searcher.get_airport_code(city)
+        code = get_flight_searcher().get_airport_code(city)
 
         if not code:
             return jsonify({
@@ -248,7 +287,7 @@ def get_booking_options():
         booking_token = data.get('booking_token')
 
         # Obtener opciones de reserva
-        result = flight_searcher.get_booking_options(booking_token)
+        result = get_flight_searcher().get_booking_options(booking_token)
 
         if not result.get('success'):
             return jsonify(result), 500

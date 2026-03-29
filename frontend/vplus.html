@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#FF385C">
+    <title>V+ Disponibilidad - TripwiseAI</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/vplus.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="header-content">
+            <div class="header-left">
+                <a href="index.html" class="header-logo">✈️ TripwiseAI</a>
+            </div>
+            <div class="header-right">
+                <a href="index.html" class="nav-link">✈️ Vuelos</a>
+                <a href="compare.html" class="nav-link">🔍 Comparar</a>
+                <a href="currency-converter.html" class="nav-link">💱 Divisas</a>
+                <a href="map.html" class="nav-link">🗺️ Mapa</a>
+                <a href="vplus.html" class="nav-link nav-link-vplus">🎫 V+</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="page-hero vplus-hero">
+        <div class="page-hero-inner">
+            <div class="vplus-badge">PASE ANUAL VOLARIS</div>
+            <h1>Vuelos V+</h1>
+            <p class="hero-subtitle" id="last-update-text">Cargando disponibilidad...</p>
+            <div class="vplus-stats hidden" id="vplus-stats">
+                <span id="stat-nacionales">—</span>
+                <span class="stat-divider">·</span>
+                <span id="stat-internacionales">—</span>
+                <span class="stat-divider">·</span>
+                <span>Solo pagas TUA e impuestos</span>
+            </div>
+
+            <!-- Upload PDF -->
+            <label class="upload-btn" for="pdf-upload" title="Subir PDF del día">
+                📄 Subir PDF del día
+                <input type="file" id="pdf-upload" accept=".pdf" style="display:none">
+            </label>
+            <p class="upload-hint" id="upload-hint">o se carga automáticamente el último guardado</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <main>
+
+            <!-- Loading -->
+            <div id="vplus-loading" class="vplus-loading">
+                <div class="spinner"></div>
+                <p>Leyendo disponibilidad del día...</p>
+            </div>
+
+            <!-- Error state -->
+            <div id="vplus-error" class="vplus-error hidden">
+                <div class="error-icon">📄</div>
+                <h3 id="error-message">No se encontró el PDF</h3>
+                <p>Sube el PDF con el botón de arriba, o coloca <code>vplus-disponibilidad.pdf</code> en la carpeta del proyecto.</p>
+                <button class="btn btn-primary" onclick="loadVplus()">🔄 Reintentar</button>
+            </div>
+
+            <!-- Content -->
+            <div id="vplus-content" class="hidden">
+
+                <!-- Controls: filtro + orden + tabs -->
+                <div class="vplus-controls">
+                    <div class="vplus-filter">
+                        <input
+                            type="text"
+                            id="origin-filter"
+                            class="input filter-input"
+                            placeholder="🔍 Filtrar por ciudad de origen..."
+                            value="Ciudad de México"
+                        >
+                    </div>
+                    <button class="sort-btn" id="sort-btn" title="Ordenar por disponibilidad">
+                        🟢 Ordenar por asientos
+                    </button>
+                    <div class="vplus-tabs">
+                        <button class="vplus-tab active" data-tab="nacionales">
+                            🇲🇽 Nacionales <span class="tab-count" id="count-nacionales"></span>
+                        </button>
+                        <button class="vplus-tab" data-tab="internacionales">
+                            🌎 Internacionales <span class="tab-count" id="count-internacionales"></span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Nacionales -->
+                <section id="tab-nacionales" class="vplus-section">
+                    <div class="vplus-notice nacional-notice">
+                        📅 Vuelos disponibles para <strong id="fecha-nacional"></strong> — reserva hoy con 1 día de anticipación
+                    </div>
+                    <div class="flights-grid" id="grid-nacionales"></div>
+                    <p class="empty-msg hidden" id="empty-nacionales">No hay vuelos nacionales desde esa ciudad.</p>
+                </section>
+
+                <!-- Internacionales -->
+                <section id="tab-internacionales" class="vplus-section hidden">
+                    <div class="vplus-notice internacional-notice">
+                        📅 Vuelos disponibles entre <strong id="fecha-intl-desde"></strong> y <strong id="fecha-intl-hasta"></strong> — hasta 3 días de anticipación
+                    </div>
+                    <div class="flights-grid" id="grid-internacionales"></div>
+                    <p class="empty-msg hidden" id="empty-internacionales">No hay vuelos internacionales desde esa ciudad.</p>
+                </section>
+            </div>
+
+        </main>
+
+        <footer>
+            <p>TripwiseAI · Disponibilidad V+ Volaris</p>
+        </footer>
+    </div>
+
+    <script>
+        const API_URL = window.location.hostname === 'localhost' ? 'http://localhost:5000' : '';
+        let allData = null;
+        let sortBySeats = false;
+
+        // ── Load from server (PDF en carpeta) ──────────────────
+        async function loadVplus() {
+            showLoading();
+            try {
+                const res = await fetch(`${API_URL}/api/vplus`);
+                const data = await res.json();
+                if (!res.ok || !data.success) throw new Error(data.error || 'Error al cargar el PDF');
+                allData = data;
+                render(data);
+            } catch (err) {
+                showError(err.message);
+            }
+        }
+
+        // ── Upload PDF manually ─────────────────────────────────
+        document.getElementById('pdf-upload').addEventListener('change', async function() {
+            const file = this.files[0];
+            if (!file) return;
+
+            document.getElementById('upload-hint').textContent = `Cargando ${file.name}...`;
+            showLoading();
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const res = await fetch(`${API_URL}/api/vplus/upload`, {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await res.json();
+                if (!res.ok || !data.success) throw new Error(data.error || 'Error al procesar el PDF');
+                allData = data;
+                document.getElementById('upload-hint').textContent = `✅ ${file.name}`;
+                render(data);
+            } catch (err) {
+                document.getElementById('upload-hint').textContent = 'Error al procesar el archivo';
+                showError(err.message);
+            }
+
+            // Reset input so the same file can be re-selected
+            this.value = '';
+        });
+
+        // ── Render ──────────────────────────────────────────────
+        function render(data) {
+            if (data.last_update) {
+                document.getElementById('last-update-text').textContent =
+                    `Actualizado: ${data.last_update} (hora CDMX)`;
+            }
+            document.getElementById('stat-nacionales').textContent = `${data.total_nacionales} nacionales`;
+            document.getElementById('stat-internacionales').textContent = `${data.total_internacionales} internacionales`;
+            document.getElementById('vplus-stats').classList.remove('hidden');
+
+            const today = new Date();
+            const tomorrow = new Date(today); tomorrow.setDate(today.getDate() + 1);
+            const in3days = new Date(today); in3days.setDate(today.getDate() + 3);
+            const fmt = d => d.toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric', month: 'long' });
+
+            document.getElementById('fecha-nacional').textContent = fmt(tomorrow);
+            document.getElementById('fecha-intl-desde').textContent = fmt(tomorrow);
+            document.getElementById('fecha-intl-hasta').textContent = fmt(in3days);
+
+            renderGrid('grid-nacionales', data.nacionales);
+            renderGrid('grid-internacionales', data.internacionales);
+
+            hideLoading();
+
+            // Apply default filter and sort
+            applyFilterAndSort();
+        }
+
+        function renderGrid(gridId, flights) {
+            const grid = document.getElementById(gridId);
+            grid.innerHTML = flights.map(f => `
+                <div class="vplus-card" data-origin="${f.origin.toLowerCase()}" data-seats="${f.seats}">
+                    <div class="vplus-route">
+                        <span class="vplus-city origin">${f.origin}</span>
+                        <span class="vplus-arrow">→</span>
+                        <span class="vplus-city destination">${f.destination}</span>
+                    </div>
+                    <div class="vplus-seats ${seatsClass(f.seats)}">
+                        <span class="seats-number">${f.seats}</span>
+                        <span class="seats-label">asientos</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function seatsClass(seats) {
+            if (seats >= 50) return 'seats-high';
+            if (seats >= 10) return 'seats-mid';
+            return 'seats-low';
+        }
+
+        // ── Filter + Sort ───────────────────────────────────────
+        function applyFilterAndSort() {
+            const query = document.getElementById('origin-filter').value.toLowerCase().trim();
+
+            ['nacionales', 'internacionales'].forEach(type => {
+                const grid = document.getElementById(`grid-${type}`);
+                const cards = Array.from(grid.querySelectorAll('.vplus-card'));
+
+                // Filter
+                cards.forEach(card => {
+                    const match = !query || card.dataset.origin.includes(query);
+                    card.classList.toggle('hidden', !match);
+                });
+
+                // Sort visible cards
+                if (sortBySeats) {
+                    const visible = cards.filter(c => !c.classList.contains('hidden'));
+                    visible.sort((a, b) => parseInt(b.dataset.seats) - parseInt(a.dataset.seats));
+                    visible.forEach(card => grid.appendChild(card));
+                }
+
+                const visibleCount = grid.querySelectorAll('.vplus-card:not(.hidden)').length;
+                document.getElementById(`empty-${type}`).classList.toggle('hidden', visibleCount > 0 || !query);
+                document.getElementById(`count-${type}`).textContent = visibleCount;
+            });
+        }
+
+        // ── Sort button ─────────────────────────────────────────
+        document.getElementById('sort-btn').addEventListener('click', function() {
+            sortBySeats = !sortBySeats;
+            this.classList.toggle('sort-btn-active', sortBySeats);
+            this.textContent = sortBySeats ? '🟢 Más disponibles primero' : '🟢 Ordenar por asientos';
+
+            if (!sortBySeats && allData) {
+                // Restore original order
+                renderGrid('grid-nacionales', allData.nacionales);
+                renderGrid('grid-internacionales', allData.internacionales);
+            }
+            applyFilterAndSort();
+        });
+
+        // ── Filter input ────────────────────────────────────────
+        document.getElementById('origin-filter').addEventListener('input', applyFilterAndSort);
+
+        // ── Tabs ────────────────────────────────────────────────
+        document.querySelectorAll('.vplus-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.vplus-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.vplus-section').forEach(s => s.classList.add('hidden'));
+                tab.classList.add('active');
+                document.getElementById(`tab-${tab.dataset.tab}`).classList.remove('hidden');
+            });
+        });
+
+        // ── State helpers ───────────────────────────────────────
+        function showLoading() {
+            document.getElementById('vplus-loading').classList.remove('hidden');
+            document.getElementById('vplus-error').classList.add('hidden');
+            document.getElementById('vplus-content').classList.add('hidden');
+        }
+
+        function hideLoading() {
+            document.getElementById('vplus-loading').classList.add('hidden');
+            document.getElementById('vplus-content').classList.remove('hidden');
+        }
+
+        function showError(msg) {
+            document.getElementById('vplus-loading').classList.add('hidden');
+            document.getElementById('vplus-error').classList.remove('hidden');
+            document.getElementById('error-message').textContent = msg;
+        }
+
+        // ── Init ────────────────────────────────────────────────
+        loadVplus();
+    </script>
+</body>
+</html>
