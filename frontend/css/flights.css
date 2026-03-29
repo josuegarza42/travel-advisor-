@@ -610,7 +610,14 @@
     }
 }
 
-/* Responsive */
+/* ─── Date Row (side-by-side always) ────────────────── */
+
+.dates-row {
+    grid-template-columns: 1fr 1fr;
+}
+
+/* ─── Responsive ─────────────────────────────────────── */
+
 @media (max-width: 768px) {
     .hero-search {
         padding: 36px 0 0;
@@ -629,15 +636,47 @@
         border-radius: var(--radius-md) var(--radius-md) 0 0;
     }
 
+    /* Route row: keep 3-column grid, minmax(0) lets columns shrink */
     .route-row {
-        grid-template-columns: 1fr auto 1fr;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 44px minmax(0, 1fr);
         gap: 8px;
     }
 
+    /* Swap button: circle, full 44px touch target */
     .swap-btn {
-        width: 36px;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        padding: 0;
+        font-size: 1.125rem;
+        align-self: end;
     }
 
+    /* Date row: 2 columns side by side */
+    .dates-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+    .dates-row label {
+        font-size: 0.75rem;
+    }
+
+    .dates-row input[type="date"].input {
+        font-size: 0.875rem;
+        padding: 12px 8px;
+        text-align: center;
+        background: var(--bg-secondary);
+        font-weight: 600;
+    }
+
+    .dates-row input[type="date"].input:focus {
+        background: white;
+    }
+}
+
+@media (max-width: 768px) {
     .flight-route {
         grid-template-columns: 1fr;
         gap: 12px;

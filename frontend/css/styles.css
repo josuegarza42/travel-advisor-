@@ -928,6 +928,66 @@ footer p {
     font-size: 0.75rem;
 }
 
+/* ─── Mobile Bottom Navigation ───────────────────────── */
+
+.mobile-bottom-nav {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .mobile-bottom-nav {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 200;
+        background: white;
+        border-top: 1px solid var(--border-light);
+        box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08);
+        height: 60px;
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    .mbn-item {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+        text-decoration: none;
+        color: var(--text-light);
+        font-size: 0.625rem;
+        font-weight: 600;
+        padding: 6px 4px;
+        transition: color 0.15s ease;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .mbn-item:active {
+        background: var(--bg-secondary);
+    }
+
+    .mbn-active {
+        color: var(--primary-color);
+    }
+
+    .mbn-emoji {
+        font-size: 1.25rem;
+        line-height: 1;
+    }
+
+    .mbn-label {
+        line-height: 1;
+        white-space: nowrap;
+    }
+
+    body {
+        padding-bottom: calc(60px + env(safe-area-inset-bottom, 0px));
+    }
+}
+
 /* ─── Mobile ─────────────────────────────────────────── */
 
 @media (max-width: 768px) {
@@ -952,6 +1012,12 @@ footer p {
         font-size: 1.125rem;
     }
 
+    /* Hide nav links — replaced by mobile bottom nav */
+    .header-right .nav-link,
+    .header-right .back-link {
+        display: none;
+    }
+
     .header-right {
         gap: 8px;
     }
@@ -959,14 +1025,8 @@ footer p {
     .language-select,
     .currency-select {
         font-size: 0.8125rem;
-        padding: 6px 10px;
-        min-height: 36px;
-    }
-
-    .nav-link {
-        font-size: 0.8125rem;
-        padding: 6px 12px;
-        min-height: 36px;
+        padding: 6px 8px;
+        min-height: 44px;
     }
 
     .container {
@@ -1171,10 +1231,11 @@ footer p {
     }
 }
 
-@media (max-width: 374px) {
+@media (max-width: 390px) {
     .hero h1 { font-size: 1.375rem; }
     .card { padding: 16px 12px; }
     .destinations-section { padding: 16px 12px; }
+    .label-optional { display: none; }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
