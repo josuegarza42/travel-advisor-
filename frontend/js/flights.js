@@ -1,5 +1,5 @@
 // Flight Search Logic
-const API_URL = 'http://localhost:5000';
+const API_URL = window.location.hostname === 'localhost' ? 'http://localhost:5000' : '';
 
 // Fallback for i18n if not loaded
 if (typeof t !== 'function') {
