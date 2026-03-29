@@ -1,394 +1,228 @@
-# 🌎 Travel Advisor
+# ✈️ TripwiseAI
 
-Aplicación web inteligente que usa Claude AI para ayudarte a elegir el mejor destino de viaje basado en múltiples propuestas y preferencias del grupo.
+**Aplicación web de viajes inteligente** — Compara destinos con IA, busca vuelos baratos, convierte divisas, explora el mapa y gestiona disponibilidad V+ de Volaris.
 
-## 🎯 Características
+🌐 **[tripwiseai.up.railway.app](https://tripwiseai.up.railway.app/)**
 
-- **Análisis inteligente con IA**: Usa Claude para analizar y comparar destinos
-- **✈️ Buscador de Vuelos**: Encuentra los 5 vuelos más baratos usando Google Flights (SerpApi)
-  - Filtros por escalas (directos, 1 escala, cualquiera)
-  - Soporte para vuelos redondos
-  - Múltiples aeropuertos por ciudad
-  - Conversión a MXN, USD, COP
-- **💱 Conversor de Divisas**: Tasas de cambio en tiempo real
-- **🔴 Optimizado para Trabajo Remoto**: Evalúa infraestructura digital, WiFi confiable y espacios de coworking
-- **🚨 Evaluación de Riesgos Laborales**: Integra datos de Zendesk Country Risk Ratings para evaluar seguridad al trabajar desde cada destino
-- **Scoring Dinámico**: Ajusta automáticamente los criterios de evaluación según si trabajan o no durante el viaje
-- **Diseño para viajeros económicos**: Enfocado en vuelos baratos desde México
-- **Interfaz moderna**: Frontend responsive estilo Airbnb con soporte multiidioma (ES/EN/PT)
-- **Listo para producción**: Preparado para Railway.app
+---
 
-## 📋 Variables que considera
+## ✨ Características principales
 
-### Por cada destino:
-- **Básicas**:
-  - Ciudad/País
-  - Presupuesto por persona
-  - Fechas (con flexibilidad configurable: fijas, ±3 días, ±1 semana)
-  - Duración del viaje (días)
-  - Aeropuerto de salida (CDMX, GDL, MTY, CUN, TIJ, BJX)
-  - Tolerancia a escalas
+| Módulo | Descripción |
+|--------|-------------|
+| ✈️ **Vuelos** | Busca los vuelos más baratos con filtros por escalas, fechas y aeropuerto de salida |
+| 🔍 **Comparar destinos** | Analiza hasta 4 destinos con IA (Groq + Llama 3.3 70B) y obtén una recomendación personalizada |
+| 💱 **Divisas** | Conversor bilateral con tasas en tiempo real + comparación simultánea de múltiples monedas |
+| 🗺️ **Mapa** | Explora puntos de interés cerca de cualquier ciudad con OpenTripMap + MapLibre GL |
+| 🎫 **V+** | Consulta la disponibilidad diaria de vuelos del pase anual V+ de Volaris (carga PDF) |
 
-- **Experiencia**:
-  - Tipo de viaje (playa, ciudad, naturaleza, cultural, aventura)
-  - Actividades principales
-  - Tipo de hospedaje (hostal, hotel económico, Airbnb, hotel medio)
-  - Eventos especiales (festivales, conciertos, temporadas altas)
+### Otras características
+- **7 idiomas**: Español, English, Português, Français, Deutsch, 中文, 日本語
+- **Diseño responsive**: Optimizado para móvil y escritorio, con barra de navegación inferior en móvil
+- **Selector de moneda**: MXN, USD, COP — precios adaptados a tu moneda preferida
+- **Scoring ponderado dinámico**: La IA ajusta los criterios según si viajas por vacaciones o trabajo remoto
 
-- **🔴 Trabajo Remoto** (CRÍTICO):
-  - Calidad de WiFi necesaria (crítico/importante/deseable)
-  - Disponibilidad de espacios de coworking
-  - Infraestructura digital del destino
+---
 
-- **Documentos y Salud**:
-  - Requiere seguro de viaje
-  - Requiere vacunas
-  - Notas adicionales
+## 🛠️ Tech stack
 
-### Preferencias del grupo:
-- **Presupuesto y Logística**:
-  - Presupuesto máximo por persona
-  - Duración min/max del viaje
-  - Días de anticipación para reservar
-  - Prioridad (precio/balance/experiencia)
+**Backend**
+- [Flask](https://flask.palletsprojects.com/) — API REST en Python
+- [Groq AI](https://groq.com/) + Llama 3.3 70B — Análisis inteligente de destinos
+- [Kiwi.com Tequila API](https://tequila.kiwi.com/) — Búsqueda de vuelos
+- [PyPDF2](https://pypdf2.readthedocs.io/) — Parser de PDF para disponibilidad V+
+- [Gunicorn](https://gunicorn.org/) — Servidor WSGI para producción
 
-- **Experiencia de Viaje**:
-  - Tipos de viaje preferidos
-  - Actividades de interés
-  - Actividades a EVITAR
+**Frontend**
+- Vanilla JS + HTML5 + CSS3 (sin frameworks)
+- [MapLibre GL JS](https://maplibre.org/) — Mapas interactivos
+- [OpenFreeMap](https://openfreemap.org/) — Tiles de mapa gratuitos
+- [OpenTripMap API](https://opentripmap.io/) — Puntos de interés por ciudad
+- [ExchangeRate-API](https://www.exchangerate-api.com/) — Tasas de cambio en tiempo real
 
-- **🔴 Trabajo Remoto** (MUY IMPORTANTE):
-  - Necesita WiFi confiable (sí/no) - **PESO ALTO EN ANÁLISIS**
-  - Trabaja durante el viaje (sí/no)
-  - Nivel de inglés del grupo (ninguno/básico/intermedio/fluido)
+**Infraestructura**
+- [Railway.app](https://railway.app/) — Hosting y auto-deploy desde GitHub
+- [Nixpacks](https://nixpacks.com/) — Build automático (Python 3.12)
 
-- **Documentos y Finanzas**:
-  - Pasaporte vigente (sí/no)
-  - Visa americana (sí/no) - para conexiones en USA
-  - Ya tiene seguro de viaje (sí/no)
-  - Ya tiene vacunas requeridas (sí/no)
-  - Moneda preferida / Mejor tasa de cambio (USD/EUR/MXN/mejor tasa)
+---
 
-### Análisis de la IA:
+## 📁 Estructura del proyecto
 
-El sistema usa un **scoring ponderado DINÁMICO de 0-100 puntos** que se ajusta según si trabajan durante el viaje:
+```
+travel-advisor/
+├── backend/
+│   ├── app/
+│   │   ├── __init__.py        # App factory + CORS
+│   │   ├── config.py          # Variables de entorno
+│   │   ├── routes.py          # API endpoints
+│   │   ├── ai_advisor.py      # Análisis de destinos con Groq
+│   │   ├── flight_search.py   # Búsqueda de vuelos (Kiwi.com)
+│   │   ├── vplus_parser.py    # Parser PDF V+ Volaris
+│   │   ├── risk_checker.py    # Evaluación de riesgo país
+│   │   └── models.py          # Modelos de datos
+│   ├── requirements.txt
+│   ├── .env.example
+│   ├── wsgi.py
+│   └── run.py
+├── frontend/
+│   ├── index.html             # Búsqueda de vuelos
+│   ├── compare.html           # Comparador de destinos
+│   ├── currency-converter.html
+│   ├── map.html
+│   ├── vplus.html
+│   ├── css/
+│   │   ├── styles.css
+│   │   └── vplus.css
+│   ├── js/
+│   │   ├── i18n.js            # Sistema de traducción (7 idiomas)
+│   │   ├── config.js          # Config del cliente
+│   │   ├── app.js             # Lógica principal de vuelos
+│   │   ├── compare.js         # Lógica de comparación
+│   │   ├── converter.js       # Conversor de divisas
+│   │   ├── opentripmap.js     # Integración de mapa
+│   │   ├── currency-data.js   # Catálogo de monedas
+│   │   └── nav.js             # Barra de navegación móvil
+│   └── libs/                  # MapLibre GL (local)
+├── Procfile                   # gunicorn para Railway
+├── nixpacks.toml              # Python 3.12
+└── docker-compose.yml
+```
 
-#### **Modo Trabajo Remoto** (si alguien trabaja durante el viaje):
-- **💰 Precio y accesibilidad** (25 puntos): Costo de vuelos, hospedaje, comida
-- **❤️ Alineación con preferencias** (15 puntos): Qué tan bien coincide con gustos del grupo
-- **📋 Viabilidad** (10 puntos): Documentos, logística, facilidad de acceso
-- **✨ Experiencia esperada** (10 puntos): Calidad del destino, actividades disponibles
-- **🌤️ Temporada y clima** (10 puntos): Mejor época para visitar
-- **🔴 Infraestructura Digital** (15 puntos): **WiFi confiable, coworking spaces, conectividad** - PESO ALTO
-- **🚨 Seguridad Laboral** (15 puntos): **Riesgo país según Zendesk Country Risk Ratings** - PESO ALTO
+---
 
-#### **Modo Vacaciones** (nadie trabaja durante el viaje):
-- **💰 Precio y accesibilidad** (30 puntos): Mayor peso en precio
-- **❤️ Alineación con preferencias** (25 puntos): Mayor peso en experiencia
-- **📋 Viabilidad** (15 puntos): Documentos, logística
-- **✨ Experiencia esperada** (20 puntos): Mayor peso en diversión
-- **🌤️ Temporada y clima** (10 puntos): Mejor época
+## 🔌 API Endpoints
 
-**WiFi no es crítico en modo vacaciones**, permitiendo destinos más remotos o rústicos.
+| Método | Ruta | Descripción |
+|--------|------|-------------|
+| `GET` | `/api/health` | Health check |
+| `POST` | `/api/analyze` | Analiza y compara destinos con IA |
+| `POST` | `/api/quick-fill` | Rellena automáticamente datos de un destino |
+| `POST` | `/api/search-flights` | Busca vuelos baratos (Kiwi.com) |
+| `GET` | `/api/airport-code/<city>` | Obtiene código IATA de una ciudad |
+| `POST` | `/api/flight-booking-options` | Opciones de reserva para un vuelo |
+| `POST` | `/api/validate-destination` | Valida un destino antes de analizar |
+| `GET` | `/api/vplus` | Disponibilidad V+ desde PDF en servidor |
+| `POST` | `/api/vplus/upload` | Disponibilidad V+ desde PDF subido por el usuario |
+| `GET` | `/api/debug-config` | Estado de configuración (dev) |
 
-#### Análisis de Riesgos Laborales (cuando trabajan):
+---
 
-El sistema consulta **Zendesk Country Risk Ratings** con 4 niveles:
-- **Nivel 4 - VIAJE PROHIBIDO**: 32 países donde NO se debe trabajar remotamente
-- **Nivel 3 - Alto Riesgo**: 13 países no recomendados para trabajo remoto
-- **Nivel 2 - Riesgo Medio**: 94 países con precauciones necesarias
-- **Nivel 1 - Bajo Riesgo**: 103 países seguros para trabajo remoto
+## 🚀 Instalación local
 
-También detecta **restricciones de seguridad informática** (InfoSec) que requieren dispositivos especiales.
-
-Además analiza:
-- Precios de vuelos desde México (aerolíneas económicas)
-- Costo de vida en destino
-- Consenso del grupo
-- Seguridad del destino
-- **Evaluación detallada de conectividad para trabajo remoto** (si aplica)
-- Espacios de coworking recomendados (si aplica)
-- Proveedores de Internet locales (si aplica)
-- **Advertencias específicas de riesgos laborales** (si aplica)
-- Costos de seguro de viaje
-- Vacunas necesarias
-- Mejor momento para cambio de divisa
-
-## 🚀 Instalación Local
-
-### Requisitos previos
-- Python 3.11+
-- Node.js (opcional, para servir el frontend)
-- Cuenta de Anthropic con API Key
+### Requisitos
+- Python 3.12+
+- API Keys (ver sección abajo)
 
 ### 1. Clonar el repositorio
 
 ```bash
+git clone https://github.com/tu-usuario/travel-advisor.git
 cd travel-advisor
 ```
 
-### 2. Configurar el Backend
+### 2. Configurar el backend
 
 ```bash
 cd backend
 
 # Crear entorno virtual
 python3 -m venv venv
-source venv/bin/activate  # En Windows: venv\Scripts\activate
+source venv/bin/activate  # Windows: venv\Scripts\activate
 
 # Instalar dependencias
 pip install -r requirements.txt
 
 # Configurar variables de entorno
 cp .env.example .env
-# Edita .env y agrega tu ANTHROPIC_API_KEY
+# Editar .env con tus API keys
 ```
 
-### 3. Obtener tu API Key de Anthropic
-
-1. Ve a [console.anthropic.com](https://console.anthropic.com/)
-2. Crea una cuenta o inicia sesión
-3. Ve a "API Keys" y genera una nueva key
-4. Copia la key y agrégala en tu archivo `.env`:
+### 3. Ejecutar
 
 ```bash
-ANTHROPIC_API_KEY=sk-ant-api03-xxx
-```
-
-### 4. Ejecutar el Backend
-
-```bash
+# Backend (desde /backend)
 python run.py
-```
+# → http://localhost:5000
 
-El backend estará corriendo en `http://localhost:5000`
-
-### 5. Ejecutar el Frontend
-
-Opción 1: Abrir directamente el archivo HTML
-```bash
-open frontend/index.html  # En Mac
-# o simplemente abre el archivo en tu navegador
-```
-
-Opción 2: Usar un servidor HTTP simple
-```bash
-cd frontend
+# Frontend (desde /frontend)
 python3 -m http.server 8080
-# Abre http://localhost:8080 en tu navegador
+# → http://localhost:8080
 ```
 
-## 🐳 Deployment con Docker
+---
 
-### Desarrollo
+## 🔑 Variables de entorno
 
-```bash
-# Configurar variables de entorno
-cp backend/.env.example backend/.env
-# Edita backend/.env con tu API key
+```env
+# Groq AI — Análisis de destinos con Llama 3.3 70B
+# https://console.groq.com/
+GROQ_API_KEY=gsk_...
 
-# Levantar los servicios
-docker-compose up -d
+# Kiwi.com Tequila — Búsqueda de vuelos
+# https://tequila.kiwi.com/
+KIWI_API_KEY=...
 
-# Ver logs
-docker-compose logs -f
-```
+# SerpAPI — Búsqueda alternativa de vuelos
+# https://serpapi.com/
+SERPAPI_KEY=...
 
-Accede a:
-- Frontend: http://localhost:8080
-- Backend API: http://localhost:5000
-
-### Producción
-
-Para producción, considera:
-
-1. **Usar variables de entorno del sistema**:
-```bash
-export ANTHROPIC_API_KEY=tu_api_key
-docker-compose up -d
-```
-
-2. **Plataformas de deployment**:
-   - **Railway**: Perfecto para el backend Flask
-   - **Vercel/Netlify**: Para el frontend estático
-   - **Render**: Full stack con Docker
-   - **DigitalOcean App Platform**: Docker-compose directo
-   - **AWS ECS/Fargate**: Para mayor escala
-
-### Deployment en Railway (Recomendado):
-
-#### Paso 1: Preparar el repositorio
-```bash
-# Si no has inicializado git
-git init
-git add .
-git commit -m "Initial commit"
-
-# Crear repositorio en GitHub y hacer push
-git remote add origin https://github.com/tu-usuario/travel-advisor.git
-git branch -M main
-git push -u origin main
-```
-
-#### Paso 2: Desplegar en Railway
-1. Ve a [railway.app](https://railway.app) y regístrate con GitHub
-2. Click en "New Project"
-3. Selecciona "Deploy from GitHub repo"
-4. Elige tu repositorio `travel-advisor`
-5. Railway detectará automáticamente el `Procfile` y desplegará
-
-#### Paso 3: Configurar Variables de Entorno
-En Railway, ve a tu proyecto → Variables → Add Variable:
-```
-SERPAPI_KEY=tu_serpapi_key_aqui
-FLASK_ENV=production
+FLASK_ENV=development
+SECRET_KEY=cambia_esto_en_produccion
 PORT=5000
 ```
 
-#### Paso 4: Obtener API Keys
+> **Nota:** Solo `GROQ_API_KEY` es estrictamente necesaria para el análisis de destinos. Las demás son opcionales según las funciones que quieras usar.
 
-**SerpApi (para búsqueda de vuelos):**
-1. Regístrate en [serpapi.com](https://serpapi.com)
-2. Plan gratuito: 100 búsquedas/mes
-3. Copia tu API key desde el dashboard
+---
 
-**Anthropic (para análisis de destinos):**
-1. Ve a [console.anthropic.com](https://console.anthropic.com/)
-2. Genera una nueva API key
-3. Agrégala como variable de entorno: `ANTHROPIC_API_KEY=sk-ant-...`
+## ☁️ Deploy en Railway
 
-#### Paso 5: ¡Listo!
-Railway te dará una URL pública como: `https://tu-app.railway.app`
+El proyecto ya está configurado para Railway con auto-deploy desde la rama `main`.
 
-## 📁 Estructura del Proyecto
+1. Fork este repositorio
+2. Ve a [railway.app](https://railway.app) → New Project → Deploy from GitHub repo
+3. Selecciona tu fork
+4. En **Variables**, agrega tus API keys
+5. Railway desplegará automáticamente con `Procfile` y `nixpacks.toml`
 
-```
-travel-advisor/
-├── backend/
-│   ├── app/
-│   │   ├── __init__.py       # App factory
-│   │   ├── config.py         # Configuración
-│   │   ├── models.py         # Modelos de datos
-│   │   ├── routes.py         # API endpoints
-│   │   └── ai_advisor.py     # Lógica de IA
-│   ├── requirements.txt
-│   ├── .env.example
-│   └── run.py               # Entry point
-├── frontend/
-│   ├── index.html
-│   ├── css/
-│   │   └── styles.css
-│   └── js/
-│       └── app.js
-├── tests/
-├── Dockerfile
-├── docker-compose.yml
-├── nginx.conf
-├── .gitignore
-└── README.md
-```
+---
 
-## 🔧 API Endpoints
-
-### `GET /`
-Info de la API
-
-### `GET /api/health`
-Health check
-
-### `POST /api/analyze`
-Analiza destinos y retorna recomendación
-
-**Request body:**
-```json
-{
-  "destinations": [...],
-  "group_preferences": {...},
-  "num_travelers": 4
-}
-```
-
-**Response:**
-```json
-{
-  "success": true,
-  "analysis": {
-    "recommended_destination": "Playa del Carmen, México",
-    "scores": [...],
-    "main_reasons": [...],
-    "comparison": "...",
-    "additional_recommendations": {...}
-  }
-}
-```
-
-### `POST /api/validate-destination`
-Valida un destino antes de enviar
-
-## 🎨 Personalización
-
-### Cambiar el modelo de Claude
-
-En `backend/app/ai_advisor.py`, línea 26:
-```python
-model="claude-sonnet-4-20250514"  # Cambiar por opus-4 para más poder
-```
-
-### Agregar más aeropuertos
-
-En `frontend/index.html`, busca el select de aeropuertos y agrega opciones.
-
-### Modificar el prompt de análisis
-
-Edita el método `_build_analysis_prompt` en `backend/app/ai_advisor.py`.
-
-## 🧪 Testing
+## 🐳 Docker (desarrollo local)
 
 ```bash
-# Instalar dependencias de testing
-pip install pytest pytest-flask
+cp backend/.env.example backend/.env
+# Editar backend/.env con tus keys
 
-# Correr tests
-pytest tests/
+docker-compose up -d
+
+# Frontend: http://localhost:8080
+# Backend:  http://localhost:5000
 ```
 
-## 🐛 Troubleshooting
+---
 
-### Error: "ANTHROPIC_API_KEY not found"
-- Verifica que tu archivo `.env` existe en `backend/`
-- Asegúrate que la variable está definida correctamente
-- Si usas Docker, pasa la variable con `-e` o en docker-compose.yml
+## 🌍 Soporte de idiomas
 
-### Error: "CORS policy blocked"
-- Verifica que el backend esté corriendo
-- Revisa que CORS esté habilitado en `backend/app/__init__.py`
+El sistema i18n cubre todas las páginas y componentes:
 
-### Frontend no se conecta al backend
-- Verifica la URL en `frontend/js/app.js`, línea 2
-- Asegúrate que el backend esté en el puerto correcto
+| Código | Idioma |
+|--------|--------|
+| `es` | Español (default) |
+| `en` | English |
+| `pt` | Português |
+| `fr` | Français |
+| `de` | Deutsch |
+| `zh` | 中文 |
+| `ja` | 日本語 |
 
-## 📝 Próximas mejoras
+La preferencia se guarda en `localStorage` y persiste entre sesiones.
 
-- [ ] Integración con API de vuelos (Skyscanner, Kayak)
-- [ ] Base de datos para guardar análisis previos
-- [ ] Sistema de autenticación para grupos
-- [ ] Compartir resultados por link
-- [ ] Modo comparación visual con gráficas
-- [ ] Notificaciones cuando bajan precios de vuelos
-- [ ] App móvil con React Native
-
-## 🤝 Contribuir
-
-Pull requests son bienvenidos! Para cambios grandes, abre un issue primero.
+---
 
 ## 📄 Licencia
 
 MIT
 
-## 💬 Soporte
-
-Si tienes problemas o preguntas, abre un issue en GitHub.
-
 ---
 
-Hecho con ❤️ y Claude AI
+Hecho con ❤️ — [TripwiseAI](https://tripwiseai.up.railway.app/)
