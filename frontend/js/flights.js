@@ -101,6 +101,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     console.log('✅ Flight search page ready!');
 
+    // Swap airports button
+    const swapBtn = document.getElementById('swap-airports');
+    if (swapBtn) {
+        swapBtn.addEventListener('click', function() {
+            const originVal = originInput.value;
+            originInput.value = destinationInput.value;
+            destinationInput.value = originVal;
+        });
+    }
+
     // New search button
     const newSearchBtn = document.getElementById('new-search-btn');
     if (newSearchBtn) {
