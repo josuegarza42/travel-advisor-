@@ -281,7 +281,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label data-i18n="flights.returnDate">Fecha de regreso <span class="label-optional">(opcional)</span></label>
+                            <label data-i18n="flights.returnDate">Fecha de regreso <span class="label-optional">(opcional — sin fecha = solo ida)</span></label>
                             <input type="date" id="return-date" class="input">
                         </div>
                     </div>
@@ -303,14 +303,6 @@
                             <small class="field-hint">Los vuelos directos suelen ser más caros</small>
                         </div>
 
-                        <div class="form-group">
-                            <label data-i18n="flights.currency">Moneda</label>
-                            <select id="flight-currency" class="input">
-                                <option value="MXN">🇲🇽 MXN</option>
-                                <option value="USD">🇺🇸 USD</option>
-                                <option value="COP">🇨🇴 COP</option>
-                            </select>
-                        </div>
                     </div>
 
                     <button id="search-flights-btn" class="btn btn-primary">
