@@ -8,12 +8,15 @@ class TravelAdvisor:
     """Clase para análisis inteligente de destinos usando Claude AI"""
 
     def __init__(self):
-        # Usar AWS Bedrock gateway si está configurado, sino Anthropic directo
         self.use_bedrock = Config.AWS_ENDPOINT_URL_BEDROCK and Config.AWS_BEARER_TOKEN
+        self.use_groq = not self.use_bedrock and bool(Config.GROQ_API_KEY)
 
         if self.use_bedrock:
             self.endpoint = f"{Config.AWS_ENDPOINT_URL_BEDROCK}/model/us.anthropic.claude-sonnet-4-6/invoke"
             self.bearer_token = Config.AWS_BEARER_TOKEN
+        elif self.use_groq:
+            from groq import Groq
+            self.client = Groq(api_key=Config.GROQ_API_KEY)
         else:
             import anthropic
             self.client = anthropic.Anthropic(api_key=Config.ANTHROPIC_API_KEY)
@@ -64,17 +67,20 @@ class TravelAdvisor:
 
                 result = response.json()
                 response_text = result['content'][0]['text']
+            elif self.use_groq:
+                # Usar Groq
+                message = self.client.chat.completions.create(
+                    model="llama-3.3-70b-versatile",
+                    max_tokens=max_tokens,
+                    messages=[{"role": "user", "content": prompt}]
+                )
+                response_text = message.choices[0].message.content
             else:
                 # Usar Anthropic directo
                 message = self.client.messages.create(
                     model="claude-sonnet-4-20250514",
                     max_tokens=max_tokens,
-                    messages=[
-                        {
-                            "role": "user",
-                            "content": prompt
-                        }
-                    ]
+                    messages=[{"role": "user", "content": prompt}]
                 )
                 response_text = message.content[0].text
 
@@ -538,17 +544,20 @@ JSON:"""
 
                 result = response.json()
                 response_text = result['content'][0]['text']
+            elif self.use_groq:
+                # Usar Groq
+                message = self.client.chat.completions.create(
+                    model="llama-3.3-70b-versatile",
+                    max_tokens=2000,
+                    messages=[{"role": "user", "content": prompt}]
+                )
+                response_text = message.choices[0].message.content
             else:
                 # Usar Anthropic directo
                 message = self.client.messages.create(
                     model="claude-sonnet-4-20250514",
                     max_tokens=2000,
-                    messages=[
-                        {
-                            "role": "user",
-                            "content": prompt
-                        }
-                    ]
+                    messages=[{"role": "user", "content": prompt}]
                 )
                 response_text = message.content[0].text
 
