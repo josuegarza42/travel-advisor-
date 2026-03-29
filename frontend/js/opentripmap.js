@@ -30,8 +30,9 @@ async function getPopularPlaces(lat, lon) {
 }
 
 async function showPopularDestinations(city) {
+    const tl = (key, fallback) => (typeof t === 'function' ? t(key) : fallback);
     const titleSpan = document.getElementById('city-title');
-    if (titleSpan) titleSpan.textContent = city ? `Destinos cerca de ${city}` : '';
+    if (titleSpan) titleSpan.textContent = city ? `${tl('map.nearCity', 'Destinos cerca de')} ${city}` : '';
     const list = document.getElementById('destinations-list');
     list.innerHTML = `<li style="padding: 20px 0; text-align:center;">
         <div style="display:inline-block;width:28px;height:28px;border:3px solid #f0f0f0;border-top-color:#FF385C;border-radius:50%;animation:spin 0.8s linear infinite;"></div>
@@ -41,14 +42,14 @@ async function showPopularDestinations(city) {
 
     const coords = await getCityCoords(city);
     if (!coords) {
-        list.innerHTML = '<li style="color: #B0B0B0;">Ciudad no encontrada.</li>';
+        list.innerHTML = `<li style="color: #B0B0B0;">${tl('map.cityNotFound', 'Ciudad no encontrada.')}</li>`;
         return;
     }
 
     const places = await getPopularPlaces(coords.lat, coords.lon);
     _currentPlaces = places;
     if (!places.length) {
-        list.innerHTML = '<li style="color: #B0B0B0;">No se encontraron destinos populares.</li>';
+        list.innerHTML = `<li style="color: #B0B0B0;">${tl('map.noDestinations', 'No se encontraron destinos populares.')}</li>`;
         return;
     }
 
@@ -161,6 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Show default map centered on Mexico
         initDefaultMap();
         const list = document.getElementById('destinations-list');
-        if (list) list.innerHTML = '<li style="color: #B0B0B0;">Ingresa una ciudad para ver destinos populares.</li>';
+        const tl2 = (key, fallback) => (typeof t === 'function' ? t(key) : fallback);
+        if (list) list.innerHTML = `<li style="color: #B0B0B0;">${tl2('map.enterCity', 'Ingresa una ciudad para ver destinos populares.')}</li>`;
     }
 });

@@ -27,18 +27,18 @@
                     <option value="zh">🇨🇳 ZH</option>
                     <option value="ja">🇯🇵 JA</option>
                 </select>
-                <a href="index.html" class="nav-link">✈️ Vuelos</a>
-                <a href="compare.html" class="nav-link">🔍 Comparar</a>
-                <a href="map.html" class="nav-link">🗺️ Mapa</a>
-                <a href="vplus.html" class="nav-link nav-link-vplus">🎫 V+</a>
+                <a href="index.html" class="nav-link" data-i18n="header.flights">✈️ Vuelos</a>
+                <a href="compare.html" class="nav-link" data-i18n="nav.compare">🔍 Comparar</a>
+                <a href="map.html" class="nav-link" data-i18n="nav.map">🗺️ Mapa</a>
+                <a href="vplus.html" class="nav-link nav-link-vplus" data-i18n="nav.vplus">🎫 V+</a>
             </div>
         </div>
     </header>
 
     <div class="page-hero">
         <div class="page-hero-inner">
-            <h1>💱 Divisas</h1>
-            <p class="hero-subtitle" id="hero-rate-text">Convierte entre monedas en tiempo real</p>
+            <h1>💱 <span data-i18n="header.converter">Divisas</span></h1>
+            <p class="hero-subtitle" id="hero-rate-text" data-i18n="converter.heroSubtitle">Convierte entre monedas en tiempo real</p>
         </div>
     </div>
 
@@ -50,7 +50,7 @@
 
                 <!-- FROM -->
                 <div class="conv-half conv-from">
-                    <span class="conv-label">De</span>
+                    <span class="conv-label" data-i18n="converter.from">De</span>
                     <div class="conv-row">
                         <select id="from-currency" class="conv-select">
                             <option value="">Cargando...</option>
@@ -75,7 +75,7 @@
 
                 <!-- TO -->
                 <div class="conv-half conv-to">
-                    <span class="conv-label">A</span>
+                    <span class="conv-label" data-i18n="converter.to">A</span>
                     <div class="conv-row">
                         <select id="to-currency" class="conv-select">
                             <option value="">Cargando...</option>
@@ -93,7 +93,7 @@
             <!-- Compare more currencies -->
             <section class="card extra-card" id="extra-section">
                 <div class="extra-header" id="extra-toggle">
-                    <span>Comparar con otras monedas</span>
+                    <span data-i18n="converter.compareMore">Comparar con otras monedas</span>
                     <span class="extra-chevron" id="extra-chevron">＋</span>
                 </div>
                 <div id="extra-container" class="extra-container hidden">
@@ -105,7 +105,7 @@
         </main>
 
         <footer>
-            <p>TripwiseAI · Tasas en tiempo real vía ExchangeRate-API</p>
+            <p data-i18n="converter.footerText">TripwiseAI · Tasas en tiempo real vía ExchangeRate-API</p>
         </footer>
     </div>
 

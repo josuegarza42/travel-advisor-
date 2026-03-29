@@ -1,11 +1,12 @@
 // Mobile bottom navigation bar
 (function () {
+    const tl = (key, fallback) => (typeof t === 'function' ? t(key) : fallback);
     const PAGES = [
-        { href: 'index.html',              emoji: '✈️', label: 'Vuelos'   },
-        { href: 'compare.html',            emoji: '🔍', label: 'Comparar' },
-        { href: 'currency-converter.html', emoji: '💱', label: 'Divisas'  },
-        { href: 'map.html',                emoji: '🗺️', label: 'Mapa'     },
-        { href: 'vplus.html',              emoji: '🎫', label: 'V+'       }
+        { href: 'index.html',              emoji: '✈️', label: () => tl('header.flights', 'Vuelos')   },
+        { href: 'compare.html',            emoji: '🔍', label: () => tl('nav.compare',    'Comparar') },
+        { href: 'currency-converter.html', emoji: '💱', label: () => tl('header.converter','Divisas') },
+        { href: 'map.html',                emoji: '🗺️', label: () => tl('nav.map',        'Mapa')     },
+        { href: 'vplus.html',              emoji: '🎫', label: () => tl('nav.vplus',       'V+')       }
     ];
 
     // Determine which page is active from the current path
@@ -26,7 +27,7 @@
             const a = document.createElement('a');
             a.href = page.href;
             a.className = 'mbn-item' + (i === activeIdx ? ' mbn-active' : '');
-            a.innerHTML = `<span class="mbn-emoji">${page.emoji}</span><span class="mbn-label">${page.label}</span>`;
+            a.innerHTML = `<span class="mbn-emoji">${page.emoji}</span><span class="mbn-label">${page.label()}</span>`;
             nav.appendChild(a);
         });
 

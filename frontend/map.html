@@ -32,25 +32,25 @@
                     <option value="MXN" selected>🇲🇽 MXN</option>
                     <option value="COP">🇨🇴 COP</option>
                 </select>
-                <a href="index.html" class="nav-link">✈️ Vuelos</a>
-                <a href="currency-converter.html" class="nav-link">💱 Divisas</a>
-                <a href="map.html" class="nav-link">🗺️ Mapa</a>
-                <a href="vplus.html" class="nav-link nav-link-vplus">🎫 V+</a>
+                <a href="index.html" class="nav-link" data-i18n="header.flights">✈️ Vuelos</a>
+                <a href="currency-converter.html" class="nav-link" data-i18n="header.converter">💱 Divisas</a>
+                <a href="map.html" class="nav-link" data-i18n="nav.map">🗺️ Mapa</a>
+                <a href="vplus.html" class="nav-link nav-link-vplus" data-i18n="nav.vplus">🎫 V+</a>
             </div>
         </div>
     </header>
 
     <div class="page-hero">
         <div class="page-hero-inner">
-            <h1>Mapa de destinos</h1>
-            <p class="hero-subtitle">Descubre los destinos más populares cerca de tu ciudad</p>
+            <h1 data-i18n="page.map.title">Mapa de destinos</h1>
+            <p class="hero-subtitle" data-i18n="page.map.subtitle">Descubre los destinos más populares cerca de tu ciudad</p>
         </div>
     </div>
 
     <div class="container">
         <main>
             <section class="card" style="max-width: 600px; margin: 0 auto 20px auto; text-align: center;">
-                <h2 style="margin-bottom: 16px;">Buscar destinos</h2>
+                <h2 style="margin-bottom: 16px;" data-i18n="map.searchSection">Buscar destinos</h2>
                 <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
                     <input
                         type="text"
@@ -59,7 +59,7 @@
                         placeholder="Ej: Cancún, Medellín, Barcelona..."
                         style="flex: 1; min-width: 150px; max-width: 360px;"
                     >
-                    <button id="search-btn" class="btn btn-primary" style="white-space: nowrap;">🔍 Buscar</button>
+                    <button id="search-btn" class="btn btn-primary" style="white-space: nowrap;" data-i18n="map.searchBtn">🔍 Buscar</button>
                 </div>
                 <p id="city-subtitle" style="margin-top: 12px; color: #666; font-size: 0.95rem; min-height: 1.4em;">
                     <span id="city-title"></span>
@@ -72,18 +72,19 @@
 
             <section class="card" style="max-width: 600px; margin: 0 auto;">
                 <div id="destinations-section">
-                    <h3 style="margin-bottom: 12px;">Destinos populares para visitar</h3>
+                    <h3 style="margin-bottom: 12px;" data-i18n="map.destinationsTitle">Destinos populares para visitar</h3>
                     <ul id="destinations-list" style="list-style: none; padding: 0; font-size: 1.05rem;"></ul>
                 </div>
             </section>
         </main>
 
         <footer>
-            <p>TripwiseAI · Datos via OpenTripMap</p>
+            <p data-i18n="map.footer">TripwiseAI · Datos via OpenTripMap</p>
         </footer>
     </div>
 
     <script src="libs/maplibre-gl.js"></script>
+    <script src="js/i18n.js"></script>
     <script src="js/config.js"></script>
     <script src="js/opentripmap.js"></script>
     <script src="js/nav.js"></script>
