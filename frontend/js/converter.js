@@ -69,24 +69,48 @@ function generateOptions() {
 
 // ── Fetch rates ───────────────────────────────────────────
 
+const RATES_CACHE_KEY = 'tripwise_exchange_rates';
+const RATES_CACHE_TTL = 60 * 60 * 1000; // 1 hour
+
 async function fetchRates() {
     try {
+        const cached = localStorage.getItem(RATES_CACHE_KEY);
+        if (cached) {
+            const { rates, timestamp, time_last_updated } = JSON.parse(cached);
+            if (Date.now() - timestamp < RATES_CACHE_TTL) {
+                exchangeRates = rates;
+                lastUpdate    = new Date(time_last_updated * 1000);
+                renderUpdateLabel();
+                return;
+            }
+        }
+
         const res  = await fetch(RATES_API);
         const data = await res.json();
         exchangeRates = data.rates;
         lastUpdate    = new Date(data.time_last_updated * 1000);
 
-        const userLocale = navigator.language || 'es-MX';
-        const uses12h = !new Intl.DateTimeFormat(userLocale, { hour: 'numeric' }).format(0).match(/24|00/);
-        const dateStr = lastUpdate.toLocaleString(userLocale, {
-            day: 'numeric', month: 'short', year: 'numeric',
-            hour: 'numeric', minute: '2-digit', hour12: uses12h
-        });
-        convUpdateEl.textContent = `${t('converter.lastUpdate')} ${dateStr}`;
+        localStorage.setItem(RATES_CACHE_KEY, JSON.stringify({
+            rates: data.rates,
+            time_last_updated: data.time_last_updated,
+            timestamp: Date.now()
+        }));
+
+        renderUpdateLabel();
     } catch (err) {
         convUpdateEl.textContent = t('converter.loadError');
         console.error('Error fetching rates:', err);
     }
+}
+
+function renderUpdateLabel() {
+    const userLocale = navigator.language || 'es-MX';
+    const uses12h = !new Intl.DateTimeFormat(userLocale, { hour: 'numeric' }).format(0).match(/24|00/);
+    const dateStr = lastUpdate.toLocaleString(userLocale, {
+        day: 'numeric', month: 'short', year: 'numeric',
+        hour: 'numeric', minute: '2-digit', hour12: uses12h
+    });
+    convUpdateEl.textContent = `${t('converter.lastUpdate')} ${dateStr}`;
 }
 
 // ── Core calculation ──────────────────────────────────────

@@ -1,20 +1,17 @@
-// Use the API key from config.js
-const OPENTRIPMAP_API_KEY = window.OPENTRIPMAP_API_KEY;
+const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:5000' : '';
 let _currentPlaces = [];
 
 function flyToPlace(index) {
     const place = _currentPlaces[index];
     if (!place || !place.point || !window.map) return;
     window.map.flyTo({ center: [place.point.lon, place.point.lat], zoom: 15, speed: 1.2 });
-    // Open popup for that marker
     if (window.map._flytravelMarkers && window.map._flytravelMarkers[index]) {
         window.map._flytravelMarkers[index].togglePopup();
     }
 }
 
 async function getCityCoords(city) {
-    const url = `https://api.opentripmap.com/0.1/en/places/geoname?name=${encodeURIComponent(city)}&apikey=${OPENTRIPMAP_API_KEY}`;
-    const res = await fetch(url);
+    const res = await fetch(`${API_BASE}/api/map/geoname?name=${encodeURIComponent(city)}`);
     if (!res.ok) return null;
     const data = await res.json();
     if (data && data.lat && data.lon) return { lat: data.lat, lon: data.lon };
@@ -22,8 +19,7 @@ async function getCityCoords(city) {
 }
 
 async function getPopularPlaces(lat, lon) {
-    const url = `https://api.opentripmap.com/0.1/en/places/radius?radius=10000&lon=${lon}&lat=${lat}&rate=3&format=json&limit=15&apikey=${OPENTRIPMAP_API_KEY}`;
-    const res = await fetch(url);
+    const res = await fetch(`${API_BASE}/api/map/places?lat=${lat}&lon=${lon}`);
     if (!res.ok) return [];
     const data = await res.json();
     return data.filter(place => place.point && place.name);

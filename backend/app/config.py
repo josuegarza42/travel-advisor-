@@ -7,6 +7,7 @@ class Config:
     SECRET_KEY = os.getenv('SECRET_KEY', 'dev-secret-key-change-in-production')
     GROQ_API_KEY = os.getenv('GROQ_API_KEY')
     SERPAPI_KEY = os.getenv('SERPAPI_KEY')
+    OPENTRIPMAP_API_KEY = os.getenv('OPENTRIPMAP_API_KEY')
     FLASK_ENV = os.getenv('FLASK_ENV', 'development')
     PORT = int(os.getenv('PORT', 5000))
 
