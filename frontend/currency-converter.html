@@ -6,7 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="theme-color" content="#FF385C">
-    <title>Convertidor de Monedas - TripwiseAI</title>
+    <title>Convertidor de Divisas - TripwiseAI</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/converter.css">
 </head>
@@ -23,13 +23,8 @@
                     <option value="en">🇺🇸 EN</option>
                     <option value="pt">🇧🇷 PT</option>
                 </select>
-                <select id="currency-selector" class="currency-select">
-                    <option value="USD">🇺🇸 USD</option>
-                    <option value="MXN" selected>🇲🇽 MXN</option>
-                    <option value="COP">🇨🇴 COP</option>
-                </select>
-                <a href="index.html" class="nav-link" data-i18n="header.flights">✈️ Vuelos</a>
-                <a href="currency-converter.html" class="nav-link" data-i18n="header.converter">💱 Divisas</a>
+                <a href="index.html" class="nav-link">✈️ Vuelos</a>
+                <a href="compare.html" class="nav-link">🔍 Comparar</a>
                 <a href="map.html" class="nav-link">🗺️ Mapa</a>
                 <a href="vplus.html" class="nav-link nav-link-vplus">🎫 V+</a>
             </div>
@@ -38,53 +33,75 @@
 
     <div class="page-hero">
         <div class="page-hero-inner">
-            <h1 data-i18n="converter.title">Divisas</h1>
-            <p class="hero-subtitle" data-i18n="converter.subtitle">Compara hasta 4 monedas en tiempo real</p>
+            <h1>💱 Divisas</h1>
+            <p class="hero-subtitle" id="hero-rate-text">Convierte entre monedas en tiempo real</p>
         </div>
     </div>
 
     <div class="container">
         <main>
-            <!-- Amount Input -->
-            <section class="card converter-card">
-                <div class="amount-section">
-                    <label for="amount">Cantidad a convertir</label>
-                    <input
-                        type="number"
-                        id="amount"
-                        class="input amount-input"
-                        placeholder="100.00"
-                        value="100"
-                        min="0"
-                        step="0.01"
-                    >
+
+            <!-- Main converter card -->
+            <section class="conv-card">
+
+                <!-- FROM -->
+                <div class="conv-half conv-from">
+                    <span class="conv-label">De</span>
+                    <div class="conv-row">
+                        <select id="from-currency" class="conv-select">
+                            <option value="">Cargando...</option>
+                        </select>
+                        <input
+                            type="number"
+                            id="from-amount"
+                            class="conv-amount-input"
+                            value="100"
+                            min="0"
+                            step="any"
+                            inputmode="decimal"
+                        >
+                    </div>
+                </div>
+
+                <!-- Divider: rate + swap -->
+                <div class="conv-divider">
+                    <span class="conv-rate-text" id="conv-rate">—</span>
+                    <button class="conv-swap-btn" id="swap-btn" title="Intercambiar monedas">⇅</button>
+                </div>
+
+                <!-- TO -->
+                <div class="conv-half conv-to">
+                    <span class="conv-label">A</span>
+                    <div class="conv-row">
+                        <select id="to-currency" class="conv-select">
+                            <option value="">Cargando...</option>
+                        </select>
+                        <div class="conv-result-display" id="to-result">—</div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="conv-footer">
+                    <small id="conv-update">Cargando tasas...</small>
                 </div>
             </section>
 
-            <!-- Currency Converters -->
-            <section class="card converters-section">
-                <h2>Monedas a comparar</h2>
-                <p class="step-subtitle">Selecciona entre 2 y 4 monedas para comparar</p>
-
-                <div id="currencies-container" class="currencies-container"></div>
-
-                <button id="add-currency-btn" class="btn btn-outline" style="display: none; margin-top: 16px;">
-                    + Agregar moneda
-                </button>
-            </section>
-
-            <!-- Results -->
-            <section id="results-section" class="card results-card hidden">
-                <h2>Resultados</h2>
-                <div id="results-container" class="results-container"></div>
-                <div class="update-info">
-                    <small>Tasas actualizadas: <span id="last-update"></span></small>
+            <!-- Compare more currencies -->
+            <section class="card extra-card" id="extra-section">
+                <div class="extra-header" id="extra-toggle">
+                    <span>Comparar con otras monedas</span>
+                    <span class="extra-chevron" id="extra-chevron">＋</span>
+                </div>
+                <div id="extra-container" class="extra-container hidden">
+                    <div id="extra-currencies" class="extra-currencies-grid"></div>
+                    <button class="btn btn-outline extra-add-btn" id="add-currency-btn">+ Agregar moneda</button>
                 </div>
             </section>
+
         </main>
 
         <footer>
-            <p>TripwiseAI · Tasas en tiempo real</p>
+            <p>TripwiseAI · Tasas en tiempo real vía ExchangeRate-API</p>
         </footer>
     </div>
 
