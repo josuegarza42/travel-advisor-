@@ -971,7 +971,7 @@ function collectFormData() {
             activities: isPractical ? [] : Array.from(card.querySelectorAll('.dest-activity:checked')).map(el => el.value),
             departure_airport: card.querySelector('.dest-airport').value,
             date_flexibility: card.querySelector('.dest-flexibility').value,
-            accepts_layovers: isPractical ? true : card.querySelector('.dest-layovers').checked,
+            accepts_layovers: isPractical ? true : (card.querySelector('.dest-layovers')?.checked ?? true),
             accommodation_type: isPractical ? 'hostal' : card.querySelector('.dest-accommodation').value,
             wifi_quality: isPractical ? 'important' : card.querySelector('.dest-wifi').value,
             hostel_has_workspace: isPractical ? false : card.querySelector('.dest-hostel-workspace').checked,
@@ -1103,11 +1103,13 @@ function displayResults(analysis) {
     const mode = document.querySelector('input[name="analysis-mode"]:checked').value;
 
     if (analysis.recommended_destination) {
+        const cityForMap = encodeURIComponent(analysis.recommended_destination.split(',')[0].trim());
         html += `
             <div class="recommendation-box">
                 <h3 class="recommendation-title">🎯 ${analysis.recommended_destination}</h3>
                 <p style="font-size: 1.2rem; color: var(--text-secondary);">Este es el mejor destino para tu grupo</p>
                 ${analysis.score ? `<div class="score" style="margin-top: 10px;">${analysis.score}/100</div>` : ''}
+                <a href="map.html?city=${cityForMap}" class="btn btn-outline" style="margin-top: 16px; display: inline-flex; align-items: center; gap: 6px; text-decoration: none;">🗺️ Ver en mapa</a>
             </div>
         `;
     }
