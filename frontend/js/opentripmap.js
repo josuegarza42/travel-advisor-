@@ -41,53 +41,103 @@ async function showPopularDestinations(city) {
     list.innerHTML = places.map(d => `<li style="padding: 10px 0; border-bottom: 1px solid #F0F0F0;">${d.name}</li>`).join('');
 
     // --- MapLibre GL JS integration ---
+    const geojson = {
+        type: 'FeatureCollection',
+        features: places
+            .filter(p => p.point && p.point.lat && p.point.lon)
+            .map(p => ({
+                type: 'Feature',
+                geometry: { type: 'Point', coordinates: [p.point.lon, p.point.lat] },
+                properties: { name: p.name }
+            }))
+    };
+
     if (!window.map) {
         window.map = new maplibregl.Map({
             container: 'map',
-            style: 'https://demotiles.maplibre.org/style.json',
+            style: {
+                version: 8,
+                sources: {
+                    'osm': {
+                        type: 'raster',
+                        tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
+                        tileSize: 256,
+                        attribution: '© OpenStreetMap contributors'
+                    }
+                },
+                layers: [{ id: 'osm', type: 'raster', source: 'osm' }]
+            },
             center: [coords.lon, coords.lat],
             zoom: 12
         });
         window.map.on('load', function() {
-            addMapLibreMarkers(window.map, places);
+            addHeatmapAndMarkers(window.map, geojson);
         });
     } else {
         window.map.setCenter([coords.lon, coords.lat]);
         window.map.setZoom(12);
-        removeMapLibreMarkers(window.map);
-        addMapLibreMarkers(window.map, places);
+        updateHeatmapAndMarkers(window.map, geojson);
     }
 }
 
-// Helper to add markers to MapLibre map
-function addMapLibreMarkers(map, places) {
-    if (!map._flytravelMarkers) map._flytravelMarkers = [];
-    places.forEach(place => {
-        if (place.point && place.point.lat && place.point.lon) {
-            const el = document.createElement('div');
-            el.className = 'maplibre-marker';
-            el.style.background = '#FF385C';
-            el.style.width = '18px';
-            el.style.height = '18px';
-            el.style.borderRadius = '50%';
-            el.style.border = '2px solid white';
-            el.style.boxShadow = '0 2px 6px #0003';
-            el.title = place.name;
-            const marker = new maplibregl.Marker(el)
-                .setLngLat([place.point.lon, place.point.lat])
-                .setPopup(new maplibregl.Popup().setHTML(`<b>${place.name}</b>`))
-                .addTo(map);
-            map._flytravelMarkers.push(marker);
+function addHeatmapAndMarkers(map, geojson) {
+    map.addSource('places', { type: 'geojson', data: geojson });
+
+    map.addLayer({
+        id: 'places-heat',
+        type: 'heatmap',
+        source: 'places',
+        paint: {
+            'heatmap-weight': 1,
+            'heatmap-intensity': ['interpolate', ['linear'], ['zoom'], 8, 0.6, 14, 1.5],
+            'heatmap-color': [
+                'interpolate', ['linear'], ['heatmap-density'],
+                0,   'rgba(255,56,92,0)',
+                0.2, 'rgba(255,100,100,0.4)',
+                0.5, 'rgba(255,56,92,0.7)',
+                0.8, 'rgba(200,0,50,0.85)',
+                1,   'rgba(150,0,30,1)'
+            ],
+            'heatmap-radius': ['interpolate', ['linear'], ['zoom'], 8, 20, 14, 40],
+            'heatmap-opacity': 0.75
         }
+    });
+
+    // Markers on top
+    if (!map._flytravelMarkers) map._flytravelMarkers = [];
+    geojson.features.forEach(f => {
+        const el = document.createElement('div');
+        el.style.cssText = 'background:#FF385C;width:14px;height:14px;border-radius:50%;border:2px solid white;box-shadow:0 2px 6px #0004;cursor:pointer;';
+        el.title = f.properties.name;
+        const marker = new maplibregl.Marker(el)
+            .setLngLat(f.geometry.coordinates)
+            .setPopup(new maplibregl.Popup({ offset: 10 }).setHTML(`<b>${f.properties.name}</b>`))
+            .addTo(map);
+        map._flytravelMarkers.push(marker);
     });
 }
 
-// Helper to remove all markers from MapLibre map
-function removeMapLibreMarkers(map) {
+function updateHeatmapAndMarkers(map, geojson) {
+    if (map.getSource('places')) {
+        map.getSource('places').setData(geojson);
+    } else {
+        addHeatmapAndMarkers(map, geojson);
+        return;
+    }
     if (map._flytravelMarkers) {
-        map._flytravelMarkers.forEach(marker => marker.remove());
+        map._flytravelMarkers.forEach(m => m.remove());
         map._flytravelMarkers = [];
     }
+    geojson.features.forEach(f => {
+        const el = document.createElement('div');
+        el.style.cssText = 'background:#FF385C;width:14px;height:14px;border-radius:50%;border:2px solid white;box-shadow:0 2px 6px #0004;cursor:pointer;';
+        el.title = f.properties.name;
+        const marker = new maplibregl.Marker(el)
+            .setLngLat(f.geometry.coordinates)
+            .setPopup(new maplibregl.Popup({ offset: 10 }).setHTML(`<b>${f.properties.name}</b>`))
+            .addTo(map);
+        map._flytravelMarkers.push(marker);
+    });
 }
 
 // On load
