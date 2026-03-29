@@ -444,7 +444,7 @@ async function handleQuickFill() {
 
     } catch (error) {
         console.error('Error en quick fill:', error);
-        alert(t('quickfill.error') || `Error: ${error.message}`);
+        alert(`Error: ${error.message}`);
     } finally {
         quickFillBtn.disabled = false;
         quickFillLoading.classList.add('hidden');

@@ -567,7 +567,9 @@ JSON:"""
                 }
 
         except Exception as e:
+            import traceback
             return {
                 "error": True,
-                "message": f"Error al extraer información: {str(e)}"
+                "message": f"Error al extraer información: {str(e)}",
+                "detail": traceback.format_exc()
             }
