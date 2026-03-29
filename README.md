@@ -1,72 +1,72 @@
 # ✈️ TripwiseAI
 
-**Aplicación web de viajes inteligente** — Compara destinos con IA, busca vuelos baratos, convierte divisas, explora el mapa y gestiona disponibilidad V+ de Volaris.
+**Intelligent travel web app** — Compare destinations with AI, find cheap flights, convert currencies, explore the map, and manage Volaris V+ availability.
 
 🌐 **[tripwiseai.up.railway.app](https://tripwiseai.up.railway.app/)**
 
 ---
 
-## ✨ Características principales
+## ✨ Features
 
-| Módulo | Descripción |
+| Module | Description |
 |--------|-------------|
-| ✈️ **Vuelos** | Busca los vuelos más baratos con filtros por escalas, fechas y aeropuerto de salida |
-| 🔍 **Comparar destinos** | Analiza hasta 4 destinos con IA (Groq + Llama 3.3 70B) y obtén una recomendación personalizada |
-| 💱 **Divisas** | Conversor bilateral con tasas en tiempo real + comparación simultánea de múltiples monedas |
-| 🗺️ **Mapa** | Explora puntos de interés cerca de cualquier ciudad con OpenTripMap + MapLibre GL |
-| 🎫 **V+** | Consulta la disponibilidad diaria de vuelos del pase anual V+ de Volaris (carga PDF) |
+| ✈️ **Flights** | Find the cheapest flights with filters for stops, dates, and departure airport |
+| 🔍 **Compare destinations** | Analyze up to 4 destinations with AI (Groq + Llama 3.3 70B) and get a personalized recommendation |
+| 💱 **Currency converter** | Bilateral converter with real-time rates + simultaneous comparison of multiple currencies |
+| 🗺️ **Map** | Explore points of interest near any city with OpenTripMap + MapLibre GL |
+| 🎫 **V+** | Check daily flight availability for the Volaris V+ annual pass (upload PDF) |
 
-### Otras características
-- **7 idiomas**: Español, English, Português, Français, Deutsch, 中文, 日本語
-- **Diseño responsive**: Optimizado para móvil y escritorio, con barra de navegación inferior en móvil
-- **Selector de moneda**: MXN, USD, COP — precios adaptados a tu moneda preferida
-- **Scoring ponderado dinámico**: La IA ajusta los criterios según si viajas por vacaciones o trabajo remoto
+### Additional highlights
+- **7 languages**: Spanish, English, Portuguese, French, German, Chinese, Japanese
+- **Responsive design**: Optimized for mobile and desktop, with a bottom navigation bar on mobile
+- **Currency selector**: MXN, USD, COP — prices adapted to your preferred currency
+- **Dynamic weighted scoring**: AI adjusts evaluation criteria depending on whether you're traveling for vacation or remote work
 
 ---
 
 ## 🛠️ Tech stack
 
 **Backend**
-- [Flask](https://flask.palletsprojects.com/) — API REST en Python
-- [Groq AI](https://groq.com/) + Llama 3.3 70B — Análisis inteligente de destinos
-- [Kiwi.com Tequila API](https://tequila.kiwi.com/) — Búsqueda de vuelos
-- [PyPDF2](https://pypdf2.readthedocs.io/) — Parser de PDF para disponibilidad V+
-- [Gunicorn](https://gunicorn.org/) — Servidor WSGI para producción
+- [Flask](https://flask.palletsprojects.com/) — Python REST API
+- [Groq AI](https://groq.com/) + Llama 3.3 70B — Intelligent destination analysis
+- [Kiwi.com Tequila API](https://tequila.kiwi.com/) — Flight search
+- [PyPDF2](https://pypdf2.readthedocs.io/) — PDF parser for V+ availability
+- [Gunicorn](https://gunicorn.org/) — WSGI server for production
 
 **Frontend**
-- Vanilla JS + HTML5 + CSS3 (sin frameworks)
-- [MapLibre GL JS](https://maplibre.org/) — Mapas interactivos
-- [OpenFreeMap](https://openfreemap.org/) — Tiles de mapa gratuitos
-- [OpenTripMap API](https://opentripmap.io/) — Puntos de interés por ciudad
-- [ExchangeRate-API](https://www.exchangerate-api.com/) — Tasas de cambio en tiempo real
+- Vanilla JS + HTML5 + CSS3 (no frameworks)
+- [MapLibre GL JS](https://maplibre.org/) — Interactive maps
+- [OpenFreeMap](https://openfreemap.org/) — Free map tiles
+- [OpenTripMap API](https://opentripmap.io/) — Points of interest by city
+- [ExchangeRate-API](https://www.exchangerate-api.com/) — Real-time exchange rates
 
-**Infraestructura**
-- [Railway.app](https://railway.app/) — Hosting y auto-deploy desde GitHub
-- [Nixpacks](https://nixpacks.com/) — Build automático (Python 3.12)
+**Infrastructure**
+- [Railway.app](https://railway.app/) — Hosting and auto-deploy from GitHub
+- [Nixpacks](https://nixpacks.com/) — Automatic build (Python 3.12)
 
 ---
 
-## 📁 Estructura del proyecto
+## 📁 Project structure
 
 ```
 travel-advisor/
 ├── backend/
 │   ├── app/
 │   │   ├── __init__.py        # App factory + CORS
-│   │   ├── config.py          # Variables de entorno
+│   │   ├── config.py          # Environment variables
 │   │   ├── routes.py          # API endpoints
-│   │   ├── ai_advisor.py      # Análisis de destinos con Groq
-│   │   ├── flight_search.py   # Búsqueda de vuelos (Kiwi.com)
-│   │   ├── vplus_parser.py    # Parser PDF V+ Volaris
-│   │   ├── risk_checker.py    # Evaluación de riesgo país
-│   │   └── models.py          # Modelos de datos
+│   │   ├── ai_advisor.py      # Destination analysis with Groq
+│   │   ├── flight_search.py   # Flight search (Kiwi.com)
+│   │   ├── vplus_parser.py    # V+ Volaris PDF parser
+│   │   ├── risk_checker.py    # Country risk evaluation
+│   │   └── models.py          # Data models
 │   ├── requirements.txt
 │   ├── .env.example
 │   ├── wsgi.py
 │   └── run.py
 ├── frontend/
-│   ├── index.html             # Búsqueda de vuelos
-│   ├── compare.html           # Comparador de destinos
+│   ├── index.html             # Flight search
+│   ├── compare.html           # Destination comparison
 │   ├── currency-converter.html
 │   ├── map.html
 │   ├── vplus.html
@@ -74,16 +74,16 @@ travel-advisor/
 │   │   ├── styles.css
 │   │   └── vplus.css
 │   ├── js/
-│   │   ├── i18n.js            # Sistema de traducción (7 idiomas)
-│   │   ├── config.js          # Config del cliente
-│   │   ├── app.js             # Lógica principal de vuelos
-│   │   ├── compare.js         # Lógica de comparación
-│   │   ├── converter.js       # Conversor de divisas
-│   │   ├── opentripmap.js     # Integración de mapa
-│   │   ├── currency-data.js   # Catálogo de monedas
-│   │   └── nav.js             # Barra de navegación móvil
+│   │   ├── i18n.js            # Translation system (7 languages)
+│   │   ├── config.js          # Client config
+│   │   ├── app.js             # Main flights logic
+│   │   ├── compare.js         # Comparison logic
+│   │   ├── converter.js       # Currency converter
+│   │   ├── opentripmap.js     # Map integration
+│   │   ├── currency-data.js   # Currency catalog
+│   │   └── nav.js             # Mobile bottom navigation
 │   └── libs/                  # MapLibre GL (local)
-├── Procfile                   # gunicorn para Railway
+├── Procfile                   # gunicorn for Railway
 ├── nixpacks.toml              # Python 3.12
 └── docker-compose.yml
 ```
@@ -92,106 +92,106 @@ travel-advisor/
 
 ## 🔌 API Endpoints
 
-| Método | Ruta | Descripción |
-|--------|------|-------------|
+| Method | Route | Description |
+|--------|-------|-------------|
 | `GET` | `/api/health` | Health check |
-| `POST` | `/api/analyze` | Analiza y compara destinos con IA |
-| `POST` | `/api/quick-fill` | Rellena automáticamente datos de un destino |
-| `POST` | `/api/search-flights` | Busca vuelos baratos (Kiwi.com) |
-| `GET` | `/api/airport-code/<city>` | Obtiene código IATA de una ciudad |
-| `POST` | `/api/flight-booking-options` | Opciones de reserva para un vuelo |
-| `POST` | `/api/validate-destination` | Valida un destino antes de analizar |
-| `GET` | `/api/vplus` | Disponibilidad V+ desde PDF en servidor |
-| `POST` | `/api/vplus/upload` | Disponibilidad V+ desde PDF subido por el usuario |
-| `GET` | `/api/debug-config` | Estado de configuración (dev) |
+| `POST` | `/api/analyze` | Analyze and compare destinations with AI |
+| `POST` | `/api/quick-fill` | Auto-fill destination data |
+| `POST` | `/api/search-flights` | Search cheap flights (Kiwi.com) |
+| `GET` | `/api/airport-code/<city>` | Get IATA code for a city |
+| `POST` | `/api/flight-booking-options` | Booking options for a flight |
+| `POST` | `/api/validate-destination` | Validate a destination before analysis |
+| `GET` | `/api/vplus` | V+ availability from PDF on server |
+| `POST` | `/api/vplus/upload` | V+ availability from user-uploaded PDF |
+| `GET` | `/api/debug-config` | Configuration status (dev) |
 
 ---
 
-## 🚀 Instalación local
+## 🚀 Local setup
 
-### Requisitos
+### Requirements
 - Python 3.12+
-- API Keys (ver sección abajo)
+- API keys (see section below)
 
-### 1. Clonar el repositorio
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/tu-usuario/travel-advisor.git
 cd travel-advisor
 ```
 
-### 2. Configurar el backend
+### 2. Set up the backend
 
 ```bash
 cd backend
 
-# Crear entorno virtual
+# Create virtual environment
 python3 -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate
 
-# Instalar dependencias
+# Install dependencies
 pip install -r requirements.txt
 
-# Configurar variables de entorno
+# Configure environment variables
 cp .env.example .env
-# Editar .env con tus API keys
+# Edit .env with your API keys
 ```
 
-### 3. Ejecutar
+### 3. Run
 
 ```bash
-# Backend (desde /backend)
+# Backend (from /backend)
 python run.py
 # → http://localhost:5000
 
-# Frontend (desde /frontend)
+# Frontend (from /frontend)
 python3 -m http.server 8080
 # → http://localhost:8080
 ```
 
 ---
 
-## 🔑 Variables de entorno
+## 🔑 Environment variables
 
 ```env
-# Groq AI — Análisis de destinos con Llama 3.3 70B
+# Groq AI — Destination analysis with Llama 3.3 70B
 # https://console.groq.com/
 GROQ_API_KEY=gsk_...
 
-# Kiwi.com Tequila — Búsqueda de vuelos
+# Kiwi.com Tequila — Flight search
 # https://tequila.kiwi.com/
 KIWI_API_KEY=...
 
-# SerpAPI — Búsqueda alternativa de vuelos
+# SerpAPI — Alternative flight search
 # https://serpapi.com/
 SERPAPI_KEY=...
 
 FLASK_ENV=development
-SECRET_KEY=cambia_esto_en_produccion
+SECRET_KEY=change_this_in_production
 PORT=5000
 ```
 
-> **Nota:** Solo `GROQ_API_KEY` es estrictamente necesaria para el análisis de destinos. Las demás son opcionales según las funciones que quieras usar.
+> **Note:** Only `GROQ_API_KEY` is strictly required for destination analysis. The rest are optional depending on which features you want to use.
 
 ---
 
-## ☁️ Deploy en Railway
+## ☁️ Deploy on Railway
 
-El proyecto ya está configurado para Railway con auto-deploy desde la rama `main`.
+The project is already configured for Railway with auto-deploy from the `main` branch.
 
-1. Fork este repositorio
-2. Ve a [railway.app](https://railway.app) → New Project → Deploy from GitHub repo
-3. Selecciona tu fork
-4. En **Variables**, agrega tus API keys
-5. Railway desplegará automáticamente con `Procfile` y `nixpacks.toml`
+1. Fork this repository
+2. Go to [railway.app](https://railway.app) → New Project → Deploy from GitHub repo
+3. Select your fork
+4. Under **Variables**, add your API keys
+5. Railway will automatically deploy using `Procfile` and `nixpacks.toml`
 
 ---
 
-## 🐳 Docker (desarrollo local)
+## 🐳 Docker (local development)
 
 ```bash
 cp backend/.env.example backend/.env
-# Editar backend/.env con tus keys
+# Edit backend/.env with your keys
 
 docker-compose up -d
 
@@ -201,12 +201,12 @@ docker-compose up -d
 
 ---
 
-## 🌍 Soporte de idiomas
+## 🌍 Language support
 
-El sistema i18n cubre todas las páginas y componentes:
+The i18n system covers all pages and components:
 
-| Código | Idioma |
-|--------|--------|
+| Code | Language |
+|------|----------|
 | `es` | Español (default) |
 | `en` | English |
 | `pt` | Português |
@@ -215,14 +215,14 @@ El sistema i18n cubre todas las páginas y componentes:
 | `zh` | 中文 |
 | `ja` | 日本語 |
 
-La preferencia se guarda en `localStorage` y persiste entre sesiones.
+The language preference is saved in `localStorage` and persists across sessions.
 
 ---
 
-## 📄 Licencia
+## 📄 License
 
 MIT
 
 ---
 
-Hecho con ❤️ — [TripwiseAI](https://tripwiseai.up.railway.app/)
+Built with ❤️ — [TripwiseAI](https://tripwiseai.up.railway.app/)
