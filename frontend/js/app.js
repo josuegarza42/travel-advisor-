@@ -1388,3 +1388,175 @@ function displayResults(analysis) {
     results.classList.remove('hidden');
     results.scrollIntoView({ behavior: 'smooth' });
 }
+
+// ══════════════════════════════════════════════════════════════════════════════
+// Random Fill - Surprise Me Button
+// ══════════════════════════════════════════════════════════════════════════════
+
+const RANDOM_DESTINATIONS = [
+    { country: 'Colombia', city: 'Medellín' },
+    { country: 'Colombia', city: 'Cartagena' },
+    { country: 'Colombia', city: 'Bogotá' },
+    { country: 'Peru', city: 'Lima' },
+    { country: 'Peru', city: 'Cusco' },
+    { country: 'Argentina', city: 'Buenos Aires' },
+    { country: 'Chile', city: 'Santiago' },
+    { country: 'Brazil', city: 'São Paulo' },
+    { country: 'Brazil', city: 'Rio de Janeiro' },
+    { country: 'Mexico', city: 'Cancún' },
+    { country: 'Mexico', city: 'Puerto Vallarta' },
+    { country: 'Mexico', city: 'Oaxaca' },
+    { country: 'Mexico', city: 'Guadalajara' },
+    { country: 'Mexico', city: 'Monterrey' },
+    { country: 'Costa Rica', city: 'San José' },
+    { country: 'Panama', city: 'Ciudad de Panamá' },
+    { country: 'Guatemala', city: 'Antigua Guatemala' },
+    { country: 'Spain', city: 'Barcelona' },
+    { country: 'Spain', city: 'Madrid' },
+    { country: 'Portugal', city: 'Lisboa' },
+    { country: 'Italy', city: 'Roma' },
+    { country: 'France', city: 'París' },
+    { country: 'Thailand', city: 'Bangkok' },
+    { country: 'Japan', city: 'Tokyo' },
+    { country: 'Vietnam', city: 'Ho Chi Minh' },
+    { country: 'Indonesia', city: 'Bali' },
+    { country: 'USA', city: 'New York' },
+    { country: 'USA', city: 'Los Angeles' },
+    { country: 'USA', city: 'Miami' },
+    { country: 'Canada', city: 'Toronto' },
+];
+
+const TRAVEL_TYPES = ['beach', 'city', 'nature', 'cultural', 'adventure'];
+const ACTIVITIES = ['food', 'party', 'history', 'sports', 'relax', 'shopping'];
+const AVOID_ACTIVITIES = ['heights', 'heat', 'cold', 'crowds'];
+const PRIORITIES = ['price', 'balance', 'experience'];
+const ENGLISH_LEVELS = ['none', 'basic', 'intermediate', 'fluent'];
+const AIRPORTS = ['MEX', 'GDL', 'MTY', 'CUN', 'TIJ'];
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function getRandomItems(arr, min, max) {
+    const count = getRandomInt(min, max);
+    const shuffled = [...arr].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count);
+}
+
+function getRandomItem(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function getRandomDate(daysFromNow, rangeDays) {
+    const date = new Date();
+    date.setDate(date.getDate() + daysFromNow + getRandomInt(0, rangeDays));
+    return date.toISOString().split('T')[0];
+}
+
+function handleRandomFill() {
+    console.log('🎲 Random fill triggered!');
+    
+    // Random number of travelers (1-8)
+    const numTravelers = getRandomInt(1, 8);
+    document.getElementById('num-travelers').value = numTravelers;
+    
+    // Random budget (5000-50000 MXN)
+    const budget = getRandomInt(5, 50) * 1000;
+    document.getElementById('max-budget').value = budget;
+    
+    // Random trip duration
+    const minDays = getRandomInt(3, 7);
+    const maxDays = minDays + getRandomInt(0, 7);
+    document.getElementById('min-days').value = minDays;
+    document.getElementById('max-days').value = maxDays;
+    
+    // Random advance days
+    document.getElementById('advance-days').value = getRandomInt(7, 60);
+    
+    // Random priority
+    document.getElementById('priority').value = getRandomItem(PRIORITIES);
+    
+    // Random travel types (1-3)
+    const selectedTravelTypes = getRandomItems(TRAVEL_TYPES, 1, 3);
+    document.querySelectorAll('.travel-type').forEach(checkbox => {
+        checkbox.checked = selectedTravelTypes.includes(checkbox.value);
+    });
+    
+    // Random activities (2-4)
+    const selectedActivities = getRandomItems(ACTIVITIES, 2, 4);
+    document.querySelectorAll('.activity').forEach(checkbox => {
+        checkbox.checked = selectedActivities.includes(checkbox.value);
+    });
+    
+    // Random avoid activities (0-2)
+    const selectedAvoid = getRandomItems(AVOID_ACTIVITIES, 0, 2);
+    document.querySelectorAll('.avoid-activity').forEach(checkbox => {
+        checkbox.checked = selectedAvoid.includes(checkbox.value);
+    });
+    
+    // Random checkboxes
+    document.getElementById('prefers-hostels').checked = Math.random() > 0.5;
+    document.getElementById('values-social').checked = Math.random() > 0.4;
+    document.getElementById('city-safety-important').checked = Math.random() > 0.3;
+    document.getElementById('needs-wifi').checked = Math.random() > 0.6;
+    document.getElementById('works-during-trip').checked = Math.random() > 0.7;
+    
+    // Random English level
+    document.getElementById('english-level').value = getRandomItem(ENGLISH_LEVELS);
+    
+    // Random documents
+    document.getElementById('has-passport').checked = Math.random() > 0.2;
+    document.getElementById('has-us-visa').checked = Math.random() > 0.5;
+    document.getElementById('has-insurance').checked = Math.random() > 0.6;
+    document.getElementById('has-vaccines').checked = Math.random() > 0.4;
+    
+    // Random airport
+    const airport = getRandomItem(AIRPORTS);
+    
+    // Random dates
+    const startDaysFromNow = getRandomInt(14, 90);
+    const startDate = getRandomDate(startDaysFromNow, 0);
+    const endDate = getRandomDate(startDaysFromNow + minDays, maxDays - minDays);
+    
+    // Pick 2-4 random destinations (no duplicates)
+    const numDestinations = getRandomInt(2, 4);
+    const shuffledDestinations = [...RANDOM_DESTINATIONS].sort(() => 0.5 - Math.random());
+    const selectedDestinations = shuffledDestinations.slice(0, numDestinations);
+    
+    // Clear existing destinations
+    destinationsContainer.innerHTML = '';
+    destinations = [];
+    destinationCounter = 0;
+    
+    // Add random destinations
+    selectedDestinations.forEach((dest, index) => {
+        addDestinationForm();
+        const card = destinationsContainer.children[index];
+        
+        // Fill country and city
+        const countrySelect = card.querySelector('.country-select');
+        const cityInput = card.querySelector('.city-input');
+        const budgetInput = card.querySelector('.budget-input');
+        const startDateInput = card.querySelector('.start-date');
+        const endDateInput = card.querySelector('.end-date');
+        const airportSelect = card.querySelector('.airport-select');
+        const proposedByInput = card.querySelector('.proposed-by');
+        
+        if (countrySelect) countrySelect.value = dest.country;
+        if (cityInput) cityInput.value = dest.city;
+        if (budgetInput) budgetInput.value = getRandomInt(Math.floor(budget * 0.5), budget);
+        if (startDateInput) startDateInput.value = startDate;
+        if (endDateInput) endDateInput.value = endDate;
+        if (airportSelect) airportSelect.value = airport;
+        if (proposedByInput) proposedByInput.value = `Viajero ${index + 1}`;
+    });
+    
+    // Show success toast
+    showToast(t('quickfill.randomSuccess') || '🎲 ¡Formulario rellenado al azar!', 'success');
+}
+
+// Wire up the random fill button
+const randomFillBtn = document.getElementById('random-fill-btn');
+if (randomFillBtn) {
+    randomFillBtn.addEventListener('click', handleRandomFill);
+}

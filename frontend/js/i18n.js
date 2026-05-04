@@ -173,6 +173,8 @@ const translations = {
         'quickfill.emptyError': 'Por favor escribe una descripción de tu viaje',
         'quickfill.success': '¡Campos rellenados exitosamente!',
         'quickfill.error': 'Error al procesar el texto',
+        'quickfill.randomButton': '🎲 Sorpréndeme',
+        'quickfill.randomSuccess': '🎲 ¡Formulario rellenado al azar!',
 
         // Flight Search
         'flights.title': '✈️ Buscador de Vuelos',
@@ -452,6 +454,8 @@ const translations = {
         'quickfill.emptyError': 'Please write a description of your trip',
         'quickfill.success': 'Fields filled successfully!',
         'quickfill.error': 'Error processing text',
+        'quickfill.randomButton': '🎲 Surprise me',
+        'quickfill.randomSuccess': '🎲 Form randomly filled!',
 
         // Flight Search
         'flights.title': '✈️ Flight Search',
@@ -722,6 +726,8 @@ const translations = {
         'quickfill.emptyError': 'Por favor, escreva uma descrição da sua viagem',
         'quickfill.success': 'Campos preenchidos com sucesso!',
         'quickfill.error': 'Erro ao processar o texto',
+        'quickfill.randomButton': '🎲 Surpreenda-me',
+        'quickfill.randomSuccess': '🎲 Formulário preenchido aleatoriamente!',
 
         // Flight Search
         'flights.title': '✈️ Busca de Voos',
@@ -947,6 +953,8 @@ const translations = {
         'quickfill.emptyError': 'Veuillez écrire une description de votre voyage',
         'quickfill.success': 'Champs remplis avec succès !',
         'quickfill.error': 'Erreur lors du traitement du texte',
+        'quickfill.randomButton': '🎲 Surprenez-moi',
+        'quickfill.randomSuccess': '🎲 Formulaire rempli au hasard !',
         'flights.title': '✈️ Recherche de Vols',
         'flights.subtitle': 'Trouvez les 5 vols les moins chers',
         'flights.search': 'Rechercher',
@@ -1170,6 +1178,8 @@ const translations = {
         'quickfill.emptyError': 'Bitte eine Reisebeschreibung eingeben',
         'quickfill.success': 'Felder erfolgreich ausgefüllt!',
         'quickfill.error': 'Fehler beim Verarbeiten des Textes',
+        'quickfill.randomButton': '🎲 Überrasch mich',
+        'quickfill.randomSuccess': '🎲 Formular zufällig ausgefüllt!',
         'flights.title': '✈️ Flugsuche',
         'flights.subtitle': 'Finden Sie die 5 günstigsten Flüge',
         'flights.search': 'Suchen',
@@ -1393,6 +1403,8 @@ const translations = {
         'quickfill.emptyError': '请写下你的旅行描述',
         'quickfill.success': '字段填写成功！',
         'quickfill.error': '处理文本时出错',
+        'quickfill.randomButton': '🎲 给我惊喜',
+        'quickfill.randomSuccess': '🎲 表单已随机填写！',
         'flights.title': '✈️ 机票搜索',
         'flights.subtitle': '找到最便宜的5个航班',
         'flights.search': '搜索',
@@ -1616,6 +1628,8 @@ const translations = {
         'quickfill.emptyError': '旅行の説明を入力してください',
         'quickfill.success': 'フィールドの入力が完了しました！',
         'quickfill.error': 'テキスト処理中にエラーが発生しました',
+        'quickfill.randomButton': '🎲 お任せ',
+        'quickfill.randomSuccess': '🎲 ランダムに入力しました！',
         'flights.title': '✈️ フライト検索',
         'flights.subtitle': '最安値の5便を見つけましょう',
         'flights.search': '検索',
