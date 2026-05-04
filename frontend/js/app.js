@@ -1532,25 +1532,46 @@ function handleRandomFill() {
     selectedDestinations.forEach((dest, index) => {
         addDestinationForm();
         const card = destinationsContainer.children[index];
-        
-        // Fill country and city
-        const countrySelect = card.querySelector('.country-select');
-        const cityInput = card.querySelector('.city-input');
-        const budgetInput = card.querySelector('.budget-input');
-        const startDateInput = card.querySelector('.start-date');
-        const endDateInput = card.querySelector('.end-date');
-        const airportSelect = card.querySelector('.airport-select');
-        const proposedByInput = card.querySelector('.proposed-by');
-        
-        if (countrySelect) countrySelect.value = dest.country;
-        if (cityInput) cityInput.value = dest.city;
+
+        // Fill country (input with datalist)
+        const countryInput = card.querySelector('.dest-country-input');
+        if (countryInput) {
+            countryInput.value = dest.country;
+            // Trigger input event to enable city select
+            countryInput.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+
+        // Fill city (select that gets populated after country)
+        const citySelect = card.querySelector('.dest-name');
+        if (citySelect) {
+            // Need to wait a bit for the city options to populate
+            setTimeout(() => {
+                citySelect.value = dest.city;
+                // If the city isn't in the list, just set it as a custom option
+                if (!citySelect.value) {
+                    const option = document.createElement('option');
+                    option.value = dest.city;
+                    option.text = dest.city;
+                    citySelect.add(option);
+                    citySelect.value = dest.city;
+                }
+            }, 100);
+        }
+
+        // Fill other fields with correct class names
+        const budgetInput = card.querySelector('.dest-budget');
+        const startDateInput = card.querySelector('.dest-start-date');
+        const endDateInput = card.querySelector('.dest-end-date');
+        const durationInput = card.querySelector('.dest-duration');
+        const airportSelect = card.querySelector('.dest-airport');
+
         if (budgetInput) budgetInput.value = getRandomInt(Math.floor(budget * 0.5), budget);
         if (startDateInput) startDateInput.value = startDate;
         if (endDateInput) endDateInput.value = endDate;
+        if (durationInput) durationInput.value = getRandomInt(minDays, maxDays);
         if (airportSelect) airportSelect.value = airport;
-        if (proposedByInput) proposedByInput.value = `Viajero ${index + 1}`;
     });
-    
+
     // Show success toast
     showToast(t('quickfill.randomSuccess') || '🎲 ¡Formulario rellenado al azar!', 'success');
 }
