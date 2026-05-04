@@ -72,7 +72,8 @@ DESTINOS:
 
 """
 
-        max_budget_str = f"{preferences.get('max_budget_per_person'):.0f}"
+        max_budget = preferences.get('max_budget_per_person') or 0
+        max_budget_str = f"{max_budget:.0f}"
         prompt += f"""
 PREFERENCIAS:
 - Presupuesto máximo: ${max_budget_str} USD por persona
@@ -187,7 +188,8 @@ Analiza los siguientes destinos propuestos y recomienda el MEJOR destino para es
         }
         english_level = english_levels.get(preferences.get('english_level', 'basic'), 'Básico')
 
-        max_budget_str = f"{preferences.get('max_budget_per_person'):.2f}"
+        max_budget = preferences.get('max_budget_per_person') or 0
+        max_budget_str = f"{max_budget:.2f}"
         passport_str = "Sí" if preferences.get('has_valid_passport') else "No"
         visa_str = "Sí" if preferences.get('has_us_visa') else "No"
 
