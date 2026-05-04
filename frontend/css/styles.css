@@ -522,6 +522,23 @@ textarea.input {
     box-shadow: none;
 }
 
+.btn-secondary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+}
+
+.btn-secondary:hover {
+    background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-secondary:active {
+    transform: translateY(1px) scale(0.98);
+    box-shadow: none;
+}
+
 .btn-outline {
     background: white;
     border: 1.5px solid var(--border-color);

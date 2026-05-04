@@ -28,6 +28,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
+    // Wire up the random fill button
+    const randomFillBtn = document.getElementById('random-fill-btn');
+    if (randomFillBtn) {
+        randomFillBtn.addEventListener('click', handleRandomFill);
+        console.log('🎲 Random fill button wired up');
+    }
+
     await fetchExchangeRates();
 });
 
@@ -1453,63 +1460,71 @@ function getRandomDate(daysFromNow, rangeDays) {
     return date.toISOString().split('T')[0];
 }
 
+// Helper to safely set element value
+function setVal(id, value) {
+    const el = document.getElementById(id);
+    if (el) el.value = value;
+}
+
+function setChecked(id, checked) {
+    const el = document.getElementById(id);
+    if (el) el.checked = checked;
+}
+
 function handleRandomFill() {
     console.log('🎲 Random fill triggered!');
-    
+
     // Random number of travelers (1-8)
     const numTravelers = getRandomInt(1, 8);
-    document.getElementById('num-travelers').value = numTravelers;
-    
+    setVal('num-travelers', numTravelers);
+
     // Random budget (5000-50000 MXN)
     const budget = getRandomInt(5, 50) * 1000;
-    document.getElementById('max-budget').value = budget;
-    
+    setVal('max-budget', budget);
+
     // Random trip duration
     const minDays = getRandomInt(3, 7);
     const maxDays = minDays + getRandomInt(0, 7);
-    document.getElementById('min-days').value = minDays;
-    document.getElementById('max-days').value = maxDays;
-    
-    // Random advance days
-    document.getElementById('advance-days').value = getRandomInt(7, 60);
-    
+    setVal('min-days', minDays);
+    setVal('max-days', maxDays);
+
     // Random priority
-    document.getElementById('priority').value = getRandomItem(PRIORITIES);
-    
+    setVal('priority', getRandomItem(PRIORITIES));
+
     // Random travel types (1-3)
     const selectedTravelTypes = getRandomItems(TRAVEL_TYPES, 1, 3);
     document.querySelectorAll('.travel-type').forEach(checkbox => {
         checkbox.checked = selectedTravelTypes.includes(checkbox.value);
     });
-    
+
     // Random activities (2-4)
     const selectedActivities = getRandomItems(ACTIVITIES, 2, 4);
     document.querySelectorAll('.activity').forEach(checkbox => {
         checkbox.checked = selectedActivities.includes(checkbox.value);
     });
-    
+
     // Random avoid activities (0-2)
     const selectedAvoid = getRandomItems(AVOID_ACTIVITIES, 0, 2);
     document.querySelectorAll('.avoid-activity').forEach(checkbox => {
         checkbox.checked = selectedAvoid.includes(checkbox.value);
     });
-    
+
     // Random checkboxes
-    document.getElementById('prefers-hostels').checked = Math.random() > 0.5;
-    document.getElementById('values-social').checked = Math.random() > 0.4;
-    document.getElementById('city-safety-important').checked = Math.random() > 0.3;
-    document.getElementById('needs-wifi').checked = Math.random() > 0.6;
-    document.getElementById('works-during-trip').checked = Math.random() > 0.7;
-    
+    setChecked('prefers-hostels', Math.random() > 0.5);
+    setChecked('values-social', Math.random() > 0.4);
+    setChecked('city-safety-important', Math.random() > 0.3);
+    setChecked('needs-wifi', Math.random() > 0.6);
+    setChecked('works-during-trip', Math.random() > 0.7);
+
     // Random English level
-    document.getElementById('english-level').value = getRandomItem(ENGLISH_LEVELS);
-    
+    setVal('english-level', getRandomItem(ENGLISH_LEVELS));
+
     // Random documents
-    document.getElementById('has-passport').checked = Math.random() > 0.2;
-    document.getElementById('has-us-visa').checked = Math.random() > 0.5;
-    document.getElementById('has-insurance').checked = Math.random() > 0.6;
-    document.getElementById('has-vaccines').checked = Math.random() > 0.4;
-    
+    setChecked('has-passport', Math.random() > 0.2);
+    setChecked('has-us-visa', Math.random() > 0.5);
+    setChecked('has-insurance', Math.random() > 0.6);
+    setChecked('has-vaccines', Math.random() > 0.4);
+
     // Random airport
     const airport = getRandomItem(AIRPORTS);
     
@@ -1522,16 +1537,32 @@ function handleRandomFill() {
     const numDestinations = getRandomInt(2, 4);
     const shuffledDestinations = [...RANDOM_DESTINATIONS].sort(() => 0.5 - Math.random());
     const selectedDestinations = shuffledDestinations.slice(0, numDestinations);
-    
+
+    // Get container fresh
+    const container = document.getElementById('destinations-container');
+    if (!container) {
+        console.error('❌ destinations-container not found');
+        return;
+    }
+
     // Clear existing destinations
-    destinationsContainer.innerHTML = '';
+    container.innerHTML = '';
     destinations = [];
     destinationCounter = 0;
-    
+
+    console.log(`🎲 Adding ${selectedDestinations.length} destinations...`);
+
     // Add random destinations
     selectedDestinations.forEach((dest, index) => {
         addDestinationForm();
-        const card = destinationsContainer.children[index];
+        const card = container.children[index];
+
+        if (!card) {
+            console.error(`❌ Card ${index} not found`);
+            return;
+        }
+
+        console.log(`📍 Filling destination ${index + 1}: ${dest.city}, ${dest.country}`);
 
         // Fill country (input with datalist)
         const countryInput = card.querySelector('.dest-country-input');
@@ -1546,16 +1577,25 @@ function handleRandomFill() {
         if (citySelect) {
             // Need to wait a bit for the city options to populate
             setTimeout(() => {
-                citySelect.value = dest.city;
-                // If the city isn't in the list, just set it as a custom option
-                if (!citySelect.value) {
+                // First try to find the city in the options
+                const options = Array.from(citySelect.options);
+                const matchingOption = options.find(opt =>
+                    opt.value.toLowerCase() === dest.city.toLowerCase() ||
+                    opt.text.toLowerCase().includes(dest.city.toLowerCase())
+                );
+
+                if (matchingOption) {
+                    citySelect.value = matchingOption.value;
+                } else {
+                    // If the city isn't in the list, add it as a custom option
                     const option = document.createElement('option');
                     option.value = dest.city;
                     option.text = dest.city;
                     citySelect.add(option);
                     citySelect.value = dest.city;
                 }
-            }, 100);
+                citySelect.disabled = false;
+            }, 150);
         }
 
         // Fill other fields with correct class names
@@ -1576,8 +1616,3 @@ function handleRandomFill() {
     showToast(t('quickfill.randomSuccess') || '🎲 ¡Formulario rellenado al azar!', 'success');
 }
 
-// Wire up the random fill button
-const randomFillBtn = document.getElementById('random-fill-btn');
-if (randomFillBtn) {
-    randomFillBtn.addEventListener('click', handleRandomFill);
-}
