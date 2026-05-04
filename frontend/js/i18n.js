@@ -269,7 +269,14 @@ const translations = {
         'vplus.updated': 'Actualizado:',
         'vplus.statNational': 'nacionales',
         'vplus.statIntl': 'internacionales',
-        'vplus.loadingFile': 'Cargando'
+        'vplus.loadingFile': 'Cargando',
+        'vplus.originLabel': 'Origen',
+        'vplus.originPlaceholder': '¿Desde dónde sales?',
+        'vplus.destLabel': 'Destino',
+        'vplus.destPlaceholder': '¿A dónde quieres llegar?',
+        'vplus.swap': 'Intercambiar origen y destino',
+        'vplus.clear': 'Limpiar',
+        'vplus.noFlights': 'No hay vuelos con esos filtros.'
     },
 
     en: {
@@ -532,7 +539,14 @@ const translations = {
         'vplus.updated': 'Updated:',
         'vplus.statNational': 'domestic',
         'vplus.statIntl': 'international',
-        'vplus.loadingFile': 'Loading'
+        'vplus.loadingFile': 'Loading',
+        'vplus.originLabel': 'Origin',
+        'vplus.originPlaceholder': 'Where are you flying from?',
+        'vplus.destLabel': 'Destination',
+        'vplus.destPlaceholder': 'Where do you want to go?',
+        'vplus.swap': 'Swap origin and destination',
+        'vplus.clear': 'Clear',
+        'vplus.noFlights': 'No flights match those filters.'
     },
 
     pt: {
@@ -795,7 +809,14 @@ const translations = {
         'vplus.updated': 'Atualizado:',
         'vplus.statNational': 'domésticos',
         'vplus.statIntl': 'internacionais',
-        'vplus.loadingFile': 'Carregando'
+        'vplus.loadingFile': 'Carregando',
+        'vplus.originLabel': 'Origem',
+        'vplus.originPlaceholder': 'De onde você sai?',
+        'vplus.destLabel': 'Destino',
+        'vplus.destPlaceholder': 'Para onde quer ir?',
+        'vplus.swap': 'Trocar origem e destino',
+        'vplus.clear': 'Limpar',
+        'vplus.noFlights': 'Nenhum voo corresponde a esses filtros.'
     },
 
     fr: {
@@ -1011,7 +1032,14 @@ const translations = {
         'vplus.updated': 'Mis à jour :',
         'vplus.statNational': 'nationaux',
         'vplus.statIntl': 'internationaux',
-        'vplus.loadingFile': 'Chargement'
+        'vplus.loadingFile': 'Chargement',
+        'vplus.originLabel': 'Origine',
+        'vplus.originPlaceholder': 'D\'où partez-vous ?',
+        'vplus.destLabel': 'Destination',
+        'vplus.destPlaceholder': 'Où voulez-vous aller ?',
+        'vplus.swap': 'Inverser origine et destination',
+        'vplus.clear': 'Effacer',
+        'vplus.noFlights': 'Aucun vol ne correspond à ces filtres.'
     },
 
     de: {
@@ -1227,7 +1255,14 @@ const translations = {
         'vplus.updated': 'Aktualisiert:',
         'vplus.statNational': 'Inland',
         'vplus.statIntl': 'International',
-        'vplus.loadingFile': 'Lade'
+        'vplus.loadingFile': 'Lade',
+        'vplus.originLabel': 'Abflug',
+        'vplus.originPlaceholder': 'Von wo fliegen Sie?',
+        'vplus.destLabel': 'Ziel',
+        'vplus.destPlaceholder': 'Wohin möchten Sie?',
+        'vplus.swap': 'Abflug und Ziel tauschen',
+        'vplus.clear': 'Löschen',
+        'vplus.noFlights': 'Keine Flüge entsprechen diesen Filtern.'
     },
 
     zh: {
@@ -1443,7 +1478,14 @@ const translations = {
         'vplus.updated': '更新时间：',
         'vplus.statNational': '国内',
         'vplus.statIntl': '国际',
-        'vplus.loadingFile': '正在加载'
+        'vplus.loadingFile': '正在加载',
+        'vplus.originLabel': '出发地',
+        'vplus.originPlaceholder': '从哪里出发？',
+        'vplus.destLabel': '目的地',
+        'vplus.destPlaceholder': '想去哪里？',
+        'vplus.swap': '交换出发地和目的地',
+        'vplus.clear': '清除',
+        'vplus.noFlights': '没有符合筛选条件的航班。'
     },
 
     ja: {
@@ -1659,7 +1701,14 @@ const translations = {
         'vplus.updated': '更新：',
         'vplus.statNational': '国内線',
         'vplus.statIntl': '国際線',
-        'vplus.loadingFile': '読み込み中'
+        'vplus.loadingFile': '読み込み中',
+        'vplus.originLabel': '出発地',
+        'vplus.originPlaceholder': 'どこから出発しますか？',
+        'vplus.destLabel': '目的地',
+        'vplus.destPlaceholder': 'どこへ行きたいですか？',
+        'vplus.swap': '出発地と目的地を入れ替える',
+        'vplus.clear': 'クリア',
+        'vplus.noFlights': 'フィルターに一致するフライトがありません。'
     }
 };
 
@@ -1718,6 +1767,16 @@ function updateAllTexts() {
     // ── Pass 2: [data-i18n-html] — innerHTML (allows <br> etc) ─────
     document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
         el.innerHTML = t(el.getAttribute('data-i18n-html'));
+    });
+
+    // ── Pass 3: [data-i18n-placeholder] — placeholder attribute ────
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
+        el.placeholder = t(el.getAttribute('data-i18n-placeholder'));
+    });
+
+    // ── Pass 4: [data-i18n-title] — title attribute ────────────────
+    document.querySelectorAll('[data-i18n-title]').forEach(function(el) {
+        el.title = t(el.getAttribute('data-i18n-title'));
     });
 
     // ── Page detection ──────────────────────────────────────────────
